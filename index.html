@@ -1297,7 +1297,7 @@ function shuffle(a,r){a=a.slice();for(var i=a.length-1;i>0;i--){var j=Math.floor
 /* question bank: 35 weekly quiz questions + 15 extra = 50 */
 function bank(cid){
   var c=course(cid),out=[];if(!c)return out;
-  c.weeks.forEach(function(w){var p=(window.PLUS||{})[cid+"-w"+w.n]||{};(p.quiz||[]).forEach(function(q){out.push({w:w.n,q:q.q,o:q.o,a:q.a,e:q.e})})});
+  c.weeks.forEach(function(w){if(w.n>7)return;var p=(window.PLUS||{})[cid+"-w"+w.n]||{};(p.quiz||[]).forEach(function(q){out.push({w:w.n,q:q.q,o:q.o,a:q.a,e:q.e})})});
   ((window.MIDQ||{})[cid]||[]).forEach(function(x){out.push({w:x[0],q:{id:x[1],en:x[2]},o:{id:x[3],en:x[4]},a:x[5],e:{id:x[6],en:x[7]}})});
   return out;
 }
@@ -9544,23 +9544,270 @@ window.addSoal("mk6", 7, [
 
 </script>
 <script>
+window.addWeek("mk3", {
+  n: 8,
+  title: { id: "Marketing Mix — Jasa: Karakteristik Jasa, 7P & Pengalaman Pelanggan", en: "Marketing Mix — Services: Service Characteristics, the 7Ps & Customer Experience" },
+  summary: {
+    id: "Minggu lalu membahas produk barang; minggu ini giliran jasa. Jasa berbeda dari barang karena lima sifatnya (tidak berwujud, bervariasi, tidak terpisahkan, tidak bisa disimpan, tidak dimiliki). Akibatnya bauran pemasarannya bertambah dari 4P menjadi 7P (plus Process, Physical environment, People). Dibahas juga kualitas search–experience–credence, tiga tahap konsumsi jasa, pengalaman jasa sebagai \"panggung\", Gaps Model kualitas jasa, dan service profit chain.",
+    en: "Last week covered physical products; this week is services. Services differ from goods through five traits (intangible, variable, inseparable, perishable, no ownership), so the marketing mix grows from 4Ps to 7Ps (adding Process, Physical environment, People). We also cover search–experience–credence qualities, the three-stage model of service consumption, the service experience as theatre, the Gaps Model of service quality, and the service profit chain."
+  },
+  sections: [
+    {
+      h: { id: "Apa itu jasa?", en: "What is a service?" },
+      p: {
+        id: `<p><strong>Jasa</strong> adalah setiap tindakan atau kinerja yang ditawarkan satu pihak kepada pihak lain, yang pada dasarnya <strong>tidak berwujud</strong> dan <strong>tidak menghasilkan kepemilikan</strong> atas apa pun. Produksinya bisa terkait dengan produk fisik, bisa juga tidak.</p>
+<p>Dalam praktik, hampir semua penawaran adalah campuran barang dan jasa. Bayangkan sebuah garis:</p>
+<table><tr><th>Posisi di garis</th><th>Contoh</th></tr>
+<tr><td><strong>Barang murni</strong></td><td>Sabun batangan, garam</td></tr>
+<tr><td><strong>Barang + jasa pendukung</strong></td><td>Mobil dengan garansi dan servis berkala</td></tr>
+<tr><td><strong>Campuran seimbang</strong></td><td>Restoran (makanannya barang, pelayanannya jasa)</td></tr>
+<tr><td><strong>Jasa + barang pendukung</strong></td><td>Penerbangan (jasa angkut, ada makanan ringan)</td></tr>
+<tr><td><strong>Jasa murni</strong></td><td>Konsultasi hukum, les privat, pijat</td></tr></table>
+<p>Seperti produk barang (minggu 7), jasa juga punya <strong>level</strong>: manfaat inti (misalnya "sampai tujuan dengan selamat"), jasa aktual (jadwal, kelas kursi, bagasi), dan jasa tambahan (lounge, poin loyalitas, layanan pelanggan 24 jam).</p>`,
+        en: `<p>A <strong>service</strong> is any act or performance one party offers another that is essentially <strong>intangible</strong> and results in <strong>no ownership</strong>; it may or may not be tied to a physical product. Most offers sit on a continuum from pure goods (salt) through goods with services (a car with warranty), hybrids (a restaurant), services with goods (an airline) to pure services (legal advice, tutoring). Like products, services have levels: core benefit, actual service, augmented service.</p>`
+      }
+    },
+    {
+      h: { id: "Lima karakteristik jasa dan cara mengatasinya", en: "The five service characteristics and how to handle them" },
+      p: {
+        id: `<table><tr><th>Karakteristik</th><th>Artinya</th><th>Masalah bagi pemasar</th><th>Cara mengatasinya</th></tr>
+<tr><td><strong>Intangibility</strong> (tidak berwujud)</td><td>Tidak bisa dilihat, disentuh, dicium sebelum dibeli</td><td>Pelanggan sulit menilai, risiko terasa tinggi</td><td>Beri <em>bukti fisik</em>: tempat rapi, seragam, sertifikat, testimoni, foto hasil</td></tr>
+<tr><td><strong>Heterogeneity</strong> (bervariasi)</td><td>Kualitas tergantung siapa, kapan, di mana</td><td>Sulit menjaga kualitas yang sama</td><td>SOP, pelatihan, standar layanan, survei kepuasan rutin</td></tr>
+<tr><td><strong>Inseparability</strong> (tidak terpisahkan)</td><td>Diproduksi dan dikonsumsi bersamaan; penyedia menyatu dengan jasanya</td><td>Pelanggan ikut "di pabrik"; karyawan = bagian dari produk</td><td>Latih karyawan garis depan, kelola interaksi dengan pelanggan lain, layanan mandiri</td></tr>
+<tr><td><strong>Perishability</strong> (tidak bisa disimpan)</td><td>Kursi kosong hari ini hilang selamanya</td><td>Permintaan naik-turun, kapasitas tetap</td><td>Harga berbeda per waktu (revenue management), reservasi, pegawai paruh waktu</td></tr>
+<tr><td><strong>Non-ownership</strong> (tidak dimiliki)</td><td>Pelanggan memakai, bukan memiliki</td><td>Nilai harus terasa walau tidak ada barang yang dibawa pulang</td><td>Keanggotaan, hubungan jangka panjang, pengalaman yang berkesan</td></tr></table>
+<div class="note"><b>Cara mudah mengingat</b>Lima sifat jasa disingkat <strong>IHIPN</strong>: Intangible, Heterogeneous, Inseparable, Perishable, Non-ownership.</div>`,
+        en: `<table><tr><th>Trait</th><th>Meaning</th><th>Response</th></tr>
+<tr><td><strong>Intangibility</strong></td><td>Can't be seen or touched before buying</td><td>Tangible evidence: setting, uniforms, certificates, reviews</td></tr>
+<tr><td><strong>Heterogeneity</strong></td><td>Quality varies by provider and moment</td><td>SOPs, training, standards, feedback</td></tr>
+<tr><td><strong>Inseparability</strong></td><td>Produced and consumed together</td><td>Train front-line staff, manage other customers, self-service</td></tr>
+<tr><td><strong>Perishability</strong></td><td>Can't be stored</td><td>Revenue management, reservations, flexible staff</td></tr>
+<tr><td><strong>Non-ownership</strong></td><td>Customers use, don't own</td><td>Memberships, relationships, memorable experiences</td></tr></table>`
+      }
+    },
+    {
+      h: { id: "Bauran pemasaran jasa: dari 4P ke 7P", en: "The services marketing mix: from 4Ps to 7Ps" },
+      p: {
+        id: `<p>Karena sifat-sifat di atas, 4P (Product, Price, Place, Promotion) tidak cukup. Jasa menambahkan tiga P: <strong>Process, Physical environment, People</strong>.</p>
+<table><tr><th>P</th><th>Isi utama</th><th>Contoh klinik gigi</th></tr>
+<tr><td><strong>Product</strong></td><td><em>Core element</em> (menjawab kebutuhan utama) + <em>supplementary elements</em> (pelengkap)</td><td>Inti: penambalan gigi. Pelengkap: pengingat jadwal via WhatsApp, ruang tunggu nyaman</td></tr>
+<tr><td><strong>Place & time</strong></td><td>Di mana dan kapan jasa diberikan (fisik/online, jam buka)</td><td>Buka sampai malam, ada telekonsultasi</td></tr>
+<tr><td><strong>Price</strong></td><td>Harga uang + <em>biaya non-uang</em> (waktu, tenaga, rasa tidak nyaman); revenue management</td><td>Harga paket, diskon jam sepi, waktu tunggu singkat</td></tr>
+<tr><td><strong>Promotion</strong></td><td>Komunikasi <em>dan edukasi</em> — pelanggan perlu tahu cara memakai jasanya</td><td>Konten edukasi kesehatan gigi, cara reservasi</td></tr>
+<tr><td><strong>Process</strong></td><td>Alur layanan; mengelola permintaan & kapasitas</td><td>Reservasi online, nomor antrean, alur pembayaran</td></tr>
+<tr><td><strong>Physical environment</strong></td><td><em>Servicescape</em> = bukti fisik yang terlihat</td><td>Ruangan bersih, alat steril, sertifikat dokter di dinding</td></tr>
+<tr><td><strong>People</strong></td><td>Karyawan layanan (dan pelanggan lain)</td><td>Dokter yang ramah, resepsionis yang sigap</td></tr></table>
+<p>Tiga P tambahan langsung menjawab masalah jasa: <em>Physical environment</em> untuk intangibility, <em>People</em> dan <em>Process</em> untuk heterogeneity dan inseparability, <em>Process</em> + <em>Price</em> untuk perishability.</p>`,
+        en: `<p>The 4Ps aren't enough for services, so add <strong>Process, Physical environment, People</strong>. Product = core + supplementary elements; Place & time; Price includes non-monetary costs and revenue management; Promotion = communication and education; Process = managing demand and capacity; Physical environment = the servicescape (tangible evidence); People = service employees. The extra Ps directly answer the service traits.</p>`
+      }
+    },
+    {
+      h: { id: "Siapa saja penyedia jasa?", en: "Who provides services?" },
+      p: {
+        id: `<p>Industri jasa sangat luas dan terdiri dari tiga kelompok:</p>
+<ul><li><strong>Pemerintah</strong> — rumah sakit umum, pengadilan, kantor pajak, sekolah negeri, layanan kependudukan.</li>
+<li><strong>Organisasi nirlaba swasta</strong> — yayasan, museum, lembaga amal, universitas swasta nirlaba.</li>
+<li><strong>Organisasi bisnis</strong> — maskapai, bank, hotel, rumah sakit swasta, konsultan, aplikasi transportasi.</li></ul>
+<p>Prinsip pemasaran jasa berlaku untuk ketiganya. Contohnya, layanan publik juga perlu proses yang jelas, petugas yang terlatih, dan bukti fisik yang meyakinkan.</p>`,
+        en: `<p>Service industries span <strong>governments</strong> (public hospitals, courts, tax offices), <strong>private not-for-profits</strong> (foundations, museums, charities) and <strong>businesses</strong> (airlines, banks, hotels, consultants, ride-hailing). Services-marketing principles apply to all three.</p>`
+      }
+    },
+    {
+      h: { id: "Search, experience, credence: kenapa jasa sulit dinilai", en: "Search, experience, credence: why services are hard to judge" },
+      p: {
+        id: `<p>Ada tiga jenis kualitas yang dinilai konsumen:</p>
+<table><tr><th>Jenis</th><th>Kapan bisa dinilai</th><th>Contoh barang</th><th>Contoh jasa</th></tr>
+<tr><td><strong>Search qualities</strong></td><td>Sebelum membeli</td><td>Warna & ukuran kemeja, RAM laptop, cacat buah</td><td>Daftar harga barbershop, jam buka klinik, jadwal penerbangan</td></tr>
+<tr><td><strong>Experience qualities</strong></td><td>Saat/setelah memakai</td><td>Rasa camilan baru, nyamannya kasur setelah beberapa minggu</td><td>Hasil potong rambut, keramahan staf hotel, ketepatan waktu penerbangan</td></tr>
+<tr><td><strong>Credence qualities</strong></td><td>Sulit dinilai bahkan setelah memakai</td><td>Klaim halal/organik, kopi "single-origin", manfaat vitamin</td><td>Apakah montir benar-benar mengganti suku cadang, akurasi diagnosis dokter, kualitas nasihat hukum</td></tr></table>
+<p><strong>Polanya</strong> (Zeithaml, 1981): barang condong ke <em>search</em>, jasa condong ke <em>experience</em> dan <em>credence</em>. Ini kecenderungan, bukan aturan mutlak. Satu pembelian bahkan bisa memuat ketiganya:</p>
+<ul><li><strong>Biji kopi</strong>: tanggal sangrai dan harga (search) → rasa setelah diseduh (experience) → benar-benar single-origin atau kopi luwak asli? (credence).</li>
+<li><strong>Tambal gigi</strong>: kebersihan klinik dan harga (search) → seberapa lembut dokternya, seberapa sakit (experience) → apakah tambalan memang perlu dan dikerjakan sesuai standar? (credence).</li></ul>
+<p><strong>Implikasinya:</strong> karena pembelian jasa terasa berisiko dan banyak hal yang tidak diketahui, <em>pengalaman</em> biasanya mendominasi penilaian. Maka mengelola pengalaman jasa adalah tugas utama manajemen. Untuk kualitas credence, yang dijual pada dasarnya adalah <strong>kepercayaan</strong>: reputasi, sertifikasi, rekomendasi, dan transparansi.</p>`,
+        en: `<p><strong>Search qualities</strong> can be judged before buying, <strong>experience qualities</strong> during/after use, <strong>credence qualities</strong> are hard to judge even afterwards. Goods lean to search; services lean to experience and credence (a tendency, not a rule). One purchase can carry all three — coffee beans (label → taste → is it really single-origin?), a dental filling (price/cleanliness → gentleness/pain → was it necessary and done properly?). Because buying services is risky, experience dominates evaluation, and for credence attributes firms really sell <strong>trust</strong>.</p>`
+      }
+    },
+    {
+      h: { id: "Tiga tahap konsumsi jasa", en: "The three-stage model of service consumption" },
+      p: {
+        id: `<table><tr><th>Tahap</th><th>Yang terjadi</th><th>Konsep kunci</th></tr>
+<tr><td><strong>1. Pra-pembelian</strong></td><td>Sadar kebutuhan → mencari informasi (iklan, situs, ulasan online, rating, teman, staf) → menilai alternatif → memutuskan dan sering memesan dulu</td><td>Need arousal; <em>evoked set</em> & <em>consideration set</em>; model multi-atribut; kualitas search/experience/credence; <em>perceived risk</em>; pembentukan harapan</td></tr>
+<tr><td><strong>2. Service encounter</strong></td><td>Meminta jasa dari penyedia (atau layanan mandiri); jasa diberikan oleh staf atau mesin</td><td><em>Moments of truth</em>; kontak tinggi vs rendah; <em>servuction system</em>; teater sebagai metafora; teori peran & naskah; <em>perceived control</em></td></tr>
+<tr><td><strong>3. Pasca-encounter</strong></td><td>Menilai kinerja jasa → niat ke depan</td><td>Konfirmasi/diskonfirmasi harapan; tidak puas–puas–<em>delight</em>; kualitas jasa; word-of-mouth; pembelian ulang; loyalitas & engagement</td></tr></table>
+<p><strong>Harapan pelanggan</strong> punya beberapa tingkat:</p>
+<ul><li><strong>Desired service</strong> — layanan yang diharapkan "seharusnya" (ideal yang realistis).</li>
+<li><strong>Adequate service</strong> — batas minimum yang masih bisa diterima.</li>
+<li><strong>Predicted service</strong> — layanan yang benar-benar diperkirakan akan didapat kali ini.</li>
+<li><strong>Zone of tolerance</strong> — rentang antara <em>adequate</em> dan <em>desired</em>. Di dalam zona ini pelanggan menerima variasi; di bawahnya kecewa, di atasnya senang.</li></ul>
+<p><strong>Moment of truth</strong> adalah setiap titik kontak ketika pelanggan menilai jasa (misalnya saat resepsionis menyapa, saat tagihan diberikan). Jasa <em>kontak tinggi</em> (rumah sakit, salon) punya lebih banyak moment of truth daripada jasa <em>kontak rendah</em> (ATM, aplikasi).</p>`,
+        en: `<p><strong>1. Pre-purchase:</strong> need awareness → information search (ads, sites, reviews, friends, staff) → evaluate alternatives → decide and often reserve. Concepts: evoked and consideration sets, multi-attribute model, search/experience/credence, perceived risk, expectations. <strong>2. Service encounter:</strong> moments of truth, high vs low contact, servuction system, theatre metaphor, roles and scripts, perceived control. <strong>3. Post-encounter:</strong> confirmation/disconfirmation, dissatisfaction–satisfaction–delight, service quality, word of mouth, repurchase, loyalty. Expectations: desired, adequate and predicted service; the <strong>zone of tolerance</strong> lies between adequate and desired.</p>`
+      }
+    },
+    {
+      h: { id: "Pengalaman jasa sebagai panggung", en: "The service experience as theatre" },
+      p: {
+        id: `<p>Enam hal yang perlu diperhatikan saat merancang pengalaman jasa:</p>
+<ul>
+<li><strong>Jasa sebagai proses</strong> — satu jasa terdiri dari banyak langkah (reservasi → datang → menunggu → dilayani → bayar → pulang). Satu langkah buruk bisa merusak semuanya.</li>
+<li><strong>Jasa sebagai drama</strong> — ada panggung (tempat fisik), aktor (karyawan), penonton (pelanggan), serta awal, tengah, dan akhir.</li>
+<li><strong>Peran dan naskah</strong> — karyawan punya "dialog" dan "kostum" (seragam), juga properti (alat). Pelanggan pun punya peran: tahu harus antre, menunjukkan tiket, dll.</li>
+<li><strong>Kecocokan dengan pelanggan lain</strong> — restoran sepi terasa kurang menarik, pesawat penuh terasa sesak, nonton bareng (nobar) justru seru karena ramai.</li>
+<li><strong>Co-production</strong> — pelanggan ikut menghasilkan jasa: murid–guru, pasien–dokter, personal trainer–klien. Hasilnya tergantung partisipasi kedua pihak.</li>
+<li><strong>Emosi dan mood</strong> — <em>emosi</em> lebih kuat, stabil, dan menyeluruh; <em>mood</em> sementara dan tergantung waktu, tempat, serta situasi. Keduanya memengaruhi penilaian pelanggan.</li>
+</ul>
+<p><strong>Setelah pengalaman:</strong></p>
+<ul>
+<li><strong>Word of mouth sangat penting</strong> karena kualitas jasa adalah kualitas pengalaman — orang lain percaya cerita pelanggan.</li>
+<li><strong>Bias negatif</strong> — orang lebih ingat pengalaman buruk daripada yang baik.</li>
+<li><strong>Atribusi ketidakpuasan</strong> — pelanggan kadang ikut menyalahkan diri sendiri ("saya yang kurang jelas menjelaskan model rambutnya").</li>
+<li><strong>Loyalitas merek</strong> — cara menghemat keputusan lewat kebiasaan. Berpindah penyedia jasa (dokter, pengacara, salon) lebih sulit daripada berganti merek barang — termasuk bagi pelanggan pesaing yang ingin kita rebut.</li>
+</ul>`,
+        en: `<p>Design issues: services as <strong>processes</strong> (many steps), as <strong>drama</strong> (stage, actors, audience; beginning–middle–end), <strong>roles and scripts</strong> (lines, costumes, props), <strong>compatibility of other customers</strong> (empty restaurant, crowded plane, group viewing), <strong>co-production</strong> (student–teacher, doctor–patient), and <strong>emotion vs mood</strong> (emotion is intense and stable; mood is transient). After the experience: word of mouth matters most, negatives are remembered more, customers may blame themselves, and loyalty makes switching providers harder than switching goods brands.</p>`
+      }
+    },
+    {
+      h: { id: "Gaps Model kualitas jasa", en: "The Gaps Model of service quality" },
+      p: {
+        id: `<p>Kualitas jasa gagal karena ada <strong>celah (gap)</strong> antara harapan dan kenyataan. Celah utamanya adalah <strong>Customer Gap</strong>: selisih antara jasa yang <em>diharapkan</em> dan yang <em>dirasakan</em> pelanggan. Customer Gap terjadi karena empat celah di sisi perusahaan:</p>
+<table><tr><th>Gap</th><th>Nama</th><th>Terjadi di antara</th><th>Contoh</th><th>Cara menutup</th></tr>
+<tr><td>1</td><td><strong>Listening Gap</strong></td><td>Harapan pelanggan ↔ persepsi perusahaan tentang harapan itu</td><td>Hotel mengira tamu ingin kamar mewah, padahal tamu bisnis butuh Wi-Fi cepat</td><td>Riset pelanggan, mendengar keluhan, staf garis depan</td></tr>
+<tr><td>2</td><td><strong>Design Gap</strong></td><td>Persepsi perusahaan ↔ desain & standar layanan</td><td>Tahu pelanggan ingin cepat, tapi tak ada standar waktu layanan</td><td>Standar yang berbasis pelanggan, service blueprint</td></tr>
+<tr><td>3</td><td><strong>Delivery Gap</strong></td><td>Standar layanan ↔ layanan yang benar-benar diberikan</td><td>SOP bilang 10 menit, kenyataannya 30 menit karena kurang staf</td><td>Pelatihan, jumlah staf cukup, teknologi, insentif</td></tr>
+<tr><td>4</td><td><strong>Communications Gap</strong></td><td>Layanan yang diberikan ↔ janji di komunikasi eksternal</td><td>Iklan menjanjikan "tanpa antre", kenyataannya antre panjang</td><td>Jangan berjanji berlebihan; koordinasi pemasaran–operasi</td></tr></table>
+<p>Menutup gap 1–4 akan menutup Customer Gap.</p>`,
+        en: `<p>The <strong>Customer Gap</strong> (expected vs perceived service) is caused by four provider gaps: <strong>1 Listening</strong> (customer expectations vs what the company thinks they are — fix with research), <strong>2 Design</strong> (company perceptions vs service designs and standards — customer-driven standards, blueprints), <strong>3 Delivery</strong> (standards vs actual delivery — training, staffing, technology), <strong>4 Communications</strong> (delivery vs external promises — don't over-promise). Closing gaps 1–4 closes the Customer Gap.</p>`
+      }
+    },
+    {
+      h: { id: "Service profit chain dan tiga jenis pemasaran jasa", en: "The service profit chain and three types of services marketing" },
+      p: {
+        id: `<p><strong>Service profit chain</strong> menghubungkan laba perusahaan jasa dengan kepuasan karyawan dan pelanggan:</p>
+<div class="flow"><span>Kualitas layanan internal</span><span>→</span><span>Karyawan puas & produktif</span><span>→</span><span>Nilai jasa lebih tinggi</span><span>→</span><span>Pelanggan puas & loyal</span><span>→</span><span>Pertumbuhan & laba</span></div>
+<p>Artinya: untuk melayani pelanggan dengan baik, perusahaan harus lebih dulu "melayani" karyawannya — seleksi, pelatihan, alat kerja, dan budaya yang mendukung.</p>
+<p><strong>Tiga jenis pemasaran jasa</strong> (segitiga perusahaan–karyawan–pelanggan):</p>
+<table><tr><th>Jenis</th><th>Arah</th><th>Isinya</th></tr>
+<tr><td><strong>Internal marketing</strong></td><td>Perusahaan → karyawan</td><td>Melatih dan memotivasi karyawan agar mampu dan mau melayani dengan baik</td></tr>
+<tr><td><strong>External marketing</strong></td><td>Perusahaan → pelanggan</td><td>4P klasik: membuat janji kepada pelanggan</td></tr>
+<tr><td><strong>Interactive marketing</strong></td><td>Karyawan ↔ pelanggan</td><td>Menepati janji saat interaksi langsung; kualitas jasa sangat tergantung pada interaksi ini</td></tr></table>`,
+        en: `<p>The <strong>service profit chain</strong>: internal service quality → satisfied, productive employees → greater service value → satisfied, loyal customers → growth and profit. Three types of services marketing: <strong>internal</strong> (company → employees: train and motivate), <strong>external</strong> (company → customers: make promises with the classic 4Ps), <strong>interactive</strong> (employees ↔ customers: keep the promise during the encounter).</p>`
+      }
+    }
+  ],
+  cases: [
+    {
+      title: { id: "Ilustrasi: menutup gap di klinik gigi", en: "Illustration: closing the gaps at a dental clinic" },
+      body: {
+        id: `<p><em>Contoh ilustrasi untuk latihan, bukan kasus nyata.</em> Klinik gigi "Senyum" di Bandung mendapat banyak ulasan bintang 2: "antre lama padahal sudah reservasi" dan "dokternya buru-buru". Iklan Instagram klinik menjanjikan "tanpa antre, layanan ramah".</p>
+<p><strong>Diagnosis dengan Gaps Model:</strong></p>
+<ol><li><strong>Listening gap</strong> — manajemen mengira pasien paling peduli harga murah, padahal ulasan menunjukkan pasien paling peduli waktu tunggu dan rasa aman.</li>
+<li><strong>Design gap</strong> — tidak ada standar jarak antar-reservasi; jadwal diisi tiap 15 menit untuk tindakan yang butuh 30 menit.</li>
+<li><strong>Delivery gap</strong> — dokter terburu-buru karena jadwal terlalu padat.</li>
+<li><strong>Communications gap</strong> — iklan "tanpa antre" membuat harapan terlalu tinggi.</li></ol>
+<p><strong>Perbaikan dengan 7P:</strong> <em>Process</em> — slot 30 menit + pengingat WhatsApp H-1. <em>People</em> — pelatihan menjelaskan tindakan sebelum mulai (mengurangi rasa takut = mengelola emosi). <em>Physical environment</em> — tampilkan sertifikat sterilisasi (bukti untuk kualitas credence). <em>Promotion</em> — ganti janji menjadi "reservasi tepat waktu, rata-rata tunggu di bawah 10 menit" yang bisa ditepati.</p>
+<p><strong>Pelajaran:</strong> masalahnya bukan satu orang, tapi rantai gap. Karena tambal gigi penuh kualitas <em>credence</em>, kepercayaan dan bukti fisik sama pentingnya dengan keterampilan dokter.</p>`,
+        en: `<p><em>Illustrative teaching example, not a real case.</em> A dental clinic gets 2-star reviews about long waits despite bookings and rushed dentists, while its ads promise "no waiting". Gaps: listening (managers think price matters most; patients care about waiting and reassurance), design (15-minute slots for 30-minute procedures), delivery (rushed dentists), communications (over-promising). Fixes across the 7Ps: 30-minute slots and reminders (process), explaining procedures first (people), showing sterilisation certificates (physical evidence for credence qualities), and a promise it can keep (promotion).</p>`
+      }
+    }
+  ],
+  keys: {
+    id: [
+      "Jasa = tindakan/kinerja yang tidak berwujud dan tidak menghasilkan kepemilikan.",
+      "Lima karakteristik jasa: intangibility, heterogeneity, inseparability, perishability, non-ownership (IHIPN).",
+      "Bauran jasa 7P = 4P + Process, Physical environment (servicescape), People.",
+      "Barang condong ke search qualities; jasa condong ke experience dan credence qualities.",
+      "Tiga tahap konsumsi jasa: pra-pembelian → service encounter → pasca-encounter.",
+      "Zone of tolerance = rentang antara adequate service dan desired service.",
+      "Gaps Model: Customer Gap disebabkan Listening, Design, Delivery, dan Communications Gap.",
+      "Service profit chain: karyawan puas → nilai jasa → pelanggan loyal → laba; ada pemasaran internal, eksternal, interaktif."
+    ],
+    en: [
+      "A service is an intangible act or performance that results in no ownership.",
+      "Five service traits: intangibility, heterogeneity, inseparability, perishability, non-ownership.",
+      "The services mix: 7Ps = 4Ps + Process, Physical environment (servicescape), People.",
+      "Goods lean to search qualities; services lean to experience and credence qualities.",
+      "Three stages of service consumption: pre-purchase → service encounter → post-encounter.",
+      "The zone of tolerance lies between adequate and desired service.",
+      "Gaps Model: the Customer Gap comes from the Listening, Design, Delivery and Communications Gaps.",
+      "Service profit chain: satisfied staff → service value → loyal customers → profit; internal, external and interactive marketing."
+    ]
+  },
+  sources: [
+    { id: "P3MD Week 8 MK3 — STP Strategy: Marketing Mix–Services (MM5001)", en: "P3MD Week 8 MK3 — STP Strategy: Marketing Mix–Services (MM5001)" },
+    { id: "Zeithaml (1981); Nelson (1970); Darby & Karni (1973) — search, experience, credence", en: "Zeithaml (1981); Nelson (1970); Darby & Karni (1973) — search, experience, credence" },
+    { id: "Kotler & Armstrong — Principles of Marketing (bab jasa & service profit chain)", en: "Kotler & Armstrong — Principles of Marketing (services chapter)" }
+  ]
+});
+
+window.addPlus("mk3", 8, {
+  more: [
+    { after: 4,
+      h: { id: "Garis evaluasi: dari mudah ke sulit dinilai", en: "The evaluation continuum: from easy to hard to judge" },
+      p: {
+        id: `<div class="viz" data-viz="cont"></div>
+<p>Makin ke kanan, makin besar porsi kualitas <em>experience</em> dan <em>credence</em>, sehingga makin sulit dinilai sebelum membeli — dan makin penting reputasi serta rekomendasi.</p>
+<div class="note ex"><b>Tips praktis</b>Jika jasamu banyak kualitas credence (konsultan, bengkel, dokter), "jadikan terlihat": tunjukkan suku cadang lama yang diganti, kirim foto sebelum–sesudah, jelaskan langkah yang dikerjakan.</div>`,
+        en: `<div class="viz" data-viz="cont"></div><p>Further right, experience and credence qualities dominate, so reputation and referrals matter more.</p><div class="note ex"><b>Tip</b>For credence-heavy services, make the invisible visible: show replaced parts, before–after photos, explain each step.</div>`
+      } },
+    { after: 5,
+      h: { id: "Zone of tolerance dalam angka", en: "The zone of tolerance in numbers" },
+      p: {
+        id: `<div class="viz" data-viz="zot"></div>
+<p>Contoh waktu tunggu di klinik: pelanggan <em>berharap</em> (desired) menunggu 5 menit dan <em>masih bisa menerima</em> (adequate) sampai 20 menit. Menunggu 12 menit masih di dalam zona toleransi; 35 menit di bawah batas → kecewa. Zona ini bisa menyempit — misalnya saat pelanggan sedang kesakitan atau sudah membayar mahal.</p>`,
+        en: `<div class="viz" data-viz="zot"></div><p>Clinic waiting time: desired 5 minutes, adequate up to 20. Twelve minutes is inside the zone; 35 is below adequate → dissatisfaction. The zone narrows when customers are in pain or paid a premium.</p>`
+      } }
+  ],
+  charts: {
+    cont: { type: "bar", horizontal: true, stacked: true, title: { id: "Porsi jenis kualitas per produk (ilustratif, %)", en: "Share of quality types by product (illustrative, %)" },
+      labels: { id: ["Pakaian", "Mobil", "Makan di restoran", "Potong rambut", "Liburan", "Perbaikan mobil", "Diagnosis medis"], en: ["Clothing", "Car", "Restaurant meal", "Haircut", "Holiday", "Car repair", "Medical diagnosis"] },
+      series: [
+        { name: { id: "Search", en: "Search" }, data: [70, 55, 30, 20, 15, 10, 5], color: "mk5", stack: "s" },
+        { name: { id: "Experience", en: "Experience" }, data: [25, 35, 60, 65, 70, 35, 25], color: "c", stack: "s" },
+        { name: { id: "Credence", en: "Credence" }, data: [5, 10, 10, 15, 15, 55, 70], color: "muted", stack: "s" }
+      ],
+      cap: { id: "Angka ilustratif untuk menggambarkan pola Zeithaml: barang condong ke search, jasa ke experience dan credence.", en: "Illustrative figures showing Zeithaml's pattern." } },
+    zot: { type: "bar", title: { id: "Waktu tunggu di klinik (menit) vs zona toleransi", en: "Clinic waiting time (minutes) vs zone of tolerance" },
+      labels: { id: ["Desired", "Kunjungan A", "Kunjungan B", "Adequate", "Kunjungan C"], en: ["Desired", "Visit A", "Visit B", "Adequate", "Visit C"] },
+      series: [{ name: { id: "Menit", en: "Minutes" }, data: [5, 8, 12, 20, 35], colors: ["mk5", "c", "c", "mk5", "bad"] }],
+      cap: { id: "A dan B masih di dalam zona (5–20 menit); C di luar batas adequate → pelanggan kecewa.", en: "A and B are inside the zone (5–20 min); C is beyond adequate → dissatisfied." } }
+  },
+  quiz: [
+    { q: { id: "Kursi pesawat yang kosong saat lepas landas tidak bisa dijual lagi. Ini contoh karakteristik…", en: "An empty airline seat at take-off can never be sold. This illustrates…" },
+      o: { id: ["Intangibility", "Heterogeneity", "Perishability", "Non-ownership"], en: ["Intangibility", "Heterogeneity", "Perishability", "Non-ownership"] }, a: 2,
+      e: { id: "Jasa tidak bisa disimpan (perishable); kapasitas yang tidak terpakai hilang. Karena itu maskapai memakai revenue management.", en: "Services can't be stored; unused capacity is lost — hence revenue management." } },
+    { q: { id: "Tiga P tambahan dalam bauran pemasaran jasa adalah…", en: "The three extra Ps in the services mix are…" },
+      o: { id: ["Process, Physical environment, People", "Packaging, Positioning, Profit", "Partnership, Policy, Power", "Planning, Pricing, Publicity"], en: ["Process, Physical environment, People", "Packaging, Positioning, Profit", "Partnership, Policy, Power", "Planning, Pricing, Publicity"] }, a: 0,
+      e: { id: "7P = 4P + Process, Physical environment (servicescape), People.", en: "7Ps = 4Ps + Process, Physical environment, People." } },
+    { q: { id: "Apakah montir benar-benar mengganti suku cadang yang rusak termasuk kualitas…", en: "Whether a mechanic really replaced a faulty part is a…" },
+      o: { id: ["Search", "Experience", "Credence", "Core"], en: ["Search quality", "Experience quality", "Credence quality", "Core benefit"] }, a: 2,
+      e: { id: "Credence = sulit dinilai bahkan setelah memakai jasa; pelanggan harus percaya.", en: "Credence qualities are hard to judge even after use; customers must trust." } },
+    { q: { id: "Iklan menjanjikan 'tanpa antre', tetapi kenyataannya antre panjang. Dalam Gaps Model, ini…", en: "Ads promise 'no queue' but the queue is long. In the Gaps Model this is the…" },
+      o: { id: ["Listening Gap", "Design Gap", "Delivery Gap", "Communications Gap"], en: ["Listening Gap", "Design Gap", "Delivery Gap", "Communications Gap"] }, a: 3,
+      e: { id: "Communications Gap = selisih antara layanan yang diberikan dan janji di komunikasi eksternal.", en: "Communications Gap = delivery vs external promises." } },
+    { q: { id: "Melatih dan memotivasi karyawan agar mampu melayani pelanggan dengan baik disebut…", en: "Training and motivating employees to serve customers well is…" },
+      o: { id: ["External marketing", "Internal marketing", "Interactive marketing", "Direct marketing"], en: ["External marketing", "Internal marketing", "Interactive marketing", "Direct marketing"] }, a: 1,
+      e: { id: "Internal marketing = perusahaan → karyawan; titik awal service profit chain.", en: "Internal marketing = company → employees; the start of the service profit chain." } }
+  ]
+});
+
+</script>
+<script>
 (function(){
 "use strict";
 var C=window.COURSES,P=window.PLUS;
 var UI={
  id:{search:"Cari materi…",home:"Beranda",week:"Minggu",materi:"Materi",kasus:"Kasus",kuis:"Kuis",kartu:"Kartu hafalan",keys:"Poin kunci",sources:"Sumber",caseTag:"Kasus & pembahasan",soal:"Contoh soal",soalN:"Soal",lvl:["","Mudah","Sedang","Menantang"],stepBtn:"Lihat langkah",allBtn:"Tampilkan semua",hideBtn:"Sembunyikan lagi",ansL:"Jawaban:",soalHint:"Coba kerjakan dulu di kertas, lalu buka pembahasannya langkah demi langkah.",soalCount:"contoh soal",prev:"Sebelumnya",next:"Berikutnya",mark:"Tandai selesai",marked:"Sudah selesai",none:"Tidak ada hasil.",
-  hi:"Halo! Mau belajar apa hari ini?",intro:"Semua materi 7 minggu dari 6 mata kuliah P3MD, dijelaskan ulang dengan bahasa sederhana, lengkap dengan grafik, tabel, kalkulator interaktif, kuis, dan pembahasan kasus.",
-  start:"Mulai belajar",progress:"Progres belajarmu",progTxt:function(d,t){return d+" dari "+t+" materi sudah selesai (7 minggu × 6 mata kuliah). Tandai materi sebagai selesai, atau kerjakan kuisnya."},
-  courses:"Mata kuliah",six:"6 mata kuliah, masing-masing 7 minggu",byWeek:"Belajar per minggu",byWeekSub:"7 minggu · 6 mata kuliah tiap minggu",cont:"Lanjutkan belajar",go:"Lanjut →",weeks:"minggu",done:"selesai",allWeeks:"Daftar minggu",
+  hi:"Halo! Mau belajar apa hari ini?",intro:"Semua materi dari 6 mata kuliah P3MD, minggu demi minggu, dijelaskan ulang dengan bahasa sederhana, lengkap dengan grafik, tabel, kalkulator interaktif, kuis, dan pembahasan kasus.",
+  start:"Mulai belajar",progress:"Progres belajarmu",progTxt:function(d,t){return d+" dari "+t+" materi sudah selesai (materi baru ditambahkan tiap minggu). Tandai materi sebagai selesai, atau kerjakan kuisnya."},
+  courses:"Mata kuliah",six:"6 mata kuliah · materi bertambah tiap minggu",byWeek:"Belajar per minggu",byWeekSub:"Materi tiap minggu dari semua mata kuliah",cont:"Lanjutkan belajar",go:"Lanjut →",weeks:"minggu",done:"selesai",allWeeks:"Daftar minggu",
   openAll:"Buka semua",closeAll:"Tutup semua",deep:"Pendalaman",sections:"bagian",charts:"visual",quizN:"soal kuis",
   q:"Soal",of:"dari",check:"Cek jawaban",nextQ:"Soal berikutnya",finish:"Lihat hasil",right:"Benar!",wrong:"Belum tepat.",answer:"Jawaban yang benar:",
   scoreT:"Hasil kuismu",scoreP:function(s,t){return"Kamu menjawab benar "+s+" dari "+t+" soal."+(s===t?" Sempurna!":s>=t*0.6?" Bagus, tinggal sedikit lagi.":" Coba baca lagi bagian materinya, lalu ulangi.")},
   retry:"Ulangi kuis",best:"Skor terbaik",flip:"Ketuk kartu untuk membalik",card:"Kartu",noQuiz:"Belum ada kuis untuk minggu ini.",
   qLabel:"Pertanyaan",aLabel:"Jawaban",note:"Catatan"},
  en:{search:"Search the material…",home:"Home",week:"Week",materi:"Material",kasus:"Cases",kuis:"Quiz",kartu:"Flashcards",keys:"Key takeaways",sources:"Sources",caseTag:"Case & worked answers",soal:"Worked problems",soalN:"Problem",lvl:["","Easy","Medium","Challenging"],stepBtn:"Show step",allBtn:"Show all",hideBtn:"Hide again",ansL:"Answer:",soalHint:"Try it on paper first, then reveal the solution step by step. (Worked problems are written in Indonesian.)",soalCount:"worked problems",prev:"Previous",next:"Next",mark:"Mark as done",marked:"Done",none:"No results.",
-  hi:"Hi! What do you want to study today?",intro:"Seven weeks of material from six P3MD courses, explained again in plain language, with charts, tables, interactive calculators, quizzes and worked cases.",
-  start:"Start studying",progress:"Your progress",progTxt:function(d,t){return d+" of "+t+" sessions done (7 weeks × 6 courses). Mark sessions as done or finish their quizzes."},
-  courses:"Courses",six:"6 courses, 7 weeks each",byWeek:"Study by week",byWeekSub:"7 weeks · 6 courses every week",cont:"Continue studying",go:"Continue →",weeks:"weeks",done:"done",allWeeks:"All weeks",
+  hi:"Hi! What do you want to study today?",intro:"All the material from six P3MD courses, week by week, explained again in plain language, with charts, tables, interactive calculators, quizzes and worked cases.",
+  start:"Start studying",progress:"Your progress",progTxt:function(d,t){return d+" of "+t+" sessions done (new material is added every week). Mark sessions as done or finish their quizzes."},
+  courses:"Courses",six:"6 courses · new material every week",byWeek:"Study by week",byWeekSub:"Each week's material across all courses",cont:"Continue studying",go:"Continue →",weeks:"weeks",done:"done",allWeeks:"All weeks",
   openAll:"Expand all",closeAll:"Collapse all",deep:"Deep dive",sections:"sections",charts:"visuals",quizN:"quiz questions",
   q:"Question",of:"of",check:"Check answer",nextQ:"Next question",finish:"See results",right:"Correct!",wrong:"Not quite.",answer:"Correct answer:",
   scoreT:"Your quiz result",scoreP:function(s,t){return"You got "+s+" of "+t+" right."+(s===t?" Perfect!":s>=t*0.6?" Nice, almost there.":" Re-read the material and try again.")},
