@@ -1,5 +1,5 @@
-/* AtraGrowth service worker: works offline, always prefers fresh pages when online. */
-const VER = "ag-20261026131130";
+/* Growch service worker: works offline, always prefers fresh pages when online. */
+const VER = "growch-20261026131940";
 const CORE = ["/", "/index.html", "/manifest.webmanifest", "/icons/icon-192.png", "/icons/icon-512.png"];
 
 self.addEventListener("install", e => {
