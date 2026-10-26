@@ -1155,7 +1155,7 @@ function vLaporan(o){
 function uang(v,hs){
   var sub=hs.split("-")[1]||"",o=fin();if(!finYM)finYM=today().slice(0,7);
   var b=balances(o);
-  v.innerHTML='<div class="app fin"><div class="banner"><span class="ico">'+ICO_FIN+'</span><div><h1>'+E("Keuangan","Money")+'</h1><p>'+E("Catat pemasukan, pengeluaran, investasi, dan utang. Laporannya disusun otomatis seperti di MK 2, tapi dengan bahasa sederhana.","Track income, spending, investments and debt. Reports are built for you, MK 2-style, in plain language.")+'</p>'+
+  v.innerHTML='<div class="app fin"><div class="banner"><span class="ico">'+ICO_FIN+'</span><div><h1>'+E("Keuangan","Money")+'</h1><p>'+E("Catat pemasukan, pengeluaran, investasi, dan utang. Laporan keuangannya disusun otomatis dengan bahasa sederhana.","Track income, spending, investments and debt. Financial reports are built for you in plain language.")+'</p>'+
     '<div class="app-stats"><span>'+E("Kekayaan bersih","Net worth")+' <b>'+rp(b.net)+'</b></span><span>'+E("Kas","Cash")+' <b>'+rp(b.cash)+'</b></span></div></div></div>'+
     tabs([["",E("Ringkasan","Overview")],["catat",E("Catat","Record")],["laporan",E("Laporan","Reports")]],sub,"uang")+
     (sub==="catat"?vCatat(o):sub==="laporan"?vLaporan(o):vRingkas(o))+'<p class="bk-note">'+E("Data keuangan tersimpan di browser ini, atau di akunmu kalau kamu masuk.","Your money data is saved in this browser, or in your account when signed in.")+'</p></div>';
