@@ -871,7 +871,7 @@ function gym(day,k,w){
   return ids.map(function(x){if(x[0]==="situp")return["Sit-up",k==="bentuk"?"3 × 20":"3 × 15",E("Naik pelan, turun pelan.","Up slowly, down slowly."),""];return[LIFT[x[0]][0],s[x[1]],TIP()[x[0]],load(x[0],w)]});
 }
 var CMIN={naik:12,bentuk:20,turun:20};
-function CMOVES(){return[["Pull-up",5,E("Tidak ada palang? Ganti 5 inverted row di bawah meja yang kokoh, atau 10 superman.","No bar? Do 5 inverted rows under a sturdy table, or 10 supermans.")],["Push-up",10,E("Badan lurus. Boleh sambil lutut.","Straight body. Knees down is fine.")],[E("Squat tanpa beban","Air squat"),15,E("Paha sejajar lantai, lalu berdiri penuh.","Thighs parallel to the floor, then stand tall.")]]}
+function CMOVES(){return[["Sit-up",10,E("Naik pelan, turun pelan. Tangan di dada atau di samping kepala.","Up slowly, down slowly. Hands on chest or beside your head.")],["Push-up",10,E("Badan lurus. Boleh sambil lutut.","Straight body. Knees down is fine.")],[E("Squat tanpa beban","Air squat"),15,E("Paha sejajar lantai, lalu berdiri penuh.","Thighs parallel to the floor, then stand tall.")]]}
 function home(k){
   var m=CMIN[k]||20,r=[[E("Format Cindy (AMRAP)","Cindy format (AMRAP)"),m+E(" menit"," min"),E("Ulangi 1 ronde di bawah sebanyak mungkin sampai waktu habis. Pakai timer di tab Jadwal atau Latihan, tekan +1 tiap ronde selesai.","Repeat the round below as many times as you can until time runs out. Use the timer in Schedule or Workouts and tap +1 after each round."),""]];
   CMOVES().forEach(function(x){r.push([x[0],x[1]+E(" / ronde"," / round"),x[2],""])});
