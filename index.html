@@ -663,6 +663,39 @@ body[data-sec="akun"] .acctbtn{box-shadow:inset 0 0 0 2px var(--primary)}
 .uts-go{color:var(--muted);font-weight:800}
 @media (max-width:900px){.uts-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media (max-width:600px){.uts-grid{grid-template-columns:minmax(0,1fr)}.uts-grid50{grid-template-columns:repeat(5,minmax(0,1fr))}.uts-score{flex-direction:column;align-items:flex-start}.uts-wk{grid-template-columns:72px minmax(0,1fr) 44px}}
+.cs{max-width:1100px;margin:0 auto;display:flex;flex-direction:column;gap:14px}
+.cs-head{display:flex;justify-content:space-between;align-items:flex-end;gap:14px;flex-wrap:wrap;border-bottom:3px solid var(--c);padding-bottom:12px}
+.cs-head h1{margin:2px 0 0;font-size:clamp(20px,2.6vw,28px);line-height:1.2}
+.cs-eye{font-size:12px;font-weight:800;letter-spacing:.07em;text-transform:uppercase;color:var(--c)}
+.cs-acts{display:flex;gap:8px;flex-wrap:wrap}
+.cs .btn{background:var(--c);color:#fff;display:inline-flex;align-items:center;gap:8px}
+.cs .btn svg{width:16px;height:16px}
+.cs .btn.ghost{background:var(--soft);color:var(--ink)}
+:root[data-theme="dark"] .cs .btn:not(.ghost){color:var(--bg)}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .cs .btn:not(.ghost){color:var(--bg)}}
+.cs-msg{flex-basis:100%;margin:0;font-size:13px;color:var(--muted)}.cs-msg:empty{display:none}
+.cs-tips{background:color-mix(in srgb,var(--accent) 12%,var(--surface));border-radius:var(--r-md);padding:12px 16px;box-shadow:0 0 0 1px var(--bd)}
+.cs-tips h2{margin:0 0 6px;font-size:15px;color:var(--head)}
+.cs-tips ul{margin:0;padding-left:18px;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:4px 22px;font-size:13.5px;line-height:1.5}
+.cs-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;align-items:start}
+.cs-wk{break-inside:avoid;background:var(--surface);border-radius:var(--r-md);box-shadow:0 0 0 1px var(--bd),var(--shadow);padding:12px 14px;margin:0;display:flex;flex-direction:column;gap:6px}
+.cs-wk h3{margin:0;font-size:14.5px;line-height:1.35;display:flex;gap:8px;align-items:flex-start;color:var(--head)}
+.cs-wk h3 span{flex:none;font-size:11.5px;font-weight:800;color:#fff;background:var(--c);border-radius:6px;padding:2px 6px;margin-top:1px}
+:root[data-theme="dark"] .cs-wk h3 span{color:var(--bg)}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .cs-wk h3 span{color:var(--bg)}}
+.cs-topics{margin:0;font-size:12px;color:var(--muted);line-height:1.45}
+.cs-keys{margin:0;padding-left:17px;font-size:13.5px;line-height:1.5;display:flex;flex-direction:column;gap:2px}
+.cs-f{display:flex;flex-direction:column;gap:4px;font-size:12.5px}
+.cs-f b{font-size:11.5px;letter-spacing:.06em;text-transform:uppercase;color:var(--c)}
+.cs-f code{font-family:var(--mono);font-size:12px;line-height:1.45;background:color-mix(in srgb,var(--c) 9%,var(--surface));border-radius:8px;padding:5px 8px;white-space:pre-wrap;overflow-wrap:anywhere}
+.cs-more{font-size:12.5px;font-weight:700;color:var(--c);text-decoration:none;align-self:flex-start}
+@media (max-width:760px){.cs-grid{grid-template-columns:minmax(0,1fr)}.cs-tips ul{grid-template-columns:minmax(0,1fr)}}
+html[data-print] .cs-acts,html[data-print] .cs-more,html[data-print] .uts-crumb,html[data-print] .cs-msg{display:none}
+html[data-print] .cs-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
+html[data-print] .cs-wk{box-shadow:none;border:1px solid var(--line);padding:8px 10px}
+html[data-print] .cs-keys{font-size:11.5px}html[data-print] .cs-wk h3{font-size:12.5px}html[data-print] .cs-f code{font-size:10.5px}
+html[data-print] .cs-tips{box-shadow:none;border:1px solid var(--line)}html[data-print] .cs-tips ul{font-size:11.5px}
+html[data-print] .cs-head h1{font-size:20px}
 /* Growch palette: #1B3C53 · #234C6A · #456882 · #E3E3E3 */
 :root{--bg:#F3F5F8;--surface:#FFFFFF;--soft:#ECEFF3;--ink:#1F2933;--head:#1B3C53;--muted:#456882;--line:#E3E3E3;--bd:#E3E3E3;--track:#E3E3E3;--field:#F3F5F8;
  --primary:#234C6A;--primary-ink:#FFFFFF;--accent:#D9893A;--good:#2E8B6E;--bad:#C2493D;--warn:#C98A2B;
@@ -1356,7 +1389,7 @@ window.__utsCards=function(v,c){
   var cards=list.map(function(cc){var r=b[cc.id],st=getSt(cc.id),going=st&&!st.done;
     return'<a class="uts-card" href="#uts-'+cc.id+'" style="--c:var(--'+cc.id+')"><span class="uts-ic">'+ICO+'</span><span class="uts-tx"><small>'+E("Kuis UTS","Mid-term quiz")+' · 50 '+E("soal","questions")+'</small><b>'+esc(cc.code)+(c?"":" "+esc(L(cc.title)))+'</b>'+
     (going?'<i>'+E("Lanjutkan · ","Resume · ")+Object.keys(st.ans||{}).length+'/50</i>':r?'<i>'+E("Skor terbaik ","Best score ")+r.s+'/50</i>':'<i>'+E("Belum dikerjakan","Not taken yet")+'</i>')+'</span><span class="uts-go">→</span></a>'}).join("");
-  var html=c?'<div class="uts-entry">'+cards+'</div>':'<section class="uts-home"><div class="sec-title"><h2>'+E("Kuis UTS","Mid-term quizzes")+'</h2><span>'+E("50 soal per mata kuliah · minggu 1–7 (MK 3: 1–8)","50 questions per course · weeks 1–7 (MK 3: 1–8)")+'</span></div><div class="uts-grid">'+cards+'</div></section>';
+  var html=c?'<div class="uts-entry">'+cards+'</div>':'<section class="uts-home"><div class="sec-title"><h2>'+E("Persiapan UTS","Mid-term prep")+'</h2><span>'+E("Kuis 50 soal & cheat sheet tiap mata kuliah · minggu 1–7 (MK 3: 1–8)","50-question quiz & cheat sheet per course · weeks 1–7 (MK 3: 1–8)")+'</span></div><div class="uts-grid">'+cards+'</div></section>';
   if(c){var bn=v.querySelector(".banner");if(bn)bn.insertAdjacentHTML("afterend",html);return}
   var cg=v.querySelector(".cgrid"),t=cg&&cg.previousElementSibling&&cg.previousElementSibling.classList.contains("sec-title")?cg.previousElementSibling:cg;
   if(t)t.insertAdjacentHTML("beforebegin",html);else v.insertAdjacentHTML("beforeend",html);
@@ -1427,6 +1460,101 @@ function render(v,hs){
 }
 window.SECTIONS=window.SECTIONS||{};
 window.SECTIONS.uts={render:render};
+})();
+
+/* ================= CHEAT SHEET UTS (one page per course) ================= */
+(function(){
+"use strict";
+function en(){return document.documentElement.lang==="en"}
+function E(id,e){return en()?e:id}
+function esc(s){return String(s==null?"":s).replace(/[&<>"]/g,function(c){return{"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]})}
+function L(o){if(o==null)return"";if(typeof o==="string"||Array.isArray(o))return o;return en()?(o.en!=null?o.en:o.id):(o.id!=null?o.id:o.en)}
+function course(id){return(window.COURSES||[]).find(function(c){return c.id===id})}
+var LIM={mk3:8};function lim(c){return LIM[c]||7}
+
+/* "don't mix these up" — hand-written per course */
+var TIPS={
+mk1:[["Purpose = kenapa; Values = bagaimana; Self-awareness = siapa.","Purpose = why; values = how; self-awareness = who."],
+["DISC: D hasil, I orang, S stabilitas, C aturan & akurasi. Mask = publik, Core = alami/tertekan, Mirror = persepsi diri.","DISC: D results, I people, S stability, C rules & accuracy. Mask = public, Core = natural/under pressure, Mirror = self-image."],
+["Herzberg: hygiene (gaji, kondisi kerja) hanya mencegah tidak puas; motivator (pencapaian, pengakuan) yang membuat puas.","Herzberg: hygiene (pay, conditions) only prevents dissatisfaction; motivators (achievement, recognition) create satisfaction."],
+["MARS = Motivation, Ability, Role perception, Situational factors. AMO = Ability, Motivation, Opportunity.","MARS = Motivation, Ability, Role perception, Situational factors. AMO = Ability, Motivation, Opportunity."],
+["Tuckman: forming → storming → norming → performing → adjourning. Kohesi tinggi + norma rendah = bahaya.","Tuckman: forming → storming → norming → performing → adjourning. High cohesion + low norms = danger."],
+["French & Raven: legitimate, reward, coercive (jabatan) vs expert, referent (personal, lebih tahan lama) + informational.","French & Raven: legitimate, reward, coercive (position) vs expert, referent (personal, lasts longer) + informational."]],
+mk2:[["Laba ≠ kas. Aset naik = kas keluar; liabilitas naik = kas masuk.","Profit ≠ cash. Assets up = cash out; liabilities up = cash in."],
+["Arus kas: beli aset tetap = investasi; dividen & utang = pendanaan; operasi = kegiatan inti.","Cash flow: buying fixed assets = investing; dividends & debt = financing; operating = core business."],
+["Biaya produk → persediaan → HPP saat terjual. Biaya periode → langsung beban. Sunk cost diabaikan.","Product costs → inventory → COGS when sold. Period costs → expensed. Ignore sunk costs."],
+["Produksi > penjualan → laba absorption > variable (overhead tetap 'parkir' di persediaan).","Production > sales → absorption profit > variable (fixed overhead parked in inventory)."],
+["Diskonto naik → PV turun. Suku bunga naik → harga obligasi turun. Bandingkan pinjaman dengan EAR.","Higher discount rate → lower PV. Rates up → bond prices down. Compare loans by EAR."],
+["Anuitas di muka = anuitas biasa × (1 + r). Perpetuitas tumbuh butuh r > g.","Annuity due = ordinary annuity × (1 + r). Growing perpetuity needs r > g."]],
+mk3:[["Needs → wants → demands (keinginan + daya beli). Marketing concept = luar ke dalam; selling concept = dalam ke luar.","Needs → wants → demands (want + buying power). Marketing concept = outside-in; selling concept = inside-out."],
+["BCG = portofolio (star, cash cow, question mark, dog). Ansoff = arah pertumbuhan produk × pasar.","BCG = portfolio (star, cash cow, question mark, dog). Ansoff = growth direction product × market."],
+["VRIO lengkap = keunggulan berkelanjutan; V+R saja = sementara; V saja = paritas.","Full VRIO = sustained advantage; V+R only = temporary; V only = parity."],
+["Perilaku beli: complex (libat tinggi, beda besar), dissonance-reducing (libat tinggi, beda kecil), variety-seeking, habitual.","Buying behaviour: complex (high involvement, big differences), dissonance-reducing, variety-seeking, habitual."],
+["Line filling = di dalam rentang; line stretching = keluar rentang. PoP = syarat kategori; PoD = alasan memilih kita.","Line filling = within range; stretching = beyond it. PoP = category requirement; PoD = reason to choose us."],
+["Jasa: IHIPN; 7P = 4P + Process, Physical environment, People. Search (sebelum) · Experience (saat/sesudah) · Credence (sulit dinilai).","Services: IHIPN; 7Ps = 4Ps + Process, Physical environment, People. Search (before) · Experience (during/after) · Credence (hard to judge)."]],
+mk4:[["Efisiensi = biaya rendah; efektivitas = nilai yang benar. Qualifier = syarat dipertimbangkan; winner = alasan dipilih.","Efficiency = low cost; effectiveness = right value. Qualifier = to be considered; winner = to be chosen."],
+["ERRC: Eliminate & Reduce menurunkan biaya; Raise & Create menaikkan nilai.","ERRC: Eliminate & Reduce cut cost; Raise & Create add value."],
+["Slack 0 = jalur kritis. Crash aktivitas kritis termurah dulu. CPI = EV/AC, SPI = EV/PV (<1 = buruk).","Slack 0 = critical path. Crash the cheapest critical activity first. CPI = EV/AC, SPI = EV/PV (<1 = bad)."],
+["Utilisasi = dipakai ÷ best operating level. Jasa target ±70%. Tambah kapasitas di bottleneck.","Utilisation = used ÷ best operating level. Services target ~70%. Add capacity at the bottleneck."],
+["Antrean karena variabilitas. ρ → 1 membuat Lq meledak. Layanan konstan = antrean setengahnya.","Queues come from variability. ρ → 1 makes Lq explode. Constant service halves the queue."]],
+mk5:[["Availability = mudah diingat; representativeness = mirip stereotip; anchoring = terpaku angka awal.","Availability = easy to recall; representativeness = looks typical; anchoring = stuck on a first number."],
+["Risk = probabilitas diketahui; uncertainty = tidak diketahui. MUST = saring; WANT = bobot.","Risk = known probabilities; uncertainty = unknown. MUST = screen; WANT = weight."],
+["KT: SA (prioritas: timing, trend, impact) · PA (masa lalu, IS/IS NOT) · DA (memilih) · PPA (masa depan: preventive vs contingent).","KT: SA (priority: timing, trend, impact) · PA (past, IS/IS NOT) · DA (choose) · PPA (future: preventive vs contingent)."],
+["AFT memilih dari yang ada; VFT berangkat dari nilai. Fundamental = kenapa; means = bagaimana.","AFT picks from what exists; VFT starts from values. Fundamental = why; means = how."],
+["Decision tree: rollback dari kanan, EMV = Σ p × payoff; EVPI = EV info sempurna − EMV terbaik.","Decision tree: roll back from the right, EMV = Σ p × payoff; EVPI = EV with perfect info − best EMV."],
+["AHP: skala 1–9, resiprokal, CR ≤ 0,10, waspadai rank reversal. SMART: nilai 0–100 × swing weight.","AHP: 1–9 scale, reciprocal, CR ≤ 0.10, beware rank reversal. SMART: 0–100 values × swing weights."]],
+mk6:[["Deskriptif (apa) → diagnostik (kenapa) → prediktif (akan apa) → preskriptif (harus apa).","Descriptive (what) → diagnostic (why) → predictive (what next) → prescriptive (what to do)."],
+["Tanya dulu: satu baris = apa? Skala data (nominal, ordinal, interval, rasio) menentukan operasi yang boleh.","First ask: what is one row? The data scale (nominal, ordinal, interval, ratio) decides valid operations."],
+["Precision = TP/(TP+FP); recall = TP/(TP+FN). Uji di data baru; korelasi ≠ kausalitas.","Precision = TP/(TP+FP); recall = TP/(TP+FN). Test on unseen data; correlation ≠ causation."],
+["Optimasi: objektif + constraint; solusi linear di titik sudut; shadow price = nilai 1 unit batas tambahan.","Optimisation: objective + constraints; linear optimum at a corner; shadow price = value of one more unit of a constraint."],
+["Marketing analytics: ±385 sampel untuk ±5%; ukur promosi dengan kontrol; kejar laba kontribusi, bukan omzet.","Marketing analytics: ~385 sample for ±5%; measure promos with a control; chase contribution, not revenue."]]
+};
+
+function extract(c,w){
+  var P=(window.PLUS||{})[c.id+"-w"+w.n]||{},secs=(w.sections||[]).concat(P.more||[]),f=[],topics=[];
+  secs.forEach(function(s){topics.push(L(s.h));var d=document.createElement("div");d.innerHTML=L(s.p)||"";var fs=d.querySelectorAll(".formula");
+    if(!fs.length&&en()){var d2=document.createElement("div");d2.innerHTML=(s.p&&s.p.id)||"";fs=d2.querySelectorAll(".formula")}
+    fs.forEach(function(x){var t=x.textContent.trim();if(t&&f.indexOf(t)<0)f.push(t)})});
+  var keys=(w.keys&&(w.keys[en()?"en":"id"]||w.keys.id))||[];
+  return{topics:topics.filter(Boolean),f:f,keys:keys};
+}
+
+window.__csCards=function(v,c){
+  var list=c?[c]:(window.COURSES||[]);
+  var html=list.map(function(cc){return'<a class="uts-card cs-card" href="#cs-'+cc.id+'" style="--c:var(--'+cc.id+')"><span class="uts-ic">'+ICO+'</span><span class="uts-tx"><small>Cheat sheet UTS</small><b>'+esc(cc.code)+(c?"":" "+esc(L(cc.title)))+'</b><i>'+E("Poin kunci, rumus & jebakan · minggu 1–","Key points, formulas & traps · weeks 1–")+lim(cc.id)+'</i></span><span class="uts-go">→</span></a>'}).join("");
+  if(c){var e=v.querySelector(".uts-entry");if(e)e.insertAdjacentHTML("beforeend",html);return}
+  var g=v.querySelector(".uts-grid");if(g)g.insertAdjacentHTML("beforeend",html);
+};
+var ICO='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/><path d="M8 13h8M8 17h5"/></svg>';
+var DL='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v12"/><path d="m7 10 5 5 5-5"/><path d="M5 21h14"/></svg>';
+
+function render(v,hs){
+  window.setSection("belajar",document.documentElement.lang);
+  var cid=hs.split("-")[1],c=course(cid);if(!c){location.replace("#");return}
+  var weeks=c.weeks.filter(function(w){return w.n<=lim(cid)});
+  var h='<div class="cs" style="--c:var(--'+cid+')">';
+  h+='<div class="crumb uts-crumb"><a href="#">'+E("Beranda","Home")+'</a><span>›</span><a href="#'+cid+'">'+esc(c.code)+'</a><span>›</span><span>Cheat sheet</span></div>';
+  h+='<header class="cs-head"><div><span class="cs-eye">Cheat sheet UTS · '+E("Minggu 1–","Weeks 1–")+lim(cid)+'</span><h1>'+esc(c.code)+' · '+esc(L(c.title))+'</h1></div>'+
+    '<div class="cs-acts"><button class="btn ghost" type="button" id="csdl" hidden>'+DL+E("Download PDF","Download PDF")+'</button><a class="btn" href="#uts-'+cid+'">'+E("Latihan kuis UTS","Practise the mid-term")+' →</a></div><p class="cs-msg" id="csmsg"></p></header>';
+  var tips=TIPS[cid]||[];
+  if(tips.length)h+='<section class="cs-tips"><h2>'+E("Jangan sampai tertukar","Don't mix these up")+'</h2><ul>'+tips.map(function(t){return'<li>'+esc(en()?t[1]:t[0])+'</li>'}).join("")+'</ul></section>';
+  h+='<div class="cs-grid">'+weeks.map(function(w){var x=extract(c,w);
+    return'<section class="cs-wk"><h3><span>W'+w.n+'</span>'+esc(L(w.title))+'</h3>'+
+    (x.topics.length?'<p class="cs-topics">'+x.topics.map(esc).join(" · ")+'</p>':'')+
+    (x.keys.length?'<ul class="cs-keys">'+x.keys.map(function(k){return'<li>'+esc(k)+'</li>'}).join("")+'</ul>':'')+
+    (x.f.length?'<div class="cs-f"><b>'+E("Rumus","Formulas")+'</b>'+x.f.map(function(f){return'<code>'+esc(f)+'</code>'}).join("")+'</div>':'')+
+    '<a class="cs-more" href="#'+cid+'-w'+w.n+'">'+E("Buka materi lengkap","Open full material")+' →</a></section>'}).join("")+'</div></div>';
+  v.innerHTML=h;
+  if(window.__PRINT__){document.documentElement.setAttribute("data-print","");window.__PRINT_READY__=true;return}
+  /* PDF download (same mechanism as weekly summaries) */
+  var btn=v.querySelector("#csdl"),msg=v.querySelector("#csmsg"),file="pdf/"+(en()?"en/":"")+"cs-"+cid+".pdf",name="Cheat sheet UTS "+c.code+".pdf";
+  var get=function(){return fetch(file).then(function(r){if(!r.ok)throw{code:"missing"};return r.blob()})};
+  var fail=function(e){var cd=e&&e.code;msg.textContent=cd==="declined"?"":cd==="missing"?E("PDF belum tersedia.","PDF not available yet."):E("Download tidak bisa dilakukan di sini.","Download isn't available here.")};
+  if(!window.claude){btn.hidden=false;btn.onclick=function(){get().then(function(b){var u=URL.createObjectURL(b),a=document.createElement("a");a.href=u;a.download=name;document.body.appendChild(a);a.click();a.remove();setTimeout(function(){URL.revokeObjectURL(u)},4000)},fail)};return}
+  window.claude.use("downloads").then(function(dl){if(!dl||!btn.isConnected)return;btn.hidden=false;btn.onclick=function(){get().then(function(b){return dl.save({filename:name,data:b})}).catch(fail)}}).catch(function(){});
+}
+window.SECTIONS=window.SECTIONS||{};
+window.SECTIONS.cs={render:render};
 })();
 
 /* ================= ACCOUNTS (Supabase) ================= */
@@ -10134,7 +10262,7 @@ function render(keepScroll){
   var hs=(location.hash||"").replace(/^#/,""),sec=hs.split("-")[0],X=window.SECTIONS&&window.SECTIONS[sec];
   window.setSection(X?sec:"belajar",lang);
   if(X){X.render(v,hs);if(!keepScroll&&location.hash!==lastHash)scrollTo(0,0);lastHash=location.hash;return}
-  v.innerHTML=r.w?weekPage(r.c,r.w):r.c?coursePage(r.c):home();wrapTables(v);if(!r.w&&window.__utsCards)window.__utsCards(v,r.c||null);
+  v.innerHTML=r.w?weekPage(r.c,r.w):r.c?coursePage(r.c):home();wrapTables(v);if(!r.w&&window.__utsCards)window.__utsCards(v,r.c||null);if(!r.w&&window.__csCards)window.__csCards(v,r.c||null);
   if(r.w){var k=key(r.c,r.w),d=weekData(r.c,r.w);last=k;save("p3md-last",k);
     var panels=v.querySelectorAll(".panel");
     function show(t){tabState[k]=t;v.querySelectorAll(".tabs button").forEach(function(b){b.setAttribute("aria-selected",b.dataset.tab===t)});panels.forEach(function(p){p.hidden=p.dataset.panel!==t});var vis=v.querySelector('.panel[data-panel="'+t+'"]');mountViz(vis,d,r.c)}
