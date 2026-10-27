@@ -739,6 +739,38 @@ body:not([data-sec="belajar"]) .acctbtn{margin-left:0}
 @media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .tabs button[aria-selected="true"],:root:not([data-theme="light"]) .bk-form .btn{color:var(--bg)}:root:not([data-theme="light"]) #bkpf .btn{color:var(--bg)!important}}
 .steps li{position:relative;display:block;padding:4px 0 0 46px;min-height:34px}
 .steps li::before{position:absolute;left:0;top:0}
+.cd{margin-top:16px;background:var(--soft);border-radius:var(--r-lg);padding:16px;display:flex;flex-direction:column;gap:12px}
+.bk-card+.cd{margin-top:10px}
+.cd-top{display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap}
+.cd-top b{font-size:15px;color:var(--head)}
+.cd-min{display:flex;gap:4px;background:var(--surface);border-radius:12px;padding:3px}
+.cd-min button{border:0;background:transparent;color:var(--muted);font:inherit;font-weight:700;font-size:13px;padding:5px 10px;border-radius:9px;cursor:pointer}
+.cd-min button[aria-pressed="true"]{background:var(--bulk);color:#fff}
+.cd-min button:disabled{opacity:.5;cursor:default}
+.cd-round{display:flex;flex-wrap:wrap;gap:6px}
+.cd-round span{background:var(--surface);border-radius:999px;padding:5px 12px;font-size:13.5px;color:var(--ink)}
+.cd-round b{color:var(--bulk)}
+.cd-main{display:flex;align-items:center;justify-content:space-between;gap:16px;background:var(--surface);border-radius:var(--r-md);padding:14px 18px}
+.cd-time{font-size:clamp(44px,13vw,68px);font-weight:800;font-variant-numeric:tabular-nums;color:var(--head);line-height:1;letter-spacing:-.02em}
+.cd-time.low{color:var(--bad)}
+.cd-cnt{display:flex;flex-direction:column;align-items:center;min-width:72px}
+.cd-cnt span{font-size:44px;font-weight:800;color:var(--bulk);font-variant-numeric:tabular-nums;line-height:1}
+.cd-cnt small{font-size:12px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.06em;margin-top:4px}
+.cd-msg{margin:0;min-height:1.2em;font-size:14px;font-weight:600;color:var(--muted)}
+.cd-acts{display:flex;gap:8px}
+.cd-acts .btn{flex:1;justify-content:center;background:var(--bulk);color:#fff}
+.cd-acts .btn.ghost{flex:0 0 auto;min-width:76px;background:var(--surface);color:var(--ink)}
+.cd-acts .cd-plus{padding:16px;font-size:18px}
+.cd .btn:disabled{opacity:.45;cursor:default}
+:root[data-theme="dark"] .cd .btn:not(.ghost),:root[data-theme="dark"] .cd-min button[aria-pressed="true"]{color:var(--bg)}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .cd .btn:not(.ghost),:root:not([data-theme="light"]) .cd-min button[aria-pressed="true"]{color:var(--bg)}}
+.cd-save{display:flex;flex-direction:column;gap:8px}
+.cd-save label{display:flex;flex-direction:column;gap:6px;font-size:13px;font-weight:700;color:var(--muted)}
+.cd-save input{border:1.5px solid var(--line);background:var(--surface);color:var(--ink);border-radius:12px;padding:10px 12px;font:inherit;max-width:140px}
+.cd-save .btn{align-self:flex-start;background:var(--bulk);color:#fff}
+.cd-log{display:flex;flex-direction:column;gap:4px;font-size:13px;color:var(--muted);border-top:1px solid var(--line);padding-top:10px}
+.cd-log b{color:var(--head)}
+.cd-save[hidden]{display:none}
 
 .lg{--c:var(--legal);max-width:820px;margin:0 auto;display:flex;flex-direction:column;gap:18px}
 .lg-soon{background:var(--surface);border-radius:var(--r-lg);box-shadow:var(--shadow);padding:24px;display:flex;flex-direction:column;gap:6px}
@@ -838,10 +870,65 @@ function gym(day,k,w){
   var s=SETS()[k],ids=day==="A"?[["squat","big"],["bench","big"],["row","acc"],["ohp","acc"],["situp","sm"]]:[["rdl","big"],["incl","acc"],["lat","acc"],["leg","acc"],["arm","sm"]];
   return ids.map(function(x){if(x[0]==="situp")return["Sit-up",k==="bentuk"?"3 × 20":"3 × 15",E("Naik pelan, turun pelan.","Up slowly, down slowly."),""];return[LIFT[x[0]][0],s[x[1]],TIP()[x[0]],load(x[0],w)]});
 }
+var CMIN={naik:12,bentuk:20,turun:20};
+function CMOVES(){return[["Pull-up",5,E("Tidak ada palang? Ganti 5 inverted row di bawah meja yang kokoh, atau 10 superman.","No bar? Do 5 inverted rows under a sturdy table, or 10 supermans.")],["Push-up",10,E("Badan lurus. Boleh sambil lutut.","Straight body. Knees down is fine.")],[E("Squat tanpa beban","Air squat"),15,E("Paha sejajar lantai, lalu berdiri penuh.","Thighs parallel to the floor, then stand tall.")]]}
 function home(k){
-  if(k==="turun")return[[E("Jalan cepat atau jogging","Brisk walk or jog"),E("30–40 menit","30–40 min"),E("Napas agak terengah tapi masih bisa ngobrol.","A bit out of breath but still able to talk."),""],["Push-up","3 × 12",E("Badan lurus. Boleh sambil lutut.","Straight body. Knees down is fine."),""],["Plank",E("3 × 40 detik","3 × 40 sec"),E("Perut dan bokong dikencangkan.","Squeeze your belly and glutes."),""]];
-  if(k==="bentuk")return[["Push-up","3 × 15",E("Badan lurus, turun pelan.","Straight body, lower slowly."),""],[E("Squat tanpa beban","Bodyweight squat"),"3 × 20",E("Turun pelan 2 detik.","Lower slowly for 2 seconds."),""],[E("Jalan kaki","Walk"),E("20–30 menit","20–30 min"),E("Santai, untuk kesehatan jantung.","Easy pace, for heart health."),""]];
-  return[["Push-up","2 × 10",E("Badan lurus. Boleh sambil lutut.","Straight body. Knees down is fine."),""],[E("Squat tanpa beban","Bodyweight squat"),"2 × 15",E("Turun pelan 2 detik.","Lower slowly for 2 seconds."),""],["Sit-up","2 × 15",E("Santai, berhenti sebelum capek banget.","Easy, stop before you're exhausted."),""]];
+  var m=CMIN[k]||20,r=[[E("Format Cindy (AMRAP)","Cindy format (AMRAP)"),m+E(" menit"," min"),E("Ulangi 1 ronde di bawah sebanyak mungkin sampai waktu habis. Pakai timer di tab Jadwal atau Latihan, tekan +1 tiap ronde selesai.","Repeat the round below as many times as you can until time runs out. Use the timer in Schedule or Workouts and tap +1 after each round."),""]];
+  CMOVES().forEach(function(x){r.push([x[0],x[1]+E(" / ronde"," / round"),x[2],""])});
+  if(k==="turun")r.push([E("Jalan cepat sesudahnya","Brisk walk afterwards"),E("20 menit","20 min"),E("Napas agak terengah tapi masih bisa ngobrol.","A bit out of breath but still able to talk."),""]);
+  return r;
+}
+/* Cindy AMRAP timer: state survives re-renders */
+var CD={min:0,left:0,endAt:0,st:"idle",r:0,cnt:0,tk:null,wl:null};
+function clog(){var a=lget("cindy_v1",[]);return Array.isArray(a)?a:[]}
+function mmss(ms){var t=Math.max(0,Math.ceil(ms/1000));return Math.floor(t/60)+":"+("0"+t%60).slice(-2)}
+function beep(f,d){try{var A=window.__ac||(window.__ac=new(window.AudioContext||window.webkitAudioContext)());var o=A.createOscillator(),g=A.createGain();o.frequency.value=f;o.connect(g);g.connect(A.destination);g.gain.setValueAtTime(.25,A.currentTime);g.gain.exponentialRampToValueAtTime(.001,A.currentTime+d);o.start();o.stop(A.currentTime+d)}catch(e){}}
+function cindy(P){
+  if(!CD.min){CD.min=CMIN[P.k]||20;CD.left=CD.min*60000}
+  var L=clog(),best=L.filter(function(x){return x.m===CD.min}).reduce(function(b,x){return Math.max(b,x.r*1000+(x.x||0))},-1);
+  return'<div class="cd" id="cd"><div class="cd-top"><b>'+E("Timer Cindy","Cindy timer")+'</b><div class="cd-min" role="group" aria-label="'+E("Durasi","Duration")+'">'+[10,12,15,20].map(function(m){return'<button type="button" data-cm="'+m+'" aria-pressed="'+(m===CD.min)+'">'+m+'′</button>'}).join("")+'</div></div>'+
+  '<div class="cd-round">'+CMOVES().map(function(x){return'<span><b>'+x[1]+'</b> '+esc(x[0])+'</span>'}).join("")+'</div>'+
+  '<div class="cd-main"><div class="cd-time" id="cdt" aria-live="off">'+mmss(CD.left)+'</div><div class="cd-cnt"><span id="cdr">'+CD.r+'</span><small>'+E("ronde","rounds")+'</small></div></div>'+
+  '<p class="cd-msg" id="cdm" aria-live="polite"></p>'+
+  '<div class="cd-acts"><button class="btn cd-plus" type="button" id="cdp">'+E("+1 ronde","+1 round")+'</button><button class="btn ghost" type="button" id="cdn" aria-label="'+E("Kurangi satu ronde","Remove one round")+'">−1</button></div>'+
+  '<div class="cd-acts"><button class="btn" type="button" id="cds"></button><button class="btn ghost" type="button" id="cdx">Reset</button></div>'+
+  '<form class="cd-save" id="cdf" hidden><label>'+E("Repetisi tambahan di ronde terakhir (kalau belum selesai)","Extra reps in the unfinished last round")+'<input type="number" id="cdxr" min="0" max="29" inputmode="numeric" value="0"></label><button class="btn" type="submit">'+E("Simpan hasil","Save result")+'</button></form>'+
+  (L.length?'<div class="cd-log"><span>'+E("Rekor ","Best ")+CD.min+'′: <b>'+(best>=0?Math.floor(best/1000)+E(" ronde"," rounds")+(best%1000?" + "+best%1000+" rep":""):"–")+'</b></span>'+L.slice(-5).reverse().map(function(x){return'<span>'+fd(x.d)+' · '+x.m+'′ · '+x.r+(x.x?" + "+x.x:"")+'</span>'}).join("")+'</div>':'')+
+  '</div>';
+}
+function bindCindy(v,hs){
+  var el=v.querySelector("#cd");if(!el)return;
+  var $=function(id){return v.querySelector(id)};
+  function view(){var t=$("#cdt");if(!t)return;var run=CD.st==="run"||CD.st==="ready";
+    t.textContent=CD.st==="ready"?String(CD.cnt):mmss(CD.left);t.classList.toggle("low",CD.st==="run"&&CD.left<=60000);
+    $("#cdr").textContent=CD.r;
+    $("#cds").textContent=CD.st==="idle"?E("Mulai","Start"):run?E("Jeda","Pause"):CD.st==="pause"?E("Lanjut","Resume"):E("Mulai lagi","Start again");
+    $("#cdp").disabled=CD.st!=="run";$("#cdn").disabled=!CD.r||CD.st==="idle";
+    v.querySelectorAll("[data-cm]").forEach(function(b){b.disabled=CD.st!=="idle"&&CD.st!=="done"});
+    $("#cdf").hidden=CD.st!=="done";
+    $("#cdm").textContent=CD.st==="ready"?E("Siap-siap…","Get ready…"):CD.st==="done"?E("Waktu habis! "+CD.r+" ronde. Simpan hasilmu di bawah.","Time! "+CD.r+" rounds. Save your result below."):CD.st==="pause"?E("Dijeda.","Paused."):"";
+  }
+  function stop(){clearInterval(CD.tk);CD.tk=null;try{CD.wl&&CD.wl.release()}catch(e){}CD.wl=null}
+  function tick(){var now=Date.now();
+    if(CD.st==="ready"){var c=Math.ceil((CD.endAt-now)/1000);if(c!==CD.cnt){CD.cnt=c;if(c>0)beep(660,.15)}if(c<=0){beep(990,.35);CD.st="run";CD.endAt=now+CD.left}}
+    else if(CD.st==="run"){var prev=CD.left;CD.left=CD.endAt-now;var s0=Math.ceil(prev/1000),s1=Math.ceil(CD.left/1000);if(s1!==s0&&s1<=3&&s1>0)beep(660,.12);
+      if(CD.left<=0){CD.left=0;CD.st="done";stop();beep(990,.5);setTimeout(function(){beep(990,.5)},600)}}
+    var t=document.getElementById("cdt");if(t&&t.closest("#cd"))view.call(null);}
+  view=(function(f){return function(){var t=document.getElementById("cdt");if(t)f()}})(view);
+  if(CD.tk){clearInterval(CD.tk);CD.tk=setInterval(tick,200)}
+  $("#cds").onclick=function(){
+    if(CD.st==="idle"||CD.st==="done"){CD.r=0;CD.left=CD.min*60000;CD.st="ready";CD.cnt=3;CD.endAt=Date.now()+3000;beep(660,.15)}
+    else if(CD.st==="run"){CD.left=CD.endAt-Date.now();CD.st="pause";stop();view();return}
+    else if(CD.st==="ready"){CD.st="idle";stop();CD.left=CD.min*60000;view();return}
+    else if(CD.st==="pause"){CD.st="run";CD.endAt=Date.now()+CD.left}
+    try{navigator.wakeLock&&navigator.wakeLock.request("screen").then(function(w){CD.wl=w}).catch(function(){})}catch(e){}
+    clearInterval(CD.tk);CD.tk=setInterval(tick,200);view()};
+  $("#cdx").onclick=function(){stop();CD.st="idle";CD.r=0;CD.left=CD.min*60000;view()};
+  $("#cdp").onclick=function(){if(CD.st!=="run")return;CD.r++;beep(880,.08);view()};
+  $("#cdn").onclick=function(){if(CD.r>0)CD.r--;view()};
+  v.querySelectorAll("[data-cm]").forEach(function(b){b.onclick=function(){CD.min=+b.dataset.cm;CD.left=CD.min*60000;CD.st="idle";CD.r=0;body(v,hs)}});
+  $("#cdf").onsubmit=function(e){e.preventDefault();var x=Math.max(0,Math.min(29,parseInt($("#cdxr").value,10)||0));var a=clog();a.push({d:new Date().toISOString(),m:CD.min,r:CD.r,x:x});lset("cindy_v1",a.slice(-60));CD.st="idle";CD.r=0;CD.left=CD.min*60000;body(v,hs);var m=v.querySelector("#cdm");if(m)m.textContent=E("Tersimpan.","Saved.")};
+  view();
 }
 function NM(){return{A:"Gym A",B:"Gym B",R:E("Rumah","Home"),L:E("Libur","Rest")}}
 function DN(){return EN()?["Sun","Mon","Tue","Wed","Thu","Fri","Sat"]:["Min","Sen","Sel","Rab","Kam","Jum","Sab"]}
@@ -886,6 +973,7 @@ function profNote(P){return P.p.set?"":'<div class="bk-tip warn"><b>'+E("Hitunga
 function vJadwal(P){
   var d=today().getDay(),c=kind(d),dn=cget(),h;
   if(c==="L")h='<section class="bk-today"><span class="eyebrow">'+E("Hari ini","Today")+' · '+DN()[d]+'</span><h2>'+E("Libur","Rest day")+'</h2><p>'+E("Istirahat. Makan tetap sesuai target dan tidur 7–8 jam.","Rest. Still eat to your target and sleep 7–8 hours.")+'</p></section>';
+  else if(c==="R"&&!cg()){h='<section class="bk-today"><span class="eyebrow">'+E("Hari ini","Today")+' · '+DN()[d]+' · '+E("fase ","phase: ")+P.ph.nm.toLowerCase()+'</span><h2>'+E("Rumah — Cindy","Home — Cindy")+'</h2><p>'+E("Kerjakan 1 ronde, tekan +1, ulangi sampai waktu habis. Istirahat hanya kalau perlu.","Do one round, tap +1, repeat until time runs out. Rest only when you need to.")+(P.k==="turun"?E(" Setelah itu jalan cepat 20 menit."," Then brisk walk for 20 minutes."):"")+'</p>'+cindy(P)+'</section>'}
   else{var L=exFor(c,P);h='<section class="bk-today"><span class="eyebrow">'+E("Hari ini","Today")+' · '+DN()[d]+' · '+E("fase ","phase: ")+P.ph.nm.toLowerCase()+'</span><h2>'+esc(pname(c))+(c==="R"&&!cg()?E(" — ringan"," — light"):"")+'</h2><p>'+E("Centang tiap gerakan setelah selesai. Istirahat ","Tick each exercise when done. Rest ")+SETS()[P.k].rest+E(" antar set."," between sets.")+'</p>'+
     L.map(function(e,i){return'<label class="ck'+(dn[i]?' done':'')+'" for="ck'+i+'"><input type="checkbox" id="ck'+i+'" data-i="'+i+'"'+(dn[i]?' checked':'')+'><span class="bd"><span class="tp"><span class="nm">'+esc(e[0])+'</span><span>'+esc(e[1])+'</span></span><small>'+esc(e[2])+(e[3]?' · '+esc(e[3]):'')+'</small></span></label>'}).join("")+
     '<div class="bk-prog"><span class="bar"><i id="bkbar"></i></span><span id="bkpg"></span></div></section>'}
@@ -900,7 +988,7 @@ function vLatihan(P){
   return'<div class="bk-tip"><b>'+E("Fase ","Phase: ")+esc(P.ph.nm)+' · '+E("berat ","weight ")+num(P.w)+' kg</b>'+E("Set dan repetisi mengikuti fase. Beban awal dihitung dari berat badanmu, untuk pemula. Kalau terasa terlalu ringan atau berat, sesuaikan.","Sets and reps follow your phase. Starting weights come from your body weight, for beginners. Adjust if they feel too light or heavy.")+'</div>'+
   '<div class="bk-head"><h3>Gym A</h3>'+'<span>'+E("Senin atau Sabtu","Monday or Saturday")+'</span>'+'</div><div class="bk-card">'+exRows(gym("A",P.k,P.w))+'</div>'+
   '<div class="bk-head"><h3>Gym B</h3>'+'<span>'+E("Kamis","Thursday")+'</span>'+'</div><div class="bk-card">'+exRows(gym("B",P.k,P.w))+'</div>'+
-  '<div class="bk-head"><h3>'+E("Rumah","Home")+'</h3><span>'+E("Selasa, Jumat","Tuesday, Friday")+'</span></div><div class="bk-card">'+exRows(home(P.k))+'</div>'+
+  '<div class="bk-head"><h3>'+E("Rumah — Cindy","Home — Cindy")+'</h3><span>'+E("Selasa, Jumat","Tuesday, Friday")+'</span></div><div class="bk-card">'+exRows(home(P.k))+'</div>'+cindy(P)+
   '<p class="bk-note">'+E("Istirahat ","Rest ")+s.rest+E(" antar set. "," between sets. ")+s.prog+'</p>';
 }
 function vMakan(P){
@@ -1007,6 +1095,7 @@ function body(v,hs){
     v.querySelectorAll(".bk-log button").forEach(function(b){b.onclick=function(){lset("bulk_w",wlog().filter(function(e){return e.d!==b.dataset.d}));body(v,hs)}});
   }
   if(t[0]==="atur")bindAtur(v,hs,P);
+  bindCindy(v,hs);
   if(t[0]==="target"){
     var mode=P.p.mode;
     v.querySelectorAll("[data-m]").forEach(function(b){b.onclick=function(){mode=b.dataset.m;v.querySelectorAll("[data-m]").forEach(function(x){x.setAttribute("aria-pressed",x===b)})}});
@@ -1566,7 +1655,7 @@ window.SECTIONS.cs={render:render};
 var SB_URL="https://lkcslipepzxwhesjvipv.supabase.co";
 var SB_KEY="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImxrY3NsaXBlcHp4d2hlc2p2aXB2Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTI4NTkxODMsImV4cCI6MjEwODQzNTE4M30.ijPkDCdhwJciMowi-8rTd97jvA9RXtmkUiEISFfYrtw";
 
-var KEYS=["p3md-done","p3md-best","p3md-last","p3md-lang","p3md-theme","body_p","bulk_w","bulk_c","gym_v1","todo_v1","fin_v1","uts_best","uts_st_mk1","uts_st_mk2","uts_st_mk3","uts_st_mk4","uts_st_mk5","uts_st_mk6"];
+var KEYS=["p3md-done","p3md-best","p3md-last","p3md-lang","p3md-theme","body_p","bulk_w","bulk_c","gym_v1","cindy_v1","todo_v1","fin_v1","uts_best","uts_st_mk1","uts_st_mk2","uts_st_mk3","uts_st_mk4","uts_st_mk5","uts_st_mk6"];
 var SDK="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js";
 var inClaude=!!window.claude, configured=!!(SB_URL&&SB_KEY);
 var sb=null,user=null,ready=false,pushTimer=null,status="",suppress=false;
