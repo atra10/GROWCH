@@ -1,5 +1,5 @@
 /* Growch service worker: works offline, always prefers fresh pages when online. */
-const VER = "growch-20261030150449";
+const VER = "growch-20261030160459";
 const CORE = ["/", "/index.html", "/manifest.webmanifest", "/icons/icon-192.png", "/icons/icon-512.png"];
 
 self.addEventListener("install", e => {
@@ -13,6 +13,7 @@ self.addEventListener("fetch", e => {
   if (req.method !== "GET") return;
   const url = new URL(req.url);
   if (url.hostname.endsWith("supabase.co")) return; // account data: always live, never cached
+  if (url.pathname.startsWith("/api/")) return; // AI and other live endpoints: never cached
   // pages: network first, fall back to the saved copy when offline
   if (req.mode === "navigate") {
     e.respondWith(fetch(req).then(r => { const c = r.clone(); caches.open(VER).then(x => x.put("/index.html", c)); return r; })
