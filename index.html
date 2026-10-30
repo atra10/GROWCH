@@ -16592,6 +16592,272 @@ window.addSections("mk4", 8, [
     } } }
 ]);
 
+/* MK5 — tambahan pendalaman per minggu (slide kelas + literatur analisis keputusan) */
+window.addSections("mk5", 1, [
+{ s: { h: { id: "Bias lain yang sering muncul dalam keputusan manajerial", en: "Other biases that often appear in managerial decisions" },
+p: { id: `<p>Selain tiga heuristik Tversky–Kahneman, ada beberapa bias yang sangat sering muncul di organisasi. Semuanya berasal dari System 1 yang bekerja cepat tanpa diperiksa System 2.</p>
+<table><tr><th>Bias</th><th>Apa yang terjadi</th><th>Contoh di kantor</th><th>Penangkal</th></tr>
+<tr><td><strong>Framing</strong></td><td>Pilihan berubah hanya karena cara penyajiannya (untung vs rugi)</td><td>"Program menyelamatkan 200 dari 600 orang" lebih disukai daripada "400 dari 600 orang meninggal" — padahal sama</td><td>Tulis ulang pilihan dalam bingkai sebaliknya, lalu cek apakah pilihanmu tetap</td></tr>
+<tr><td><strong>Loss aversion</strong> (prospect theory)</td><td>Rasa sakit kehilangan ±2× lebih kuat daripada senangnya untung yang sama</td><td>Menolak proyek dengan EMV positif karena ada peluang rugi kecil</td><td>Lihat keputusan sebagai portofolio banyak keputusan, bukan satu taruhan</td></tr>
+<tr><td><strong>Overconfidence</strong></td><td>Terlalu yakin pada perkiraan sendiri; rentang perkiraan terlalu sempit</td><td>Estimasi proyek "selesai 6 bulan" padahal proyek serupa rata-rata 10 bulan</td><td>Outside view (data proyek sejenis), minta rentang 90%</td></tr>
+<tr><td><strong>Confirmation bias</strong></td><td>Hanya mencari bukti yang mendukung pendapat awal</td><td>Manajer hanya membaca laporan yang membenarkan vendor favoritnya</td><td>Consider the opposite; tunjuk devil's advocate</td></tr>
+<tr><td><strong>Sunk cost &amp; eskalasi komitmen</strong></td><td>Terus menambah investasi karena "sudah terlanjur keluar banyak"</td><td>Proyek IT yang terus didanai walau jelas gagal</td><td>Tanya: "Kalau mulai dari nol hari ini, apakah saya akan berinvestasi?"</td></tr>
+<tr><td><strong>Hindsight bias</strong></td><td>"Sudah kuduga" setelah hasilnya diketahui</td><td>Menyalahkan keputusan yang sebenarnya masuk akal saat diambil</td><td>Catat alasan dan informasi saat keputusan dibuat (decision journal)</td></tr>
+<tr><td><strong>Status quo bias</strong></td><td>Lebih memilih tidak berubah</td><td>Tetap memakai sistem lama walau alternatif jelas lebih baik</td><td>Perlakukan status quo sebagai salah satu alternatif yang juga harus dinilai</td></tr></table>
+<div class="note tip"><b>Kenapa ini penting untuk minggu-minggu berikutnya</b>Alat preskriptif (KT, VFT, SMART, decision tree, AHP) pada dasarnya adalah cara memaksa System 2 bekerja: menuliskan tujuan, alternatif, probabilitas, dan bobot secara eksplisit sehingga bias lebih mudah terlihat dan didiskusikan.</div>`,
+en: `<p>Besides the three Tversky–Kahneman heuristics, several biases appear very often in organisations. All come from System 1 working fast without System 2 checking it.</p>
+<table><tr><th>Bias</th><th>What happens</th><th>Office example</th><th>Remedy</th></tr>
+<tr><td><strong>Framing</strong></td><td>Choices change only because of how they are presented (gain vs loss)</td><td>"The programme saves 200 of 600 people" is preferred to "400 of 600 people die" — though they are the same</td><td>Rewrite the choice in the opposite frame and check whether your choice holds</td></tr>
+<tr><td><strong>Loss aversion</strong> (prospect theory)</td><td>The pain of a loss is about twice as strong as the pleasure of an equal gain</td><td>Rejecting a positive-EMV project because there is a small chance of loss</td><td>See the decision as part of a portfolio of many decisions, not one bet</td></tr>
+<tr><td><strong>Overconfidence</strong></td><td>Too sure of one's own estimates; ranges too narrow</td><td>Estimating a project "done in 6 months" when similar projects average 10</td><td>Outside view (data on similar projects), ask for a 90% range</td></tr>
+<tr><td><strong>Confirmation bias</strong></td><td>Only seeking evidence that supports the first opinion</td><td>A manager reads only the reports that favour a preferred vendor</td><td>Consider the opposite; appoint a devil's advocate</td></tr>
+<tr><td><strong>Sunk cost &amp; escalation of commitment</strong></td><td>Keep investing because "so much has already been spent"</td><td>An IT project that keeps getting funded although it is clearly failing</td><td>Ask: "If I were starting from zero today, would I invest?"</td></tr>
+<tr><td><strong>Hindsight bias</strong></td><td>"I knew it all along" once the outcome is known</td><td>Blaming a decision that was reasonable when it was made</td><td>Record the reasons and information at decision time (a decision journal)</td></tr>
+<tr><td><strong>Status quo bias</strong></td><td>Preferring no change</td><td>Keeping an old system although an alternative is clearly better</td><td>Treat the status quo as one more alternative that must also be evaluated</td></tr></table>
+<div class="note tip"><b>Why this matters for the coming weeks</b>The prescriptive tools (KT, VFT, SMART, decision trees, AHP) are basically ways of forcing System 2 to work: writing goals, alternatives, probabilities and weights explicitly so biases become easier to see and discuss.</div>` } } }
+]);
+
+window.addSections("mk5", 2, [
+{ s: { h: { id: "Rasionalitas terbatas dan keputusan kelompok", en: "Bounded rationality and group decisions" },
+p: { id: `<p><strong>Bounded rationality (Herbert Simon).</strong> Model rasional menganggap kita tahu semua alternatif, semua konsekuensi, dan punya waktu tak terbatas. Kenyataannya informasi, waktu, dan kemampuan berpikir terbatas. Maka manusia melakukan <strong>satisficing</strong>: memilih alternatif pertama yang "cukup baik" memenuhi batas minimum, bukan mencari yang optimal. Ini bukan selalu salah — untuk keputusan rutin, satisficing efisien. Masalahnya muncul pada keputusan strategis yang besar dan sulit dibalik, di mana alternatif pertama yang "cukup" bisa jauh dari yang terbaik.</p>
+<p><strong>Individu vs kelompok:</strong></p>
+<div class="vs"><div><b>Kelebihan kelompok</b>Lebih banyak informasi dan sudut pandang, lebih banyak alternatif, penerimaan dan komitmen lebih tinggi saat implementasi.</div><div><b>Kelemahan kelompok</b>Lebih lambat, tanggung jawab kabur, didominasi orang yang paling senior atau paling vokal, dan rawan <em>groupthink</em>.</div></div>
+<p><strong>Groupthink (Janis)</strong> terjadi ketika keinginan untuk kompak mengalahkan penilaian kritis. Tandanya: ilusi kebal ("kita tidak mungkin salah"), merasionalisasi peringatan, menganggap kelompok lain bodoh, tekanan pada anggota yang berbeda pendapat, sensor diri, ilusi suara bulat, dan "penjaga pikiran" yang menyaring informasi buruk.</p>
+<table><tr><th>Teknik</th><th>Cara kerja</th><th>Cocok untuk</th></tr>
+<tr><td>Devil's advocate</td><td>Satu orang ditugasi membantah usulan</td><td>Menguji asumsi rencana yang sudah disukai</td></tr>
+<tr><td>Nominal group technique</td><td>Tiap orang menulis ide sendiri dulu, lalu dibagikan bergiliran, didiskusikan, dan divoting tertutup</td><td>Mencegah dominasi atasan dan anchoring pada ide pertama</td></tr>
+<tr><td>Delphi</td><td>Pakar menjawab anonim dalam beberapa putaran, melihat ringkasan jawaban kelompok, lalu merevisi</td><td>Perkiraan (forecast) ketika pakar tersebar atau saling segan</td></tr>
+<tr><td>Pre-mortem (Klein)</td><td>"Bayangkan setahun lagi proyek ini gagal total. Tulis kenapa."</td><td>Menemukan risiko sebelum mulai — mirip PPA di KT</td></tr></table>
+<div class="note ex"><b>Aturan praktis</b>Pemimpin sebaiknya berbicara <em>terakhir</em>. Jika atasan menyampaikan pendapat lebih dulu, pendapat itu menjadi jangkar (anchoring) dan anggota lain cenderung menyesuaikan diri.</div>`,
+en: `<p><strong>Bounded rationality (Herbert Simon).</strong> The rational model assumes we know every alternative and consequence and have unlimited time. In reality information, time and thinking capacity are limited. So people <strong>satisfice</strong>: choose the first alternative that is "good enough" against a minimum threshold rather than searching for the optimum. This is not always wrong — for routine decisions satisficing is efficient. The problem arises with big strategic decisions that are hard to reverse, where the first "good enough" alternative can be far from the best.</p>
+<p><strong>Individual vs group:</strong></p>
+<div class="vs"><div><b>Group strengths</b>More information and perspectives, more alternatives, higher acceptance and commitment during implementation.</div><div><b>Group weaknesses</b>Slower, blurred responsibility, dominated by the most senior or most vocal person, and prone to <em>groupthink</em>.</div></div>
+<p><strong>Groupthink (Janis)</strong> occurs when the wish for harmony overrides critical judgement. Signs: an illusion of invulnerability ("we can't be wrong"), rationalising warnings, stereotyping outsiders, pressure on dissenters, self-censorship, an illusion of unanimity, and "mind guards" who filter out bad news.</p>
+<table><tr><th>Technique</th><th>How it works</th><th>Best for</th></tr>
+<tr><td>Devil's advocate</td><td>One person is assigned to argue against the proposal</td><td>Testing the assumptions of a plan everyone already likes</td></tr>
+<tr><td>Nominal group technique</td><td>Everyone writes ideas alone first, shares them in turn, discusses, then votes privately</td><td>Preventing domination by the boss and anchoring on the first idea</td></tr>
+<tr><td>Delphi</td><td>Experts answer anonymously over several rounds, see the group summary, then revise</td><td>Forecasts when experts are dispersed or defer to each other</td></tr>
+<tr><td>Pre-mortem (Klein)</td><td>"Imagine it is a year from now and this project failed completely. Write down why."</td><td>Finding risks before starting — similar to PPA in KT</td></tr></table>
+<div class="note ex"><b>Rule of thumb</b>The leader should speak <em>last</em>. If the boss gives an opinion first, it becomes an anchor and other members tend to align with it.</div>` } } }
+]);
+
+window.addSections("mk5", 3, [
+{ s: { h: { id: "Menguji kemungkinan penyebab dan menyusun PPA", en: "Testing possible causes and building a PPA" },
+p: { id: `<p>Langkah paling sering dilewati di Problem Analysis adalah <strong>menguji setiap kemungkinan penyebab terhadap spesifikasi IS / IS NOT</strong>. Contoh memakai kasus Oh, Nuts!!! (baut berkarat):</p>
+<table><tr><th>Kemungkinan penyebab</th><th>Menjelaskan WHERE (Houston/Atlanta, bukan Denver/Phoenix)?</th><th>Menjelaskan WHEN (Juni–Agustus, bukan musim dingin)?</th><th>Menjelaskan EXTENT (sebagian kiriman, bukan saat keluar Detroit)?</th><th>Hasil</th></tr>
+<tr><td>Pelapis baut cacat dari pabrik</td><td>✗ — semestinya berkarat di semua kota</td><td>✗</td><td>✗ — semestinya terlihat sejak di Detroit</td><td>Gugur</td></tr>
+<tr><td>Penyimpanan gudang yang bocor</td><td>Sebagian (hanya jika gudang tertentu bocor)</td><td>✗ — hujan juga di musim lain</td><td>Mungkin</td><td>Lemah</td></tr>
+<tr><td>Pelapis baru tidak tahan udara panas-lembap saat transit</td><td>✓ — Houston &amp; Atlanta lembap, Denver &amp; Phoenix kering</td><td>✓ — musim panas lembap</td><td>✓ — muncul di perjalanan</td><td><strong>Paling mungkin</strong> → verifikasi</td></tr></table>
+<p>Penyebab yang paling mungkin tetap harus <strong>diverifikasi</strong> (misalnya menguji baut di ruang lembap) sebelum diambil tindakan. Kalau tidak diverifikasi, kita bisa memperbaiki hal yang salah.</p>
+<p><strong>Menyusun Potential Problem Analysis (PPA)</strong> untuk rencana yang sudah dipilih:</p>
+<div class="steps"><div><b>1. Tulis rencana dan langkah kritisnya</b>Langkah yang jika gagal membuat seluruh rencana gagal.</div><div><b>2. Identifikasi masalah potensial</b>Untuk setiap langkah kritis: apa yang bisa salah?</div><div><b>3. Cari kemungkinan penyebab</b>Kenapa masalah itu bisa terjadi?</div><div><b>4. Tindakan pencegahan</b>Menurunkan <em>peluang</em> penyebab terjadi.</div><div><b>5. Tindakan kontingensi + trigger</b>Menurunkan <em>dampak</em> jika tetap terjadi, dan tanda kapan dijalankan.</div></div>
+<table><tr><th>Masalah potensial (ganti ERP)</th><th>Penyebab</th><th>Pencegahan</th><th>Kontingensi</th><th>Trigger</th></tr>
+<tr><td>Data pelanggan hilang saat migrasi</td><td>Format data lama tidak cocok</td><td>Uji migrasi di sampel data 3 kali</td><td>Rollback ke sistem lama dari cadangan</td><td>Selisih rekonsiliasi &gt; 0,5%</td></tr>
+<tr><td>Staf tidak memakai sistem baru</td><td>Pelatihan kurang, sistem dirasa rumit</td><td>Pelatihan per peran, "champion" di tiap divisi</td><td>Pendampingan langsung 2 minggu</td><td>Login harian &lt; 70% pengguna</td></tr></table>`,
+en: `<p>The step most often skipped in Problem Analysis is <strong>testing each possible cause against the IS / IS NOT specification</strong>. Example using the Oh, Nuts!!! case (rusted bolts):</p>
+<table><tr><th>Possible cause</th><th>Explains WHERE (Houston/Atlanta, not Denver/Phoenix)?</th><th>Explains WHEN (June–August, not winter)?</th><th>Explains EXTENT (some shipments, not when leaving Detroit)?</th><th>Result</th></tr>
+<tr><td>Defective bolt coating from the factory</td><td>✗ — would rust in every city</td><td>✗</td><td>✗ — would be visible in Detroit</td><td>Rejected</td></tr>
+<tr><td>Leaking warehouse storage</td><td>Partly (only if certain warehouses leak)</td><td>✗ — it also rains in other seasons</td><td>Possible</td><td>Weak</td></tr>
+<tr><td>New coating cannot withstand hot, humid air in transit</td><td>✓ — Houston &amp; Atlanta are humid, Denver &amp; Phoenix dry</td><td>✓ — humid summer</td><td>✓ — appears during transit</td><td><strong>Most probable</strong> → verify</td></tr></table>
+<p>The most probable cause must still be <strong>verified</strong> (for example testing bolts in a humid chamber) before acting. Without verification we may fix the wrong thing.</p>
+<p><strong>Building a Potential Problem Analysis (PPA)</strong> for a plan that has been chosen:</p>
+<div class="steps"><div><b>1. Write the plan and its critical steps</b>Steps whose failure makes the whole plan fail.</div><div><b>2. Identify potential problems</b>For each critical step: what could go wrong?</div><div><b>3. Find likely causes</b>Why could that problem happen?</div><div><b>4. Preventive actions</b>Reduce the <em>probability</em> that the cause occurs.</div><div><b>5. Contingent actions + trigger</b>Reduce the <em>impact</em> if it still happens, and the signal for when to act.</div></div>
+<table><tr><th>Potential problem (ERP change)</th><th>Cause</th><th>Prevention</th><th>Contingency</th><th>Trigger</th></tr>
+<tr><td>Customer data lost during migration</td><td>Old data format does not match</td><td>Test migration on sample data three times</td><td>Roll back to the old system from backup</td><td>Reconciliation gap &gt; 0.5%</td></tr>
+<tr><td>Staff do not use the new system</td><td>Too little training, system feels complex</td><td>Role-based training, a "champion" in each division</td><td>Two weeks of hands-on support</td><td>Daily logins &lt; 70% of users</td></tr></table>` } } }
+]);
+
+window.addSections("mk5", 4, [
+{ s: { h: { id: "Cara menggali tujuan (Keeney) dan ciri tujuan fundamental yang baik", en: "How to uncover objectives (Keeney) and the marks of good fundamental objectives" },
+p: { id: `<p>Keeney mencatat bahwa orang biasanya hanya menyebut sebagian kecil tujuannya bila ditanya langsung. Karena itu ia memberi beberapa "pemancing" untuk menggali nilai:</p>
+<table><tr><th>Teknik</th><th>Pertanyaan pemandu</th><th>Contoh (listrik Nuka Raya)</th></tr>
+<tr><td>Wish list</td><td>Apa yang kamu inginkan kalau tidak ada batasan?</td><td>Listrik 24 jam, murah, tanpa asap solar</td></tr>
+<tr><td>Alternatif</td><td>Apa yang baik/buruk dari alternatif yang ada? Seperti apa alternatif ideal?</td><td>PLTD andal tapi mahal dan berpolusi → tujuan "biaya" dan "lingkungan"</td></tr>
+<tr><td>Masalah &amp; kekurangan</td><td>Apa yang salah dengan situasi sekarang?</td><td>Cold storage tidak bisa jalan malam → tujuan "ekonomi nelayan"</td></tr>
+<tr><td>Konsekuensi</td><td>Apa yang terjadi kalau dipilih? Apa yang baik/buruk dari itu?</td><td>Kabel laut merusak padang lamun → tujuan "ekosistem pesisir"</td></tr>
+<tr><td>Tujuan, batasan, pedoman</td><td>Apa target, aturan, atau prinsip yang harus dipatuhi?</td><td>Keputusan harus lewat musyawarah adat</td></tr>
+<tr><td>Perspektif berbeda</td><td>Bagaimana pandangan pemangku kepentingan lain?</td><td>Mama Yuliana (pedagang), kepala Puskesmas, tetua adat, PLN</td></tr>
+<tr><td>Tujuan strategis</td><td>Apa tujuan jangka panjang organisasi?</td><td>Rasio elektrifikasi dan transisi energi nasional</td></tr></table>
+<p><strong>Ciri tujuan fundamental yang baik:</strong> <em>essential</em> (penting bagi keputusan ini), <em>controllable</em> (dipengaruhi oleh alternatif yang dipilih), <em>complete</em> (mencakup semua yang penting), <em>measurable</em> dan <em>operational</em> (bisa diukur dan dipakai menilai), <em>decomposable</em> (bisa dinilai terpisah), <em>non-redundant</em> (tidak tumpang tindih sehingga tidak dihitung dua kali), <em>concise</em> (jumlahnya sesedikit mungkin), dan <em>understandable</em>.</p>
+<div class="note warn"><b>Kesalahan umum: mencampur means dan fundamental</b>"Memasang 500 panel surya" adalah means, bukan fundamental. Tanyakan "kenapa itu penting?" → "agar listrik menyala 24 jam" → "kenapa?" → "agar Puskesmas bisa menyimpan vaksin dan nelayan bisa menyimpan ikan". Yang terakhir lebih dekat ke tujuan fundamental. Jika means dimasukkan ke pohon nilai bersama fundamental, satu manfaat bisa terhitung dua kali.</div>`,
+en: `<p>Keeney noted that people usually name only a small share of their objectives when asked directly. So he offered several "prompts" to dig out values:</p>
+<table><tr><th>Technique</th><th>Guiding question</th><th>Example (Nuka Raya electricity)</th></tr>
+<tr><td>Wish list</td><td>What would you want if there were no limits?</td><td>Power 24 hours, cheap, no diesel smoke</td></tr>
+<tr><td>Alternatives</td><td>What is good/bad about existing alternatives? What would the ideal look like?</td><td>Diesel is reliable but costly and polluting → objectives "cost" and "environment"</td></tr>
+<tr><td>Problems &amp; shortcomings</td><td>What is wrong with the current situation?</td><td>Cold storage cannot run at night → objective "fishers' livelihoods"</td></tr>
+<tr><td>Consequences</td><td>What happens if it is chosen? What is good/bad about that?</td><td>A subsea cable damages seagrass → objective "coastal ecosystem"</td></tr>
+<tr><td>Goals, constraints, guidelines</td><td>Which targets, rules or principles must be respected?</td><td>Decisions must go through customary deliberation (musyawarah adat)</td></tr>
+<tr><td>Different perspectives</td><td>How do other stakeholders see it?</td><td>Mama Yuliana (trader), the clinic head, customary elders, PLN</td></tr>
+<tr><td>Strategic objectives</td><td>What are the organisation's long-term goals?</td><td>National electrification ratio and energy transition</td></tr></table>
+<p><strong>Marks of good fundamental objectives:</strong> <em>essential</em> (matter for this decision), <em>controllable</em> (affected by the alternative chosen), <em>complete</em> (cover everything important), <em>measurable</em> and <em>operational</em> (can be measured and used to evaluate), <em>decomposable</em> (can be judged separately), <em>non-redundant</em> (no overlap, so nothing is counted twice), <em>concise</em> (as few as possible), and <em>understandable</em>.</p>
+<div class="note warn"><b>A common mistake: mixing means and fundamental objectives</b>"Install 500 solar panels" is a means, not a fundamental objective. Ask "why is that important?" → "so power runs 24 hours" → "why?" → "so the clinic can store vaccines and fishers can store fish". The last answer is closer to the fundamental objective. If means are put in the value tree alongside fundamentals, one benefit can be counted twice.</div>` } } }
+]);
+
+window.addSections("mk5", 5, [
+{ s: { h: { id: "Value function dengan metode bisection, dan memeriksa hasil SMART", en: "Value functions with the bisection method, and checking SMART results" },
+p: { id: `<p>Untuk atribut numerik (sewa, jarak, waktu), nilai 0–100 sebaiknya tidak sekadar ditarik garis lurus. Pengambil keputusan sering merasakan perbaikan secara tidak linear. Cara sederhana menggambarnya adalah <strong>bisection</strong>.</p>
+<div class="note ex"><b>Contoh: sewa kantor per tahun</b>Terburuk Rp100 juta = 0, terbaik Rp40 juta = 100.<br>Pertanyaan 1: "Di angka berapa perbaikan dari Rp100 jt ke X terasa <em>sama besar</em> dengan perbaikan dari X ke Rp40 jt?" Jawaban: Rp75 jt → nilai 50.<br>Pertanyaan 2: titik tengah antara Rp100 jt dan Rp75 jt → Rp88 jt → nilai 25.<br>Pertanyaan 3: titik tengah antara Rp75 jt dan Rp40 jt → Rp58 jt → nilai 75.<br>Hasilnya: Rp100 jt = 0, 88 = 25, 75 = 50, 58 = 75, 40 = 100. Penurunan sewa pertama Rp25 jt "bernilai" setengah skala, sementara Rp35 jt berikutnya juga setengah skala — artinya penghematan awal terasa lebih berharga (fungsi tidak linear). Lokasi dengan sewa Rp70 jt mendapat nilai sekitar 57, bukan 50 seperti pada garis lurus.</div>
+<p><strong>Memeriksa hasil SMART</strong> (Goodwin &amp; Wright menyebut tujuannya model yang <em>requisite</em> — cukup untuk menyelesaikan masalah):</p>
+<ul><li><strong>Cek independensi preferensi.</strong> SMART menjumlahkan skor tertimbang, sehingga atribut harus bisa dinilai sendiri-sendiri. Kalau nilai "ukuran kantor" bergantung pada "lokasi" (kantor besar hanya berguna di lokasi tertentu), model penjumlahan bisa menyesatkan — gabungkan atau pecah atributnya.</li>
+<li><strong>Bandingkan dengan intuisi holistik.</strong> Jika hasil model sangat berbeda dengan perasaan pengambil keputusan, jangan langsung pilih salah satunya. Cari sebabnya: ada atribut yang terlupa? Bobot salah dipahami (swing vs "penting")? Atau intuisinya yang bias?</li>
+<li><strong>Analisis sensitivitas.</strong> Ubah bobot yang paling diperdebatkan dan cari titik silangnya (misalnya Braga vs Dago bertukar posisi di bobot turnover ±52%). Kalau titik silangnya jauh dari bobot sekarang, keputusannya <em>robust</em>.</li>
+<li><strong>Dominasi.</strong> Alternatif yang kalah di semua atribut dari alternatif lain bisa langsung dibuang, sebelum menghitung bobot.</li></ul>`,
+en: `<p>For numerical attributes (rent, distance, time), 0–100 values should not just follow a straight line. Decision makers often feel improvements non-linearly. A simple way to draw the curve is <strong>bisection</strong>.</p>
+<div class="note ex"><b>Example: annual office rent</b>Worst IDR 100 million = 0, best IDR 40 million = 100.<br>Question 1: "At what amount X does the improvement from IDR 100m to X feel <em>as big</em> as the improvement from X to IDR 40m?" Answer: IDR 75m → value 50.<br>Question 2: the midpoint between IDR 100m and 75m → IDR 88m → value 25.<br>Question 3: the midpoint between IDR 75m and 40m → IDR 58m → value 75.<br>Result: IDR 100m = 0, 88 = 25, 75 = 50, 58 = 75, 40 = 100. The first IDR 25m of savings is "worth" half the scale, and the next IDR 35m is also half — so early savings feel more valuable (a non-linear function). A location with IDR 70m rent scores about 57, not 50 as on a straight line.</div>
+<p><strong>Checking SMART results</strong> (Goodwin &amp; Wright call the aim a <em>requisite</em> model — sufficient to resolve the problem):</p>
+<ul><li><strong>Check preference independence.</strong> SMART adds up weighted scores, so attributes must be judged on their own. If the value of "office size" depends on "location" (a big office is only useful in certain locations), the additive model can mislead — merge or split the attributes.</li>
+<li><strong>Compare with holistic intuition.</strong> If the model's result is very different from the decision maker's feeling, do not simply pick one. Look for the reason: a forgotten attribute? Weights misunderstood (swing vs "importance")? Or is the intuition biased?</li>
+<li><strong>Sensitivity analysis.</strong> Change the most disputed weights and find the switch point (e.g. Braga and Dago swap places at a turnover weight of about 52%). If the switch point is far from the current weight, the decision is <em>robust</em>.</li>
+<li><strong>Dominance.</strong> An alternative beaten on every attribute by another can be dropped immediately, before computing weights.</li></ul>` } } }
+]);
+
+window.addSections("mk5", 6, [
+{ s: { h: { id: "Informasi tidak sempurna: menghitung nilai riset pasar (EVSI) dengan Bayes", en: "Imperfect information: valuing market research (EVSI) with Bayes" },
+p: { id: `<p>EVPI (Rp2 M di contoh peluncuran produk) adalah batas atas. Riset nyata tidak sempurna, jadi kita perlu menghitung <strong>expected value of sample information (EVSI)</strong>.</p>
+<p><strong>Data:</strong> prior P(tinggi) = 0,6, P(rendah) = 0,4. Survei punya keandalan: jika permintaan sebenarnya tinggi, survei memberi hasil "positif" 80%; jika rendah, survei tetap "positif" 30%.</p>
+<table><tr><th>Langkah</th><th>Perhitungan</th><th>Hasil</th></tr>
+<tr><td>P(positif)</td><td>0,6×0,8 + 0,4×0,3 = 0,48 + 0,12</td><td>0,60</td></tr>
+<tr><td>P(negatif)</td><td>1 − 0,60</td><td>0,40</td></tr>
+<tr><td>P(tinggi | positif)</td><td>0,48 ÷ 0,60</td><td>0,80</td></tr>
+<tr><td>P(tinggi | negatif)</td><td>0,6×0,2 ÷ 0,40 = 0,12 ÷ 0,40</td><td>0,30</td></tr></table>
+<p><strong>Rollback setelah hasil survei (Rp miliar):</strong></p>
+<table><tr><th>Hasil survei</th><th>EMV skala besar</th><th>EMV skala kecil</th><th>Pilih</th></tr>
+<tr><td>Positif (0,60)</td><td>0,8×10 + 0,2×(−4) = <strong>7,2</strong></td><td>0,8×5 + 0,2×1 = 4,2</td><td>Besar → 7,2</td></tr>
+<tr><td>Negatif (0,40)</td><td>0,3×10 + 0,7×(−4) = 0,2</td><td>0,3×5 + 0,7×1 = <strong>2,2</strong></td><td>Kecil → 2,2</td></tr></table>
+<div class="formula">EV dengan survei = 0,60×7,2 + 0,40×2,2 = 5,2<br>EVSI = 5,2 − 4,4 = 0,8 &nbsp;·&nbsp; Efisiensi = EVSI ÷ EVPI = 0,8 ÷ 2,0 = 40%</div>
+<div class="note tip"><b>Cara membaca</b>Survei ini layak hanya jika biayanya di bawah <strong>Rp0,8 M</strong>. Survei bernilai karena <em>bisa mengubah keputusan</em>: tanpa survei kita selalu pilih skala besar; dengan survei, hasil negatif membuat kita pindah ke skala kecil. Informasi yang tidak mungkin mengubah keputusan nilainya nol, semahal apa pun riset itu.</div>
+<p><strong>Profil risiko.</strong> Selain EMV, gambarkan distribusi hasil tiap strategi. Skala besar tanpa survei: 60% peluang +10, 40% peluang −4. Strategi "survei dulu" menurunkan peluang rugi −4 menjadi 0,60×0,2 = 12% saja (rugi hanya terjadi bila survei positif tapi permintaan ternyata rendah). Bagi perusahaan yang risk-averse, penurunan peluang rugi ini bisa lebih penting daripada kenaikan EMV-nya.</p>`,
+en: `<p>EVPI (IDR 2bn in the product-launch example) is an upper bound. Real research is imperfect, so we need the <strong>expected value of sample information (EVSI)</strong>.</p>
+<p><strong>Data:</strong> prior P(high) = 0.6, P(low) = 0.4. The survey's reliability: if demand is truly high, the survey says "positive" 80% of the time; if low, it still says "positive" 30% of the time.</p>
+<table><tr><th>Step</th><th>Calculation</th><th>Result</th></tr>
+<tr><td>P(positive)</td><td>0.6×0.8 + 0.4×0.3 = 0.48 + 0.12</td><td>0.60</td></tr>
+<tr><td>P(negative)</td><td>1 − 0.60</td><td>0.40</td></tr>
+<tr><td>P(high | positive)</td><td>0.48 ÷ 0.60</td><td>0.80</td></tr>
+<tr><td>P(high | negative)</td><td>0.6×0.2 ÷ 0.40 = 0.12 ÷ 0.40</td><td>0.30</td></tr></table>
+<p><strong>Rollback after the survey result (IDR bn):</strong></p>
+<table><tr><th>Survey result</th><th>EMV large scale</th><th>EMV small scale</th><th>Choose</th></tr>
+<tr><td>Positive (0.60)</td><td>0.8×10 + 0.2×(−4) = <strong>7.2</strong></td><td>0.8×5 + 0.2×1 = 4.2</td><td>Large → 7.2</td></tr>
+<tr><td>Negative (0.40)</td><td>0.3×10 + 0.7×(−4) = 0.2</td><td>0.3×5 + 0.7×1 = <strong>2.2</strong></td><td>Small → 2.2</td></tr></table>
+<div class="formula">EV with survey = 0.60×7.2 + 0.40×2.2 = 5.2<br>EVSI = 5.2 − 4.4 = 0.8 &nbsp;·&nbsp; Efficiency = EVSI ÷ EVPI = 0.8 ÷ 2.0 = 40%</div>
+<div class="note tip"><b>How to read it</b>The survey is worth buying only if it costs less than <strong>IDR 0.8bn</strong>. It has value because it <em>can change the decision</em>: without it we always choose large scale; with it, a negative result moves us to small scale. Information that cannot change the decision is worth zero, however expensive the research.</div>
+<p><strong>Risk profile.</strong> Besides EMV, draw the distribution of outcomes for each strategy. Large scale without a survey: 60% chance of +10, 40% chance of −4. The "survey first" strategy cuts the chance of the −4 loss to 0.60×0.2 = just 12% (a loss only happens if the survey is positive but demand turns out low). For a risk-averse firm, this lower chance of loss may matter more than the higher EMV.</p>` } } }
+]);
+
+window.addSections("mk5", 7, [
+{ s: { h: { id: "Rank reversal dalam angka, dan menggabungkan penilaian kelompok", en: "Rank reversal in numbers, and combining group judgements" },
+p: { id: `<p>Kritik paling terkenal terhadap AHP adalah <strong>rank reversal</strong> (Belton &amp; Gear, 1983): menambah alternatif baru — bahkan salinan alternatif yang sudah ada — bisa membalik urutan alternatif lama. Contoh dengan tiga kriteria berbobot sama (1/3) dan skor relatif yang dinormalisasi per kriteria:</p>
+<table><tr><th>Skor mentah</th><th>Kriteria 1</th><th>Kriteria 2</th><th>Kriteria 3</th></tr>
+<tr><td>A</td><td>1</td><td>9</td><td>8</td></tr>
+<tr><td>B</td><td>9</td><td>1</td><td>9</td></tr>
+<tr><td>C</td><td>1</td><td>1</td><td>1</td></tr>
+<tr><td>D (salinan B)</td><td>9</td><td>1</td><td>9</td></tr></table>
+<table><tr><th>Prioritas global</th><th>A</th><th>B</th><th>C</th><th>D</th></tr>
+<tr><td>Hanya A, B, C</td><td>0,451</td><td><strong>0,470</strong></td><td>0,079</td><td>—</td></tr>
+<tr><td>Setelah D ditambahkan</td><td><strong>0,365</strong></td><td>0,289</td><td>0,057</td><td>0,289</td></tr></table>
+<p>Sebelum D ada, B unggul atas A. Setelah D (yang identik dengan B) ditambahkan, A unggul atas B. Penyebabnya: normalisasi per kriteria membagi "jatah" skor dengan jumlah alternatif, sehingga kehadiran D mengurangi bagian B di kriteria tempat B kuat. Secara logika, menambah opsi yang tidak relevan seharusnya tidak mengubah pilihan antara A dan B.</p>
+<div class="note tip"><b>Cara mengurangi masalah ini</b>(1) Gunakan mode <em>ideal</em> (bagi dengan skor tertinggi, bukan jumlah) — tersedia di perangkat lunak AHP. (2) Jangan tambahkan alternatif yang jelas didominasi. (3) Untuk kriteria numerik (harga, waktu), pakai nilai terukur langsung, bukan perbandingan berpasangan. (4) Selalu cek hasilnya dengan metode lain (misalnya SMART) — seperti latihan BUMDes, di mana bobot AHP dan SMART hampir sama.</div>
+<p><strong>Menggabungkan penilaian kelompok.</strong> Bila beberapa orang memberi penilaian perbandingan berpasangan, gabungkan dengan <strong>rata-rata geometrik</strong>, bukan rata-rata aritmetika, agar sifat resiprokal tetap terjaga. Contoh: tiga manajer menilai Kualitas vs Harga = 3, 5, dan 1/3. Rata-rata geometrik = (3 × 5 × 1/3)<sup>1/3</sup> = 5<sup>1/3</sup> ≈ <strong>1,71</strong>, dan otomatis Harga vs Kualitas = 1/1,71 ≈ 0,58. Rata-rata aritmetika (3 + 5 + 0,33)/3 = 2,78 akan berlebihan karena tidak memperlakukan 3 dan 1/3 secara simetris. Jika penilaian anggota sangat berbeda, angka gabungan menyembunyikan konflik — diskusikan dulu alasannya sebelum dirata-rata.</p>`,
+en: `<p>The best-known criticism of AHP is <strong>rank reversal</strong> (Belton &amp; Gear, 1983): adding a new alternative — even a copy of an existing one — can flip the order of the old alternatives. Example with three equally weighted criteria (1/3 each) and relative scores normalised per criterion:</p>
+<table><tr><th>Raw score</th><th>Criterion 1</th><th>Criterion 2</th><th>Criterion 3</th></tr>
+<tr><td>A</td><td>1</td><td>9</td><td>8</td></tr>
+<tr><td>B</td><td>9</td><td>1</td><td>9</td></tr>
+<tr><td>C</td><td>1</td><td>1</td><td>1</td></tr>
+<tr><td>D (copy of B)</td><td>9</td><td>1</td><td>9</td></tr></table>
+<table><tr><th>Global priority</th><th>A</th><th>B</th><th>C</th><th>D</th></tr>
+<tr><td>Only A, B, C</td><td>0.451</td><td><strong>0.470</strong></td><td>0.079</td><td>—</td></tr>
+<tr><td>After adding D</td><td><strong>0.365</strong></td><td>0.289</td><td>0.057</td><td>0.289</td></tr></table>
+<p>Before D exists, B beats A. After adding D (identical to B), A beats B. The cause: normalising per criterion shares out the score among all alternatives, so D's presence shrinks B's share on the criteria where B is strong. Logically, adding an irrelevant option should not change the choice between A and B.</p>
+<div class="note tip"><b>Ways to reduce the problem</b>(1) Use the <em>ideal</em> mode (divide by the highest score, not the sum) — available in AHP software. (2) Do not add clearly dominated alternatives. (3) For numerical criteria (price, time), use measured values directly instead of pairwise comparisons. (4) Always cross-check with another method (such as SMART) — as in the BUMDes exercise, where AHP and SMART weights were almost identical.</div>
+<p><strong>Combining group judgements.</strong> When several people give pairwise judgements, combine them with the <strong>geometric mean</strong>, not the arithmetic mean, so the reciprocal property is preserved. Example: three managers rate Quality vs Price as 3, 5 and 1/3. Geometric mean = (3 × 5 × 1/3)<sup>1/3</sup> = 5<sup>1/3</sup> ≈ <strong>1.71</strong>, and automatically Price vs Quality = 1/1.71 ≈ 0.58. The arithmetic mean (3 + 5 + 0.33)/3 = 2.78 would overstate it because it does not treat 3 and 1/3 symmetrically. If members' judgements differ widely, the combined number hides the conflict — discuss the reasons before averaging.</p>` } } }
+]);
+
+/* MK6 — tambahan pendalaman per minggu (slide kelas + praktik analitik umum) */
+window.addSections("mk6", 1, [
+{ s: { h: { id: "Alur kerja proyek analitik (CRISP-DM) dan cara merumuskan pertanyaan", en: "The analytics project workflow (CRISP-DM) and how to frame the question" },
+p: { id: `<p>Prinsip "mulai dari keputusan" paling mudah dijalankan dengan alur kerja standar. Yang paling banyak dipakai di industri adalah <strong>CRISP-DM</strong> (Cross-Industry Standard Process for Data Mining):</p>
+<div class="steps"><div><b>1. Business understanding</b>Keputusan apa yang harus diambil, oleh siapa, kapan, dan apa ukuran keberhasilannya?</div><div><b>2. Data understanding</b>Data apa yang ada, dari mana, seberapa lengkap, dan apa definisinya? (Week 2)</div><div><b>3. Data preparation</b>Membersihkan, menggabungkan, membentuk ulang data. Sering memakan 60–80% waktu proyek.</div><div><b>4. Modeling</b>Deskriptif, prediktif, atau optimasi — sesuai pertanyaan. (Week 3–5)</div><div><b>5. Evaluation</b>Apakah hasilnya menjawab pertanyaan bisnis, bukan hanya akurat secara statistik?</div><div><b>6. Deployment</b>Hasil dipakai dalam proses nyata: dashboard, aturan persetujuan, jadwal produksi. Lalu dipantau dan diulang.</div></div>
+<p>Alurnya tidak lurus: sering kembali dari tahap 2 ke 1 (ternyata datanya tidak bisa menjawab pertanyaan) atau dari 5 ke 3 (model bagus tapi datanya bias).</p>
+<p><strong>Template merumuskan pertanyaan analitik:</strong></p>
+<table><tr><th>Elemen</th><th>Pertanyaan</th><th>Contoh BetonPrima</th></tr>
+<tr><td>Keputusan</td><td>Apa yang akan diputuskan?</td><td>Memilih antara diskon harga, 2 depot baru, atau kiln baru</td></tr>
+<tr><td>Pemilik keputusan</td><td>Siapa yang memutuskan dan kapan?</td><td>Direksi, rapat anggaran kuartal depan</td></tr>
+<tr><td>Ukuran keberhasilan</td><td>Angka apa yang ingin diubah?</td><td>Volume Jabar kembali ke 1,0 jt ton/kuartal; on-time delivery ≥ 90%</td></tr>
+<tr><td>Hipotesis</td><td>Apa dugaan penyebabnya?</td><td>Pelanggan pergi karena pengiriman terlambat saat hujan, bukan harga</td></tr>
+<tr><td>Data yang dibutuhkan</td><td>Data apa yang bisa menguji hipotesis?</td><td>Waktu kirim per order + data curah hujan + akun yang tutup + wawancara</td></tr>
+<tr><td>Tindakan</td><td>Apa yang dilakukan berbeda jika hipotesis benar/salah?</td><td>Benar → depot; salah (memang harga) → pertimbangkan diskon terarah</td></tr></table>
+<div class="note warn"><b>Tanda proyek analitik yang akan gagal</b>"Kita punya banyak data, coba cari insight." Tanpa keputusan yang jelas, analisis menghasilkan banyak grafik menarik tetapi tidak ada yang berubah. Kalau tidak bisa menjawab "apa yang akan kita lakukan berbeda setelah ini?", pertanyaannya belum siap.</div>`,
+en: `<p>The "start from the decision" principle is easiest to follow with a standard workflow. The most widely used in industry is <strong>CRISP-DM</strong> (Cross-Industry Standard Process for Data Mining):</p>
+<div class="steps"><div><b>1. Business understanding</b>Which decision must be made, by whom, when, and how will success be measured?</div><div><b>2. Data understanding</b>What data exists, where from, how complete, and how is it defined? (Week 2)</div><div><b>3. Data preparation</b>Cleaning, joining and reshaping data. Often takes 60–80% of project time.</div><div><b>4. Modelling</b>Descriptive, predictive or optimisation — matching the question. (Weeks 3–5)</div><div><b>5. Evaluation</b>Does the result answer the business question, not just score well statistically?</div><div><b>6. Deployment</b>The result is used in a real process: a dashboard, an approval rule, a production schedule. Then monitored and repeated.</div></div>
+<p>The flow is not a straight line: teams often go back from step 2 to 1 (the data cannot answer the question) or from 5 to 3 (the model looks good but the data is biased).</p>
+<p><strong>A template for framing an analytics question:</strong></p>
+<table><tr><th>Element</th><th>Question</th><th>BetonPrima example</th></tr>
+<tr><td>Decision</td><td>What will be decided?</td><td>Choose between a price discount, 2 new depots or a new kiln</td></tr>
+<tr><td>Decision owner</td><td>Who decides, and when?</td><td>The board, at next quarter's budget meeting</td></tr>
+<tr><td>Success measure</td><td>Which number should change?</td><td>West Java volume back to 1.0m tonnes/quarter; on-time delivery ≥ 90%</td></tr>
+<tr><td>Hypothesis</td><td>What is the suspected cause?</td><td>Customers leave because deliveries are late when it rains, not because of price</td></tr>
+<tr><td>Data needed</td><td>Which data can test the hypothesis?</td><td>Delivery time per order + rainfall data + closed accounts + interviews</td></tr>
+<tr><td>Action</td><td>What will we do differently if the hypothesis is true/false?</td><td>True → depots; false (really price) → consider targeted discounts</td></tr></table>
+<div class="note warn"><b>Signs an analytics project will fail</b>"We have lots of data, let's look for insights." Without a clear decision, analysis produces many interesting charts but nothing changes. If you cannot answer "what will we do differently after this?", the question is not ready yet.</div>` } } }
+]);
+
+window.addSections("mk6", 3, [
+{ s: { h: { id: "Statistik deskriptif dalam satu contoh, dan kenapa harus melihat grafiknya", en: "Descriptive statistics in one example, and why you must look at the chart" },
+p: { id: `<p>Contoh: waktu kirim (hari) 10 pesanan semen BetonPrima — <strong>2, 3, 3, 3, 4, 4, 5, 6, 7, 15</strong>.</p>
+<table><tr><th>Ukuran</th><th>Cara hitung</th><th>Hasil</th></tr>
+<tr><td>Mean</td><td>52 ÷ 10</td><td>5,2 hari</td></tr>
+<tr><td>Median</td><td>Rata-rata nilai ke-5 dan ke-6 (4 dan 4)</td><td>4 hari</td></tr>
+<tr><td>Modus</td><td>Nilai paling sering</td><td>3 hari</td></tr>
+<tr><td>Standar deviasi (sampel)</td><td>√[Σ(x − mean)² ÷ (n − 1)]</td><td>3,77 hari</td></tr>
+<tr><td>Kuartil 1 dan 3</td><td>Persentil ke-25 dan ke-75</td><td>Q1 = 3; Q3 = 5,75</td></tr>
+<tr><td>IQR</td><td>Q3 − Q1</td><td>2,75</td></tr>
+<tr><td>Batas outlier atas</td><td>Q3 + 1,5 × IQR = 5,75 + 4,125</td><td>9,875 → nilai 15 adalah <strong>outlier</strong></td></tr></table>
+<p>Satu pesanan yang terlambat 15 hari menarik mean ke 5,2, padahal separuh pesanan tiba dalam ≤ 4 hari. Tanpa outlier itu, mean turun ke 4,1 dan SD dari 3,77 ke 1,62. <strong>Jangan langsung menghapus outlier</strong> — tanyakan dulu kenapa. Di BetonPrima, pesanan 15 hari itu mungkin justru pesanan saat hujan deras: outlier itulah yang menjelaskan kenapa pelanggan pergi.</p>
+<div class="note tip"><b>Laporan yang jujur</b>"Median waktu kirim 4 hari (IQR 3–5,75), tetapi 1 dari 10 pesanan terlambat sampai 15 hari." Kalimat ini jauh lebih berguna untuk direksi daripada "rata-rata 5,2 hari".</div>
+<p><strong>Anscombe's quartet (1973)</strong> adalah empat set data yang punya mean, varians, korelasi (±0,82), dan garis regresi yang hampir identik — tetapi ketika digambar, bentuknya sangat berbeda: satu linear wajar, satu melengkung, satu lurus sempurna dengan satu outlier, dan satu hampir tegak dengan satu titik ekstrem yang menciptakan korelasi. Pelajarannya: <em>statistik ringkasan tanpa grafik bisa menyesatkan</em>. Selalu plot data sebelum menyimpulkan.</p>
+<p><strong>Teknik analitik diagnostik</strong> (menjawab "kenapa?"): <em>drill-down</em> (dari total nasional ke provinsi ke depot ke pelanggan), <em>perbandingan segmen</em> (hari hujan vs kering), <em>analisis varians</em> (anggaran vs realisasi: karena harga, volume, atau bauran?), <em>korelasi dan tabulasi silang</em>, serta <em>analisis akar masalah</em> (5 Whys, diagram tulang ikan). Ingat: korelasi menunjukkan kandidat penyebab, bukan bukti.</p>`,
+en: `<p>Example: delivery times (days) for 10 BetonPrima cement orders — <strong>2, 3, 3, 3, 4, 4, 5, 6, 7, 15</strong>.</p>
+<table><tr><th>Measure</th><th>How it is computed</th><th>Result</th></tr>
+<tr><td>Mean</td><td>52 ÷ 10</td><td>5.2 days</td></tr>
+<tr><td>Median</td><td>Average of the 5th and 6th values (4 and 4)</td><td>4 days</td></tr>
+<tr><td>Mode</td><td>Most frequent value</td><td>3 days</td></tr>
+<tr><td>Standard deviation (sample)</td><td>√[Σ(x − mean)² ÷ (n − 1)]</td><td>3.77 days</td></tr>
+<tr><td>Quartiles 1 and 3</td><td>25th and 75th percentiles</td><td>Q1 = 3; Q3 = 5.75</td></tr>
+<tr><td>IQR</td><td>Q3 − Q1</td><td>2.75</td></tr>
+<tr><td>Upper outlier fence</td><td>Q3 + 1.5 × IQR = 5.75 + 4.125</td><td>9.875 → the value 15 is an <strong>outlier</strong></td></tr></table>
+<p>One order delivered 15 days late pulls the mean to 5.2, while half the orders arrive in ≤ 4 days. Without that outlier the mean drops to 4.1 and the SD from 3.77 to 1.62. <strong>Do not delete outliers straight away</strong> — first ask why. At BetonPrima, that 15-day order may be exactly the one during heavy rain: the outlier is what explains why customers leave.</p>
+<div class="note tip"><b>An honest report</b>"Median delivery time is 4 days (IQR 3–5.75), but 1 in 10 orders was up to 15 days late." This sentence is far more useful to the board than "average 5.2 days".</div>
+<p><strong>Anscombe's quartet (1973)</strong> is four data sets with almost identical means, variances, correlation (about 0.82) and regression lines — but when plotted they look completely different: one sensible linear pattern, one curve, one perfect line with a single outlier, and one nearly vertical cloud where one extreme point creates the correlation. The lesson: <em>summary statistics without a chart can mislead</em>. Always plot the data before concluding.</p>
+<p><strong>Diagnostic analytics techniques</strong> (answering "why?"): <em>drill-down</em> (from the national total to province, depot and customer), <em>segment comparison</em> (rainy vs dry days), <em>variance analysis</em> (budget vs actual: due to price, volume or mix?), <em>correlation and cross-tabulation</em>, and <em>root-cause analysis</em> (5 Whys, fishbone diagram). Remember: correlation points to candidate causes, not proof.</p>` } } }
+]);
+
+window.addSections("mk6", 7, [
+{ s: { h: { id: "Mengukur akurasi forecast dan membaca rentang 80%", en: "Measuring forecast accuracy and reading the 80% range" },
+p: { id: `<p>Angka "error rata-rata 3,2%" di kasus distributor adalah <strong>MAPE</strong> (mean absolute percentage error): rata-rata selisih absolut antara forecast dan aktual, dalam persen dari aktual.</p>
+<div class="formula">MAPE = (1/n) × Σ |aktual − forecast| ÷ aktual × 100%</div>
+<table><tr><th>Bulan</th><th>Aktual (Rp M)</th><th>Forecast</th><th>|Selisih| ÷ aktual</th></tr>
+<tr><td>1</td><td>64</td><td>60</td><td>4 ÷ 64 = 6,25%</td></tr>
+<tr><td>2</td><td>70</td><td>73</td><td>3 ÷ 70 = 4,29%</td></tr>
+<tr><td>3</td><td>58</td><td>61</td><td>3 ÷ 58 = 5,17%</td></tr>
+<tr><td>4</td><td>66</td><td>66</td><td>0%</td></tr>
+<tr><td colspan="3"><strong>MAPE</strong></td><td><strong>3,93%</strong></td></tr></table>
+<p>Ukuran lain: <strong>MAE</strong> (rata-rata selisih dalam rupiah — mudah dipahami manajer: "rata-rata meleset Rp2,5 M") dan <strong>RMSE</strong> (menghukum kesalahan besar lebih berat). MAPE tidak cocok bila ada bulan dengan penjualan mendekati nol, karena pembaginya sangat kecil.</p>
+<div class="note warn"><b>Selalu uji di data yang tidak dipakai melatih model</b>Seperti di slide: model dilatih sampai Agustus 2025, lalu meramal 12 bulan berikutnya sekaligus. Error di data latih hampir selalu lebih kecil dan memberi rasa percaya diri yang palsu.</div>
+<p><strong>Membaca rentang 80%.</strong> Rentang 80% berarti: jika model ini dipakai berkali-kali, sekitar 8 dari 10 bulan nilai aktualnya jatuh di dalam rentang, dan 2 dari 10 jatuh di luar (1 di atas, 1 di bawah). Untuk anggaran, gunakan angka tengah sebagai target, batas bawah untuk merencanakan kas minimum, dan batas atas untuk memastikan stok dan armada cukup. Semakin jauh ke depan, rentangnya semakin lebar.</p>
+<p><strong>Penerapan lain di keuangan</strong> (dari peta slide): <em>perencanaan kas</em> (apakah kas cukup setiap hari — mirip cash budget MK2 Week 3), <em>deteksi fraud</em> (transaksi yang tidak mirip pola biasanya, misalnya analisis anomali), <em>risiko kurs</em> (seberapa jauh kurs bisa bergerak — Value at Risk), dan <em>penilaian investasi</em> (asumsi mana yang paling menentukan NPV — analisis sensitivitas dan simulasi).</p>`,
+en: `<p>The "average error 3.2%" in the distributor case is the <strong>MAPE</strong> (mean absolute percentage error): the average absolute gap between forecast and actual, as a percentage of actual.</p>
+<div class="formula">MAPE = (1/n) × Σ |actual − forecast| ÷ actual × 100%</div>
+<table><tr><th>Month</th><th>Actual (IDR bn)</th><th>Forecast</th><th>|Gap| ÷ actual</th></tr>
+<tr><td>1</td><td>64</td><td>60</td><td>4 ÷ 64 = 6.25%</td></tr>
+<tr><td>2</td><td>70</td><td>73</td><td>3 ÷ 70 = 4.29%</td></tr>
+<tr><td>3</td><td>58</td><td>61</td><td>3 ÷ 58 = 5.17%</td></tr>
+<tr><td>4</td><td>66</td><td>66</td><td>0%</td></tr>
+<tr><td colspan="3"><strong>MAPE</strong></td><td><strong>3.93%</strong></td></tr></table>
+<p>Other measures: <strong>MAE</strong> (the average gap in rupiah — easy for managers: "on average we miss by IDR 2.5bn") and <strong>RMSE</strong> (penalises large errors more heavily). MAPE is unsuitable when some months have sales near zero, because the divisor becomes tiny.</p>
+<div class="note warn"><b>Always test on data the model was not trained on</b>As on the slides: the model is trained up to August 2025, then forecasts the next 12 months at once. Error on training data is almost always smaller and gives false confidence.</div>
+<p><strong>Reading the 80% range.</strong> An 80% range means: if this model were used many times, about 8 in 10 months would land inside the range and 2 in 10 outside (1 above, 1 below). For the budget, use the middle figure as the target, the lower bound to plan minimum cash, and the upper bound to make sure stock and fleet are sufficient. The further ahead, the wider the range.</p>
+<p><strong>Other uses in finance</strong> (from the slide map): <em>cash planning</em> (is there enough cash every day — similar to the MK2 Week 3 cash budget), <em>fraud detection</em> (transactions unlike the usual pattern, e.g. anomaly analysis), <em>currency risk</em> (how far the exchange rate can move — Value at Risk), and <em>investment appraisal</em> (which assumption drives NPV most — sensitivity analysis and simulation).</p>` } } }
+]);
+
 </script>
 <script>
 (function(){
