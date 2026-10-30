@@ -13517,6 +13517,449 @@ if(o.cases)w.cases=o.cases.concat(o.dropOldCases?[]:(w.cases||[]));
 var key=cid+"-w"+n,p=window.PLUS[key]||(window.PLUS[key]={});p.more=o.more||[];if(o.charts)p.charts=Object.assign({},p.charts||{},o.charts);if(o.quizAdd)p.quiz=(p.quiz||[]).concat(o.quizAdd)};
 window.addSections=function(cid,n,list){var c=(window.COURSES||[]).find(function(x){return x.id===cid});if(!c)return;var w=c.weeks.find(function(x){return x.n===n});if(!w)return;list.forEach(function(it){var i=it.before?w.sections.findIndex(function(s){return s.h.id===it.before}):-1;if(i<0)w.sections.push(it.s);else w.sections.splice(i,0,it.s)})};
 
+/* MK1 — tambahan pendalaman per minggu (dari slide kelas + teori pendukung) */
+window.addSections("mk1", 1, [
+{ s: { h: { id: "Ikigai lebih dalam: empat irisan dan tanda-tanda yang 'bolong'", en: "Ikigai in more depth: the four overlaps and what is missing" },
+p: { id: `<p>Slide menggambarkan Ikigai sebagai titik temu empat lingkaran. Supaya bisa dipakai, pahami juga <strong>irisan dua lingkaran</strong> di antaranya. Setiap irisan memberi "rasa" tertentu, dan yang hilang biasanya terasa sebagai keluhan yang spesifik.</p>
+<table><tr><th>Irisan</th><th>Terdiri dari</th><th>Kalau hanya sampai sini, rasanya…</th></tr>
+<tr><td><strong>Passion</strong></td><td>Yang kamu cintai + yang kamu kuasai</td><td>Puas secara pribadi, tapi merasa "tidak berguna" dan keuangan tidak stabil</td></tr>
+<tr><td><strong>Mission</strong></td><td>Yang kamu cintai + yang dibutuhkan dunia</td><td>Bersemangat dan bermakna, tapi tidak dibayar dan kemampuan belum memadai</td></tr>
+<tr><td><strong>Vocation</strong></td><td>Yang dibutuhkan dunia + yang bisa dibayar</td><td>Aman dan berguna, tapi terasa seperti "pekerjaan orang lain" — tidak ada gairah</td></tr>
+<tr><td><strong>Profession</strong></td><td>Yang kamu kuasai + yang bisa dibayar</td><td>Nyaman dan mapan, tapi hampa — cepat bosan atau burnout</td></tr></table>
+<div class="note tip"><b>Cara memakai tabel ini</b>Daripada bertanya "apa ikigai saya?" (terlalu besar), tanyakan "lingkaran mana yang paling lemah sekarang?". Contoh: kalau pekerjaanmu cocok di tiga lingkaran tapi kamu tidak menikmatinya, langkahnya bukan langsung resign, melainkan mencari bagian pekerjaan yang kamu nikmati dan memperbesarnya (misalnya mengambil peran mentoring atau proyek inovasi).</div>
+<p><strong>Catatan akademik.</strong> Diagram empat lingkaran adalah adaptasi populer dari Barat. Dalam pemikiran Jepang aslinya (misalnya tulisan psikiater Mieko Kamiya), ikigai lebih sederhana dan sehari-hari: "hal yang membuat hidup terasa layak dijalani" — bisa berupa keluarga, hobi, atau rutinitas kecil, tidak harus pekerjaan yang dibayar. Jadi jangan merasa gagal kalau ikigai-mu belum berupa karier.</p>
+<h4>Kenapa purpose penting secara ilmiah</h4>
+<p>Slide menyebut orang dengan purpose yang jelas hidup lebih lama, lebih bahagia, dan lebih cepat pulih. Salah satu studi yang sering dikutip adalah Hill &amp; Turiano (2014, <em>Psychological Science</em>): dalam data lebih dari 6.000 orang dewasa yang diikuti 14 tahun, orang dengan rasa tujuan hidup yang lebih tinggi punya risiko meninggal lebih rendah, dan efeknya tetap ada di berbagai usia. Purpose juga membantu <em>resiliensi</em>: kegagalan dibaca sebagai hambatan di jalan, bukan bukti bahwa jalannya salah.</p>`,
+en: `<p>The slides draw Ikigai as the meeting point of four circles. To use it, understand the <strong>two-circle overlaps</strong> as well. Each overlap has its own "feel", and what's missing usually shows up as a specific complaint.</p>
+<table><tr><th>Overlap</th><th>Made of</th><th>If you only reach this, it feels…</th></tr>
+<tr><td><strong>Passion</strong></td><td>What you love + what you're good at</td><td>Personally satisfying, but "useless" and financially unstable</td></tr>
+<tr><td><strong>Mission</strong></td><td>What you love + what the world needs</td><td>Exciting and meaningful, but unpaid and not yet skilled enough</td></tr>
+<tr><td><strong>Vocation</strong></td><td>What the world needs + what you can be paid for</td><td>Secure and useful, but like "someone else's job" — no passion</td></tr>
+<tr><td><strong>Profession</strong></td><td>What you're good at + what you can be paid for</td><td>Comfortable and established, but empty — boredom or burnout</td></tr></table>
+<div class="note tip"><b>How to use this table</b>Instead of asking "what is my ikigai?" (too big), ask "which circle is weakest right now?". If your job fits three circles but you don't enjoy it, the step isn't to resign straight away, but to find the parts you do enjoy and grow them (for example mentoring or an innovation project).</div>
+<p><strong>Academic note.</strong> The four-circle diagram is a popular Western adaptation. In the original Japanese thinking (for example the psychiatrist Mieko Kamiya), ikigai is simpler and more everyday: "what makes life feel worth living" — family, a hobby or a small routine, not necessarily paid work. So don't feel you've failed if your ikigai isn't a career yet.</p>
+<h4>Why purpose matters scientifically</h4>
+<p>The slides say people with a clear purpose live longer, are happier and recover faster. A frequently cited study is Hill &amp; Turiano (2014, <em>Psychological Science</em>): in data on more than 6,000 adults followed for 14 years, people with a stronger sense of purpose had a lower risk of dying, and the effect held across ages. Purpose also supports <em>resilience</em>: a setback reads as an obstacle on the road, not proof the road is wrong.</p>` } } },
+{ s: { h: { id: "Riset self-awareness: empat tipe dan pertanyaan 'apa', bukan 'kenapa'", en: "Self-awareness research: four types, and asking 'what' rather than 'why'" },
+p: { id: `<p>Angka di slide (85–90% merasa sadar diri, hanya 10–15% yang benar-benar sadar diri) berasal dari riset psikolog organisasi Tasha Eurich (dipublikasikan di <em>Harvard Business Review</em>, 2018, "What Self-Awareness Really Is"). Riset yang sama menggabungkan dua cermin di slide menjadi empat tipe:</p>
+<div class="quad" data-x="Kesadaran diri eksternal (cermin luar) →" data-y="Kesadaran diri internal (cermin dalam) →">
+<div><b>Introspectors</b><span>Internal tinggi, eksternal rendah. Paham dirinya, tapi tidak pernah mengecek bagaimana orang lain melihatnya. Risiko: blind spot besar.</span></div>
+<div class="hi"><b>Aware</b><span>Keduanya tinggi. Tahu siapa dirinya dan tahu dampaknya pada orang lain. Inilah target.</span></div>
+<div><b>Seekers</b><span>Keduanya rendah. Belum tahu dirinya dan belum tahu bagaimana dilihat orang. Sering merasa "tersesat".</span></div>
+<div><b>Pleasers</b><span>Eksternal tinggi, internal rendah. Sangat fokus menyenangkan orang lain sampai lupa apa yang ia sendiri mau.</span></div></div>
+<p><strong>Temuan yang mengejutkan: introspeksi bisa menyesatkan.</strong> Orang yang sering bertanya "<em>kenapa</em> saya begini?" cenderung membuat cerita yang belum tentu benar dan malah makin cemas. Eurich menyarankan mengganti pertanyaannya menjadi "<em>apa</em>": bukan "kenapa saya marah di rapat?", tetapi "apa yang memicu saya, dan apa yang bisa saya lakukan berbeda lain kali?". Pertanyaan "apa" mengarah ke tindakan.</p>
+<p><strong>Temuan kedua: jabatan makin tinggi, self-awareness cenderung makin rendah.</strong> Semakin senior seseorang, semakin sedikit orang yang berani memberi umpan balik jujur. Karena itu pemimpin perlu sengaja membangun saluran umpan balik (misalnya "loving critics" — 2–3 orang yang dipercaya untuk berkata jujur).</p>`,
+en: `<p>The slide figures (85–90% believe they're self-aware, only 10–15% actually are) come from research by organisational psychologist Tasha Eurich (published in <em>Harvard Business Review</em>, 2018, "What Self-Awareness Really Is"). The same research combines the two mirrors into four types:</p>
+<div class="quad" data-x="External self-awareness (outer mirror) →" data-y="Internal self-awareness (inner mirror) →">
+<div><b>Introspectors</b><span>High internal, low external. Understand themselves but never check how others see them. Risk: big blind spots.</span></div>
+<div class="hi"><b>Aware</b><span>Both high. Know who they are and their effect on others. This is the target.</span></div>
+<div><b>Seekers</b><span>Both low. Don't yet know themselves or how others see them. Often feel "lost".</span></div>
+<div><b>Pleasers</b><span>High external, low internal. So focused on pleasing others they forget what they want.</span></div></div>
+<p><strong>A surprising finding: introspection can mislead.</strong> People who keep asking "<em>why</em> am I like this?" tend to build stories that may not be true and become more anxious. Eurich suggests switching to "<em>what</em>": not "why did I get angry in the meeting?" but "what triggered me, and what could I do differently next time?". "What" questions lead to action.</p>
+<p><strong>A second finding: the more senior, the lower self-awareness tends to be.</strong> The more senior someone is, the fewer people dare give honest feedback. So leaders need to build feedback channels deliberately (for example "loving critics" — 2–3 trusted people asked to be candid).</p>` } } },
+{ s: { h: { id: "Lembar kerja: strategi hidup satu halaman", en: "Worksheet: a one-page life strategy" },
+p: { id: `<p>Gabungkan semua alat minggu ini ke dalam satu halaman. Isi dengan jujur, lalu tinjau ulang tiap 3 bulan (langkah 4 blueprint).</p>
+<table><tr><th>Bagian</th><th>Pertanyaan pengisi</th><th>Contoh jawaban</th></tr>
+<tr><td>Purpose statement</td><td>"Saya ada untuk ___ agar ___."</td><td>Saya ada untuk membangun tim yang berdaya agar organisasi publik melayani masyarakat dengan lebih baik.</td></tr>
+<tr><td>5 nilai inti</td><td>Momen paling bangga? Momen paling marah? Persempit ke 5.</td><td>Integritas, Pertumbuhan, Keluarga, Keberanian, Pelayanan</td></tr>
+<tr><td>Kekuatan &amp; blind spot</td><td>Apa kata 3 orang (feedback) dan hasil tes (DISC/StrengthsFinder)?</td><td>Kekuatan: analitis, tegas. Blind spot: memotong pembicaraan.</td></tr>
+<tr><td>Identitas yang dituju</td><td>"Saya adalah orang yang…"</td><td>Saya adalah pemimpin yang mendengar dulu sebelum memutuskan.</td></tr>
+<tr><td>3 tujuan 12 bulan</td><td>Apakah tiap tujuan melayani purpose dan tidak melanggar nilai?</td><td>Lulus P3MD dengan baik; olahraga 3×/minggu; makan malam keluarga 4×/minggu</td></tr>
+<tr><td>Bukti di kalender</td><td>Kebiasaan kecil apa yang membuktikan identitas itu tiap minggu?</td><td>1 sesi 1-on-1 per minggu tanpa memotong; jurnal 10 menit tiap Minggu malam</td></tr></table>
+<div class="note ex"><b>Identity-based living dalam praktik</b>Gagasan "jadilah orangnya dulu" di slide sejalan dengan konsep <em>identity-based habits</em> dari James Clear (<em>Atomic Habits</em>, 2018): setiap tindakan kecil adalah "suara" untuk identitas yang kamu pilih. Daripada menargetkan "lari 10 km", tetapkan "saya adalah orang yang berolahraga" — lalu buktikan dengan tindakan sekecil apa pun hari ini (misalnya jalan kaki 10 menit). Tujuan besar akan mengikuti sebagai hasil.</div>`,
+en: `<p>Combine all of this week's tools on one page. Fill it in honestly and review it every 3 months (step 4 of the blueprint).</p>
+<table><tr><th>Part</th><th>Prompt</th><th>Example answer</th></tr>
+<tr><td>Purpose statement</td><td>"I exist to ___ so that ___."</td><td>I exist to build empowered teams so that public organisations serve people better.</td></tr>
+<tr><td>5 core values</td><td>Proudest moment? Angriest moment? Narrow to 5.</td><td>Integrity, Growth, Family, Courage, Service</td></tr>
+<tr><td>Strengths &amp; blind spots</td><td>What do 3 people (feedback) and tests (DISC/StrengthsFinder) say?</td><td>Strengths: analytical, decisive. Blind spot: interrupting.</td></tr>
+<tr><td>Target identity</td><td>"I am someone who…"</td><td>I am a leader who listens before deciding.</td></tr>
+<tr><td>3 goals for 12 months</td><td>Does each goal serve the purpose and respect the values?</td><td>Finish P3MD well; exercise 3×/week; family dinner 4×/week</td></tr>
+<tr><td>Proof in the calendar</td><td>Which small weekly habits prove that identity?</td><td>One 1-on-1 a week without interrupting; 10-minute journal every Sunday night</td></tr></table>
+<div class="note ex"><b>Identity-based living in practice</b>The slide's idea of "become the person first" matches James Clear's <em>identity-based habits</em> (<em>Atomic Habits</em>, 2018): every small action is a "vote" for the identity you choose. Instead of targeting "run 10 km", decide "I am someone who exercises" — and prove it with any small action today (for example a 10-minute walk). The big goals follow as an outcome.</div>` } } }
+]);
+
+window.addSections("mk1", 2, [
+{ s: { h: { id: "Bank kata DISC: mengenali tipe dari cara orang berbicara dan bekerja", en: "DISC word bank: recognising types from how people talk and work" },
+p: { id: `<p>Slide memberi daftar kata sifat untuk tiap warna. Gunakan daftar ini untuk "membaca" orang tanpa tes — dengarkan kata yang mereka pakai dan perhatikan cara kerja mereka.</p>
+<table><tr><th>Warna / tipe</th><th>Kata sifat dari slide (pilihan)</th><th>Kalimat khasnya</th></tr>
+<tr><td><strong>Merah – Dominant</strong></td><td>Ambisius, berkemauan keras, berorientasi tujuan, pemecah masalah, pelopor, tegas, inovator, tidak sabar, mengontrol, berorientasi hasil, cepat, lugas, mandiri</td><td>"Intinya apa? Kapan selesai?"</td></tr>
+<tr><td><strong>Kuning – Influencing</strong></td><td>Banyak bicara, antusias, persuasif, kreatif, optimis, spontan, ekspresif, menawan, butuh perhatian, menyemangati, fleksibel, imajinatif</td><td>"Seru nih! Siapa lagi yang bisa kita ajak?"</td></tr>
+<tr><td><strong>Hijau – Steady</strong></td><td>Sabar, santai, terkendali, dapat diandalkan, setia, rendah hati, stabil, hati-hati, suportif, pendengar yang baik, gigih, menyembunyikan perasaan</td><td>"Bagaimana dampaknya ke tim? Pelan-pelan saja."</td></tr>
+<tr><td><strong>Biru – Compliant</strong></td><td>Teliti, sistematis, berjarak, benar, konvensional, objektif, terstruktur, analitis, perfeksionis, butuh waktu, metodis, mencari fakta, patuh aturan</td><td>"Datanya dari mana? Sudah sesuai prosedur?"</td></tr></table>
+<div class="note warn"><b>Batas DISC</b>DISC berguna untuk komunikasi sehari-hari, tetapi bukan alat seleksi yang kuat. Hasilnya bisa berubah menurut situasi (grafik "mask"), dan riset ilmiah lebih banyak memakai Big Five. Jangan menolak kandidat atau menempatkan orang <em>hanya</em> berdasarkan DISC — pakai sebagai bahan percakapan.</div>`,
+en: `<p>The slides list adjectives for each colour. Use them to "read" people without a test — listen to the words they use and watch how they work.</p>
+<table><tr><th>Colour / type</th><th>Adjectives from the slides (selection)</th><th>Typical line</th></tr>
+<tr><td><strong>Red – Dominant</strong></td><td>Ambitious, strong-willed, goal-oriented, problem-solver, pioneer, decisive, innovator, impatient, controlling, results-oriented, fast, straightforward, independent</td><td>"What's the bottom line? When is it done?"</td></tr>
+<tr><td><strong>Yellow – Influencing</strong></td><td>Talkative, enthusiastic, persuasive, creative, optimistic, spontaneous, expressive, charming, needs attention, encouraging, flexible, imaginative</td><td>"This is exciting! Who else can we bring in?"</td></tr>
+<tr><td><strong>Green – Steady</strong></td><td>Patient, relaxed, self-controlled, reliable, loyal, modest, stable, prudent, supportive, good listener, persistent, conceals feelings</td><td>"How will this affect the team? Let's take it step by step."</td></tr>
+<tr><td><strong>Blue – Compliant</strong></td><td>Conscientious, systematic, distant, correct, conventional, objective, structured, analytical, perfectionist, needs time, methodical, seeks facts, follows rules</td><td>"Where's the data from? Does this follow procedure?"</td></tr></table>
+<div class="note warn"><b>Limits of DISC</b>DISC helps everyday communication, but it is not a strong selection tool. Results shift with context (the "mask" graph), and scientific research relies more on the Big Five. Don't reject candidates or place people <em>only</em> on DISC — use it to start conversations.</div>` } } },
+{ s: { h: { id: "OCEAN / Big Five: model kepribadian yang paling kuat secara ilmiah", en: "OCEAN / Big Five: the most scientifically robust personality model" },
+p: { id: `<p>Slide menyebut <strong>OCEAN Model</strong> tanpa penjelasan panjang. Ini model yang paling banyak dipakai dalam riset psikologi kepribadian. Tiap orang punya skor di lima dimensi (bukan "tipe"):</p>
+<table><tr><th>Dimensi</th><th>Skor tinggi</th><th>Skor rendah</th><th>Kaitan dengan kerja</th></tr>
+<tr><td><strong>O</strong>penness to experience</td><td>Penasaran, imajinatif, suka ide baru</td><td>Praktis, suka yang sudah terbukti</td><td>Terkait kreativitas dan kemampuan belajar hal baru</td></tr>
+<tr><td><strong>C</strong>onscientiousness</td><td>Teratur, disiplin, bertanggung jawab</td><td>Spontan, kurang terstruktur</td><td><strong>Prediktor kinerja paling konsisten</strong> di hampir semua jenis pekerjaan (meta-analisis Barrick &amp; Mount, 1991)</td></tr>
+<tr><td><strong>E</strong>xtraversion</td><td>Energik, suka bergaul, asertif</td><td>Pendiam, nyaman sendiri</td><td>Membantu di penjualan dan peran manajerial; tidak wajib untuk peran teknis</td></tr>
+<tr><td><strong>A</strong>greeableness</td><td>Ramah, kooperatif, percaya</td><td>Kompetitif, kritis, skeptis</td><td>Membantu kerja tim dan layanan; terlalu tinggi bisa sulit berkata "tidak"</td></tr>
+<tr><td><strong>N</strong>euroticism (kebalikan: stabilitas emosi)</td><td>Mudah cemas, sensitif terhadap stres</td><td>Tenang, stabil</td><td>Stabilitas emosi membantu di pekerjaan bertekanan tinggi</td></tr></table>
+<h4>DISC vs Big Five</h4>
+<div class="vs"><div><b>DISC</b><ul><li>Fokus pada perilaku yang terlihat</li><li>Empat tipe, mudah diingat dan dipakai dalam rapat</li><li>Cocok untuk komunikasi dan pembentukan tim</li><li>Dukungan riset ilmiahnya terbatas</li></ul></div><div><b>Big Five (OCEAN)</b><ul><li>Fokus pada sifat kepribadian</li><li>Lima skala kontinu, lebih rinci</li><li>Cocok untuk riset, seleksi, dan pengembangan</li><li>Didukung puluhan tahun riset lintas budaya</li></ul></div></div>
+<p>Kaitan ke slide Week 7: <em>conscientiousness</em> lebih memprediksi siapa yang naik di hierarki informal di organisasi yang berorientasi tugas (misalnya perusahaan teknik), sedangkan <em>extraversion</em> lebih memprediksi di organisasi yang berorientasi sosial (konsultan, penjualan).</p>`,
+en: `<p>The slides mention the <strong>OCEAN Model</strong> without much detail. It's the most widely used model in personality research. Everyone has a score on five dimensions (not a "type"):</p>
+<table><tr><th>Dimension</th><th>High score</th><th>Low score</th><th>Link to work</th></tr>
+<tr><td><strong>O</strong>penness to experience</td><td>Curious, imaginative, likes new ideas</td><td>Practical, prefers the proven</td><td>Linked to creativity and learning new things</td></tr>
+<tr><td><strong>C</strong>onscientiousness</td><td>Organised, disciplined, responsible</td><td>Spontaneous, less structured</td><td><strong>The most consistent predictor of performance</strong> across almost all jobs (Barrick &amp; Mount meta-analysis, 1991)</td></tr>
+<tr><td><strong>E</strong>xtraversion</td><td>Energetic, sociable, assertive</td><td>Quiet, comfortable alone</td><td>Helps in sales and managerial roles; not required for technical roles</td></tr>
+<tr><td><strong>A</strong>greeableness</td><td>Friendly, cooperative, trusting</td><td>Competitive, critical, sceptical</td><td>Helps teamwork and service; very high may struggle to say "no"</td></tr>
+<tr><td><strong>N</strong>euroticism (opposite: emotional stability)</td><td>Anxious, stress-sensitive</td><td>Calm, stable</td><td>Emotional stability helps in high-pressure jobs</td></tr></table>
+<h4>DISC vs Big Five</h4>
+<div class="vs"><div><b>DISC</b><ul><li>Focuses on visible behaviour</li><li>Four types, easy to remember and use in meetings</li><li>Good for communication and team building</li><li>Limited scientific support</li></ul></div><div><b>Big Five (OCEAN)</b><ul><li>Focuses on personality traits</li><li>Five continuous scales, more detailed</li><li>Good for research, selection and development</li><li>Backed by decades of cross-cultural research</li></ul></div></div>
+<p>Link to Week 7's slides: <em>conscientiousness</em> better predicts who rises in the informal hierarchy in task-oriented organisations (for example engineering firms), while <em>extraversion</em> predicts it better in socially oriented ones (consulting, sales).</p>` } } },
+{ s: { h: { id: "Manager vs leader dan membangun kepercayaan", en: "Manager vs leader, and building trust" },
+p: { id: `<p>Slide Week 2 menyebut dua hal di atas self-awareness: <strong>mengenali perbedaan manager vs leader</strong> dan <strong>membangun kepercayaan</strong>. Rinciannya:</p>
+<table><tr><th>Fungsi</th><th>Manajemen (mengurus kompleksitas)</th><th>Kepemimpinan (mengurus perubahan)</th></tr>
+<tr><td>Menentukan arah</td><td>Perencanaan dan anggaran</td><td>Menetapkan visi dan strategi</td></tr>
+<tr><td>Mengatur orang</td><td>Struktur organisasi dan penempatan staf</td><td>Menyelaraskan orang pada visi (komunikasi)</td></tr>
+<tr><td>Menjalankan</td><td>Mengendalikan dan memecahkan masalah</td><td>Memotivasi dan menginspirasi</td></tr></table>
+<p>Pembagian ini dari John Kotter (1990, "What Leaders Really Do"). Keduanya dibutuhkan: organisasi yang hanya dikelola tanpa dipimpin akan kaku; yang hanya dipimpin tanpa dikelola akan kacau. Seorang atasan di BUMN biasanya harus memainkan keduanya.</p>
+<h4>"Say the thing you think you cannot say"</h4>
+<p>Prinsip dari <em>Scaling People</em> ini berarti: kepercayaan tumbuh ketika hal yang sulit dibicarakan secara terbuka, bukan disimpan. Contoh di tempat kerja:</p>
+<ul><li>"Saya khawatir target ini tidak realistis, dan ini alasannya…"</li>
+<li>"Saya merasa kontribusi saya di proyek ini tidak terlihat." (kalimat yang seharusnya Kana sampaikan ke Pak Bram di kasus Week 3)</li>
+<li>"Gaya saya yang cepat mungkin membuatmu merasa ditekan — beri tahu saya kalau itu terjadi."</li></ul>
+<p>Cara sederhana mempraktikkan <em>mutual awareness</em>: tiap anggota tim menulis satu halaman "cara bekerja dengan saya" — jam kerja terbaik, cara menerima kritik, tipe DISC, hal yang membuat kesal — lalu dibagikan ke tim. Ini mempercepat saling mengenal yang biasanya butuh berbulan-bulan.</p>`,
+en: `<p>Week 2's slides name two things above self-awareness: <strong>knowing the difference between manager and leader</strong> and <strong>building trust</strong>. In detail:</p>
+<table><tr><th>Function</th><th>Management (coping with complexity)</th><th>Leadership (coping with change)</th></tr>
+<tr><td>Setting direction</td><td>Planning and budgeting</td><td>Setting vision and strategy</td></tr>
+<tr><td>Organising people</td><td>Structure and staffing</td><td>Aligning people with the vision (communication)</td></tr>
+<tr><td>Execution</td><td>Controlling and problem solving</td><td>Motivating and inspiring</td></tr></table>
+<p>This split comes from John Kotter (1990, "What Leaders Really Do"). Both are needed: an organisation managed but not led becomes rigid; one led but not managed becomes chaotic. A manager in a state-owned enterprise usually has to do both.</p>
+<h4>"Say the thing you think you cannot say"</h4>
+<p>This <em>Scaling People</em> principle means trust grows when hard things are discussed openly rather than held back. Workplace examples:</p>
+<ul><li>"I'm worried this target isn't realistic, and here's why…"</li>
+<li>"I feel my contribution to this project isn't visible." (what Kana should have told Pak Bram in Week 3's case)</li>
+<li>"My fast pace may make you feel pushed — tell me when that happens."</li></ul>
+<p>A simple way to practise <em>mutual awareness</em>: each team member writes a one-page "how to work with me" — best working hours, how they take criticism, DISC type, pet peeves — and shares it with the team. It speeds up getting to know each other, which normally takes months.</p>` } } }
+]);
+
+window.addSections("mk1", 3, [
+{ s: { h: { id: "Teori proses: Expectancy (Vroom), Equity (Adams), dan Goal-setting (Locke & Latham)", en: "Process theories: Expectancy (Vroom), Equity (Adams) and Goal-setting (Locke & Latham)" },
+p: { id: `<p>Maslow, McClelland, Herzberg, dan Four Drives menjawab <em>apa</em> yang memotivasi (teori isi). Slide menegaskan motivasi adalah <strong>pilihan</strong> — "apakah sepadan usaha saya?". Teori proses berikut menjelaskan <em>bagaimana</em> pilihan itu dihitung di kepala orang.</p>
+<h4>1. Expectancy Theory (Vroom, 1964)</h4>
+<div class="formula">Motivasi = Expectancy × Instrumentality × Valence</div>
+<ul><li><strong>Expectancy</strong> — "Kalau saya berusaha, apakah saya bisa mencapai target?" (yakin mampu)</li>
+<li><strong>Instrumentality</strong> — "Kalau target tercapai, apakah imbalannya benar-benar datang?" (percaya pada sistem)</li>
+<li><strong>Valence</strong> — "Apakah imbalan itu berarti bagi saya?" (nilai imbalan)</li></ul>
+<p>Karena dikalikan, satu saja nol membuat motivasi nol. Kasus Kana: expectancy-nya tinggi (ia mampu meracik produk), tetapi <strong>instrumentality-nya runtuh</strong> — ia melihat kredit Kiddy Meal diambil Pak Bram, dan dulu merek XYZ juga bukan dikreditkan ke Tuti. Pesan yang ia tangkap: "usaha tidak berujung pengakuan".</p>
+<h4>2. Equity Theory (Adams, 1963)</h4>
+<p>Orang membandingkan rasio <em>hasil ÷ masukan</em> miliknya dengan orang lain.</p>
+<div class="formula">Hasil saya ÷ Masukan saya  vs  Hasil orang lain ÷ Masukan orang lain</div>
+<p>Kalau merasa dirugikan, orang akan menurunkan usaha, menuntut lebih, mengubah pembanding, atau keluar. Kana membandingkan diri dengan anak-anak MBA baru (mendapat sorotan dengan usaha yang menurutnya lebih kecil) dan dengan teman di Nestlé (mendapat fasilitas mobil, sementara ia hanya tunjangan transport Rp1,5 juta). Rencana pindah kerja adalah reaksi khas ketidakadilan.</p>
+<h4>3. Goal-Setting Theory (Locke &amp; Latham)</h4>
+<p>Riset puluhan tahun menunjukkan target yang <strong>spesifik dan menantang</strong> menghasilkan kinerja lebih tinggi daripada "lakukan yang terbaik" — asalkan ada <strong>komitmen</strong> pada target dan <strong>umpan balik</strong> tentang kemajuan. Ini dasar dari target SMART dan OKR.</p>`,
+en: `<p>Maslow, McClelland, Herzberg and Four Drives explain <em>what</em> motivates (content theories). The slides stress that motivation is a <strong>choice</strong> — "is it worth my effort?". The process theories below explain <em>how</em> people work that choice out.</p>
+<h4>1. Expectancy Theory (Vroom, 1964)</h4>
+<div class="formula">Motivation = Expectancy × Instrumentality × Valence</div>
+<ul><li><strong>Expectancy</strong> — "If I try, can I hit the target?" (belief in ability)</li>
+<li><strong>Instrumentality</strong> — "If I hit it, will the reward really come?" (trust in the system)</li>
+<li><strong>Valence</strong> — "Does that reward matter to me?" (value of the reward)</li></ul>
+<p>Because they multiply, any zero makes motivation zero. Kana's case: her expectancy is high (she can develop products), but her <strong>instrumentality collapsed</strong> — she saw Pak Bram take credit for Kiddy Meal, and brand XYZ wasn't credited to Tuti either. Her takeaway: "effort doesn't lead to recognition".</p>
+<h4>2. Equity Theory (Adams, 1963)</h4>
+<p>People compare their <em>outcome ÷ input</em> ratio with others'.</p>
+<div class="formula">My outcomes ÷ my inputs  vs  others' outcomes ÷ others' inputs</div>
+<p>If they feel short-changed, people cut effort, ask for more, change the comparison or leave. Kana compares herself with the new MBA hires (in the spotlight for what she sees as less effort) and with a friend at Nestlé (with a company car, while she gets only a Rp1.5 million transport allowance). Planning to switch jobs is a classic reaction to inequity.</p>
+<h4>3. Goal-Setting Theory (Locke &amp; Latham)</h4>
+<p>Decades of research show that <strong>specific, challenging</strong> goals produce higher performance than "do your best" — provided there is <strong>commitment</strong> to the goal and <strong>feedback</strong> on progress. This underpins SMART targets and OKRs.</p>` } } },
+{ s: { h: { id: "Desain pekerjaan dan motivasi intrinsik: Job Characteristics Model & Self-Determination Theory", en: "Job design and intrinsic motivation: Job Characteristics Model & Self-Determination Theory" },
+p: { id: `<p>Slide meta-analisis Cerasoli menyebut motivasi intrinsik paling penting untuk tugas kompleks. Pertanyaannya: bagaimana <em>merancang</em> pekerjaan agar memunculkan motivasi intrinsik? Dua teori menjawabnya.</p>
+<h4>Job Characteristics Model (Hackman &amp; Oldham, 1976)</h4>
+<table><tr><th>Karakteristik</th><th>Artinya</th><th>Di kasus Kana</th></tr>
+<tr><td>Skill variety</td><td>Butuh beragam keterampilan</td><td>Ada (QA, resep, uji panel)</td></tr>
+<tr><td>Task identity</td><td>Mengerjakan sesuatu dari awal sampai akhir yang terlihat</td><td><strong>Lemah</strong> — ia tidak ikut tim launching, hanya "uprek-uprek di mesin"</td></tr>
+<tr><td>Task significance</td><td>Pekerjaan berdampak bagi orang lain</td><td>Ada (produk untuk anak-anak), tapi tidak diakui</td></tr>
+<tr><td>Autonomy</td><td>Kebebasan menentukan cara kerja</td><td>Sedang</td></tr>
+<tr><td>Feedback</td><td>Tahu hasil kerjanya</td><td><strong>Lemah</strong> — hasilnya diumumkan atas nama orang lain</td></tr></table>
+<div class="formula">Motivating Potential Score = ((Skill variety + Task identity + Task significance) ÷ 3) × Autonomy × Feedback</div>
+<p>Karena autonomy dan feedback dikalikan, keduanya paling menentukan. Perbaikan paling murah untuk Kana: libatkan ia dalam tim launching (task identity) dan sebut namanya dalam presentasi ke Pak Sutanto (feedback dan pengakuan).</p>
+<h4>Self-Determination Theory (Deci &amp; Ryan)</h4>
+<p>Motivasi intrinsik tumbuh ketika tiga kebutuhan psikologis terpenuhi: <strong>autonomy</strong> (merasa memilih), <strong>competence</strong> (merasa mampu dan berkembang), dan <strong>relatedness</strong> (merasa terhubung dengan orang lain). Ini menjelaskan efek "crowding out" di slide: insentif yang terasa <em>mengontrol</em> (komisi ketat, pengawasan berlebihan) mengurangi rasa otonomi, sehingga motivasi intrinsik melemah.</p>`,
+en: `<p>The Cerasoli meta-analysis slide says intrinsic motivation matters most for complex tasks. So how do you <em>design</em> jobs that spark it? Two theories answer.</p>
+<h4>Job Characteristics Model (Hackman &amp; Oldham, 1976)</h4>
+<table><tr><th>Characteristic</th><th>Meaning</th><th>In Kana's case</th></tr>
+<tr><td>Skill variety</td><td>Needs a range of skills</td><td>Present (QA, recipes, panel tests)</td></tr>
+<tr><td>Task identity</td><td>Doing a visible piece of work from start to finish</td><td><strong>Weak</strong> — she's not on the launch team, just "tinkering with machines"</td></tr>
+<tr><td>Task significance</td><td>Work affects others</td><td>Present (products for children), but unrecognised</td></tr>
+<tr><td>Autonomy</td><td>Freedom over how to work</td><td>Moderate</td></tr>
+<tr><td>Feedback</td><td>Knowing the results of one's work</td><td><strong>Weak</strong> — results are announced under someone else's name</td></tr></table>
+<div class="formula">Motivating Potential Score = ((Skill variety + Task identity + Task significance) ÷ 3) × Autonomy × Feedback</div>
+<p>Because autonomy and feedback multiply, they matter most. The cheapest fix for Kana: put her on the launch team (task identity) and name her in the presentation to Pak Sutanto (feedback and recognition).</p>
+<h4>Self-Determination Theory (Deci &amp; Ryan)</h4>
+<p>Intrinsic motivation grows when three psychological needs are met: <strong>autonomy</strong> (feeling of choice), <strong>competence</strong> (feeling capable and growing) and <strong>relatedness</strong> (feeling connected). This explains the slide's "crowding out" effect: incentives that feel <em>controlling</em> (strict commissions, heavy monitoring) reduce autonomy, so intrinsic motivation weakens.</p>` } } },
+{ s: { h: { id: "Pembahasan empat pertanyaan diskusi kasus Rudi dan Kana", en: "Working through the four Rudi and Kana discussion questions" },
+p: { id: `<p><em>Arah jawaban berikut adalah bantuan berpikir yang menghubungkan kasus dengan teori minggu ini — bukan kunci resmi.</em></p>
+<table><tr><th>Pertanyaan</th><th>Arah jawaban</th></tr>
+<tr><td><strong>1. Apa masalahnya?</strong></td><td>Di permukaan: Kana kesal karena Pak Bram mengklaim "project ownership" Kiddy Meal dan ingin pindah kerja. Di bawahnya: (a) <em>motivasi kerja Kana runtuh</em> karena pengakuan dan keadilan; (b) ada tekanan ekonomi keluarga (adik sekolah, ayah sakit, tabungan rumah); (c) <em>komunikasi Rudi–Kana tidak nyambung</em> — Kana butuh dukungan serius, Rudi merespons dengan candaan dan saran "berhenti saja".</td></tr>
+<tr><td><strong>2. Kenapa terjadi? Analisis perilaku</strong></td><td><strong>Kana</strong>: dorongan <em>acquire</em> (gaji 4 juta + transport 1,5 juta vs fasilitas mobil teman) dan <em>defend</em> (rasa adil) terganggu; Herzberg — faktor hygiene (gaji, supervisi) memicu ketidakpuasan, sementara motivator (pengakuan, tanggung jawab) hilang; equity — ia membandingkan dengan MBA baru; expectancy — instrumentality nol. Ia juga punya kebutuhan <em>achievement</em> tinggi (McClelland) dan ingin membuat orang tua bangga. <strong>Rudi</strong>: menahan masalahnya sendiri, menghindari konflik, memakai humor — gaya yang di Week 5 bisa dibaca sebagai respons Child; ia belum menjalankan active listening. <strong>Pak Bram</strong>: dulu atasan yang membina, kini terlihat "cari muka" — kemungkinan dipicu politik organisasi (Week 7): kedekatan dengan Pak Sutanto yang dekat pemilik adalah sumber kekuasaan.</td></tr>
+<tr><td><strong>3. Saran untuk para pemeran</strong></td><td><strong>Kana</strong>: jangan resign dalam emosi; bicara langsung ke Pak Bram dengan SBI ("Saat presentasi Kiddy Meal [situasi], nama tim QA/PD tidak disebut [perilaku], saya merasa kontribusi kami tidak terlihat [dampak]"), minta peran di tim launching, dan dokumentasikan kontribusinya. Kalau tetap mau pindah, bandingkan tawaran secara utuh (lokasi Cikarang vs Tangerang memengaruhi rencana rumah). <strong>Rudi</strong>: dengarkan aktif tanpa menasihati dulu ("Yang aku dengar, kamu merasa kerja kerasmu diakui orang lain, ya?"), lalu bantu Kana menimbang pilihan. <strong>Pak Bram/perusahaan</strong>: kredit bersama untuk tim, jalur karier yang jelas bagi tim teknis, dan sistem penghargaan yang membedakan kontribusi.</td></tr>
+<tr><td><strong>4. Menikah atau tidak?</strong></td><td>Tidak ada jawaban benar; yang dinilai adalah alasannya. Hubungkan dengan Week 1: apakah purpose dan nilai keduanya selaras (Kana: prestasi dan tanggung jawab keluarga; Rudi: stabilitas dan harmoni)? Apakah mereka bisa berkomunikasi Adult–Adult saat ada masalah? Jawaban yang kuat menyebut syarat — misalnya "ya, jika mereka sepakat soal lokasi kerja, tanggungan keluarga Kana, dan cara menyelesaikan konflik".</td></tr></table>`,
+en: `<p><em>These answer directions link the case to this week's theory — they are not an official key.</em></p>
+<table><tr><th>Question</th><th>Answer direction</th></tr>
+<tr><td><strong>1. What is the problem?</strong></td><td>On the surface: Kana is angry that Pak Bram claimed "project ownership" of Kiddy Meal and wants to quit. Underneath: (a) <em>Kana's work motivation collapsed</em> over recognition and fairness; (b) family financial pressure (siblings' schooling, a sick father, saving for a house); (c) <em>Rudi and Kana aren't connecting</em> — Kana needs serious support; Rudi responds with jokes and "just quit".</td></tr>
+<tr><td><strong>2. Why? Analyse their behaviour</strong></td><td><strong>Kana</strong>: her <em>acquire</em> drive (Rp4m salary + Rp1.5m transport vs a friend's company car) and <em>defend</em> drive (fairness) are hit; Herzberg — hygiene factors (pay, supervision) cause dissatisfaction while motivators (recognition, responsibility) are missing; equity — she compares herself with the new MBAs; expectancy — instrumentality is zero. She also has a high need for <em>achievement</em> (McClelland) and wants to make her parents proud. <strong>Rudi</strong>: keeps his own problems to himself, avoids conflict, uses humour — read through Week 5 as a Child response; he isn't listening actively. <strong>Pak Bram</strong>: once a developing boss, now seen as "currying favour" — probably driven by organisational politics (Week 7): closeness to Pak Sutanto, who is close to the owner, is a source of power.</td></tr>
+<tr><td><strong>3. Advice for each person</strong></td><td><strong>Kana</strong>: don't resign in anger; talk directly to Pak Bram using SBI ("At the Kiddy Meal presentation [situation], the QA/PD team wasn't named [behaviour], and I felt our contribution was invisible [impact]"), ask for a role on the launch team and document her contributions. If she still wants to move, compare offers fully (Cikarang vs Tangerang affects their housing plan). <strong>Rudi</strong>: listen actively without advising first ("What I hear is that you feel someone else got credit for your hard work?"), then help her weigh options. <strong>Pak Bram/the company</strong>: shared credit for the team, a clear career path for technical staff, and rewards that distinguish contributions.</td></tr>
+<tr><td><strong>4. Would you marry?</strong></td><td>There's no right answer; the reasoning is what counts. Link to Week 1: are their purposes and values aligned (Kana: achievement and family duty; Rudi: stability and harmony)? Can they talk Adult–Adult when there's a problem? A strong answer states conditions — for example "yes, if they agree on work location, Kana's family obligations and how to resolve conflict".</td></tr></table>` } } }
+]);
+
+window.addSections("mk1", 4, [
+{ s: { h: { id: "Pendalaman delapan pandangan: konsep kunci tiap tokoh", en: "Going deeper on the eight views: each author's key concept" },
+p: { id: `<table><tr><th>Tokoh</th><th>Konsep kunci yang perlu diingat</th><th>Pertanyaan refleksi</th></tr>
+<tr><td>Goleman (EQ)</td><td>Lima komponen: self-awareness, self-regulation, motivation, empathy, social skill. Goleman juga memetakan <strong>enam gaya</strong> (HBR 2000, "Leadership That Gets Results"): coercive, authoritative (visioner), affiliative, democratic, pacesetting, coaching. Gaya authoritative paling positif dampaknya pada iklim kerja; coercive dan pacesetting paling negatif bila dipakai terus-menerus.</td><td>Gaya mana yang jadi andalanku saat tertekan?</td></tr>
+<tr><td>Drucker</td><td>Pemimpin efektif bertanya "apa yang perlu dilakukan?" dan "apa yang benar bagi organisasi?", menyusun rencana tindakan, bertanggung jawab atas keputusan dan komunikasi, fokus pada peluang, dan berbicara "kita", bukan "saya".</td><td>Apakah prioritasku ditentukan oleh kebutuhan organisasi atau kenyamananku?</td></tr>
+<tr><td>Kotter &amp; Heifetz</td><td>Heifetz membedakan <strong>masalah teknis</strong> (solusinya sudah diketahui ahli) dan <strong>tantangan adaptif</strong> (orang-orangnya harus mengubah nilai, kebiasaan, atau cara berpikir). Kesalahan umum pemimpin: menangani tantangan adaptif dengan solusi teknis.</td><td>Masalah di unitku teknis atau adaptif?</td></tr>
+<tr><td>Goffee &amp; Jones</td><td>"Why should anyone be led by you?" — pemimpin menunjukkan kelemahan secara selektif, peka membaca situasi, berempati dengan tegas ("tough empathy"), dan berani berbeda.</td><td>Apa yang membuat orang mau mengikutiku selain jabatan?</td></tr>
+<tr><td>Collins</td><td><strong>Level 5 leadership</strong>: kerendahan hati pribadi + tekad profesional yang kuat. "Window and mirror": saat berhasil, lihat ke jendela (kredit untuk orang lain); saat gagal, lihat ke cermin (tanggung jawab sendiri).</td><td>Saat proyek sukses, siapa yang kusebut?</td></tr>
+<tr><td>Bennis &amp; Thomas</td><td><strong>Crucibles</strong>: pengalaman berat (kegagalan, krisis, kehilangan) yang membentuk pemimpin karena memaksa refleksi dan memberi makna baru.</td><td>Pengalaman berat apa yang membentukku?</td></tr>
+<tr><td>George dkk.</td><td><strong>Authentic leadership</strong>: memimpin dari kisah hidup dan nilai sendiri, membangun "support team" (mentor, teman jujur), dan menyeimbangkan motivasi intrinsik dan ekstrinsik.</td><td>Apakah aku meniru gaya orang lain?</td></tr>
+<tr><td>Ancona dkk.</td><td><strong>Incomplete leader</strong>: empat kemampuan — sensemaking (memahami situasi), relating (membangun hubungan), visioning (membayangkan masa depan), inventing (menciptakan cara kerja baru). Tidak ada yang hebat di keempatnya; lengkapi dengan tim.</td><td>Kemampuan mana yang perlu kulengkapi dengan orang lain?</td></tr></table>`,
+en: `<table><tr><th>Author</th><th>Key concept to remember</th><th>Reflection question</th></tr>
+<tr><td>Goleman (EQ)</td><td>Five components: self-awareness, self-regulation, motivation, empathy, social skill. Goleman also mapped <strong>six styles</strong> (HBR 2000, "Leadership That Gets Results"): coercive, authoritative (visionary), affiliative, democratic, pacesetting, coaching. Authoritative has the most positive effect on climate; coercive and pacesetting are the most negative when overused.</td><td>Which style do I default to under pressure?</td></tr>
+<tr><td>Drucker</td><td>Effective executives ask "what needs to be done?" and "what is right for the enterprise?", write action plans, take responsibility for decisions and communication, focus on opportunities, and say "we", not "I".</td><td>Are my priorities set by the organisation's needs or my comfort?</td></tr>
+<tr><td>Kotter &amp; Heifetz</td><td>Heifetz separates <strong>technical problems</strong> (experts already know the fix) from <strong>adaptive challenges</strong> (people must change values, habits or mindsets). A common mistake: treating adaptive challenges with technical fixes.</td><td>Is my unit's problem technical or adaptive?</td></tr>
+<tr><td>Goffee &amp; Jones</td><td>"Why should anyone be led by you?" — leaders reveal weaknesses selectively, read situations well, practise "tough empathy" and dare to be different.</td><td>What makes people follow me other than my title?</td></tr>
+<tr><td>Collins</td><td><strong>Level 5 leadership</strong>: personal humility + intense professional will. "Window and mirror": in success, look out the window (credit others); in failure, look in the mirror (own it).</td><td>When a project succeeds, whom do I name?</td></tr>
+<tr><td>Bennis &amp; Thomas</td><td><strong>Crucibles</strong>: hard experiences (failure, crisis, loss) that shape leaders by forcing reflection and new meaning.</td><td>Which hard experience shaped me?</td></tr>
+<tr><td>George et al.</td><td><strong>Authentic leadership</strong>: leading from one's own life story and values, building a support team (mentors, candid friends), balancing intrinsic and extrinsic motivation.</td><td>Am I imitating someone else's style?</td></tr>
+<tr><td>Ancona et al.</td><td><strong>Incomplete leader</strong>: four capabilities — sensemaking, relating, visioning, inventing. Nobody excels at all four; complete yourself with a team.</td><td>Which capability should I fill with others?</td></tr></table>` } } },
+{ s: { h: { id: "Catatan tentang 'CEO Excellence' dan cara memakai enam karakter di slide", en: "A note on 'CEO Excellence' and how to use the six traits on the slides" },
+p: { id: `<p>Buku <em>CEO Excellence</em> (Carolyn Dewar, Scott Keller, Vikram Malhotra — McKinsey, 2022) disusun dari wawancara dengan sekitar 200 CEO terbaik. Buku aslinya menyusun pekerjaan CEO menjadi <strong>enam tanggung jawab</strong>: menetapkan arah, menyelaraskan organisasi, memobilisasi tim pimpinan, bekerja dengan dewan, terhubung dengan pemangku kepentingan, dan mengelola efektivitas diri — dengan benang merah "be bold" (berani mengambil langkah besar).</p>
+<p>Enam karakter di slide (purpose-driven, giver, mobilizing people, orchestrator, grit, learner) adalah <strong>rangkuman dosen</strong> yang memadukan semangat "be bold" dengan buku-buku lain (Grant, Berger, Busch, Duckworth, Epstein). Saat ujian, sebutkan keenam karakter itu sesuai slide; bila diminta mengaitkan dengan McKinsey, sebutkan bahwa sumbernya adalah semangat "be bold" dari <em>CEO Excellence</em>.</p>
+<h4>Latihan: rencana pengembangan diri berbasis enam karakter</h4>
+<table><tr><th>Karakter</th><th>Bukti perilaku yang bisa diamati</th><th>Langkah kecil bulan ini</th></tr>
+<tr><td>Purpose-driven</td><td>Bisa menjelaskan "kenapa" proyek penting bagi pelanggan/masyarakat</td><td>Buka setiap rapat tim dengan 1 kalimat tujuan</td></tr>
+<tr><td>Giver</td><td>Membantu tanpa menghitung imbalan, tapi tetap menjaga batas</td><td>Satu perkenalan/bantuan untuk rekan di unit lain tiap minggu</td></tr>
+<tr><td>Mobilizing people</td><td>Pesan konkret, memakai pertanyaan, bahasa yang selaras dengan audiens</td><td>Tulis ulang satu memo dengan kata-kata konkret (lihat "power of words" Week 5)</td></tr>
+<tr><td>Orchestrator</td><td>Menghubungkan orang dan ide lintas unit</td><td>Ajak dua orang dari unit berbeda membahas satu masalah bersama</td></tr>
+<tr><td>Grit</td><td>Bertahan pada tujuan jangka panjang meski ada kegagalan</td><td>Pilih satu keahlian dan latih 30 menit/hari selama 30 hari</td></tr>
+<tr><td>Learner</td><td>Keluasan lintas disiplin, bukan hanya spesialisasi</td><td>Baca satu bab di luar bidangmu tiap minggu</td></tr></table>`,
+en: `<p><em>CEO Excellence</em> (Carolyn Dewar, Scott Keller, Vikram Malhotra — McKinsey, 2022) draws on interviews with about 200 top CEOs. The book organises the CEO's job into <strong>six responsibilities</strong>: setting direction, aligning the organisation, mobilising the top team, working with the board, connecting with stakeholders, and managing personal effectiveness — with the common thread "be bold".</p>
+<p>The six traits on the slides (purpose-driven, giver, mobilising people, orchestrator, grit, learner) are the <strong>lecturer's synthesis</strong>, combining the "be bold" spirit with other books (Grant, Berger, Busch, Duckworth, Epstein). In the exam, name the six traits as on the slides; if asked to link them to McKinsey, say the source is the "be bold" spirit of <em>CEO Excellence</em>.</p>
+<h4>Exercise: a development plan built on the six traits</h4>
+<table><tr><th>Trait</th><th>Observable behaviour</th><th>Small step this month</th></tr>
+<tr><td>Purpose-driven</td><td>Can explain "why" a project matters to customers/society</td><td>Open every team meeting with one sentence of purpose</td></tr>
+<tr><td>Giver</td><td>Helps without keeping score, but keeps boundaries</td><td>One introduction or favour for someone in another unit each week</td></tr>
+<tr><td>Mobilising people</td><td>Concrete messages, uses questions, language matched to the audience</td><td>Rewrite one memo in concrete words (see Week 5's "power of words")</td></tr>
+<tr><td>Orchestrator</td><td>Connects people and ideas across units</td><td>Bring two people from different units together on one problem</td></tr>
+<tr><td>Grit</td><td>Sticks with long-term goals despite setbacks</td><td>Pick one skill and practise 30 minutes a day for 30 days</td></tr>
+<tr><td>Learner</td><td>Breadth across disciplines, not just specialism</td><td>Read one chapter outside your field each week</td></tr></table>` } } }
+]);
+
+window.addSections("mk1", 5, [
+{ s: { h: { id: "Psychological safety: kenapa tim terbaik justru melaporkan lebih banyak kesalahan", en: "Psychological safety: why the best teams report more errors" },
+p: { id: `<p>Slide merangkum empat poin. Asal-usulnya adalah riset Amy Edmondson (Harvard) di rumah sakit pada 1990-an. Ia awalnya menduga tim perawat yang paling baik akan membuat kesalahan paling sedikit. Hasilnya terbalik: tim terbaik <strong>melaporkan</strong> lebih banyak kesalahan — bukan karena lebih sering salah, tetapi karena anggotanya berani bicara. Di tim yang takut, kesalahan disembunyikan dan terulang.</p>
+<p><strong>Definisi</strong> (Edmondson, 1999): keyakinan bersama bahwa tim aman untuk mengambil risiko antarpribadi — bertanya, mengakui salah, mengusulkan ide, dan menantang pendapat — tanpa dipermalukan atau dihukum. Riset internal Google (Project Aristotle, 2015) juga menemukan psychological safety sebagai faktor terpenting tim efektif, di atas siapa anggotanya.</p>
+<div class="grid2"><div class="card green"><b>Yang dilakukan pemimpin</b><p>Membingkai pekerjaan sebagai masalah belajar ("kita belum tahu jawabannya"); mengakui kesalahannya sendiri lebih dulu; bertanya "apa yang mungkin saya lewatkan?"; menanggapi kabar buruk dengan terima kasih, bukan marah.</p></div><div class="card red"><b>Yang merusak</b><p>Mencari siapa yang salah sebelum mencari apa yang salah; menertawakan pertanyaan; rapat yang hanya diisi atasan; menghukum pelapor masalah.</p></div></div>
+<div class="note warn"><b>Bukan berarti "santai"</b>Psychological safety tidak sama dengan standar rendah. Edmondson membuat matriks: keamanan tinggi + standar tinggi = <strong>zona belajar</strong>; keamanan tinggi + standar rendah = zona nyaman; keamanan rendah + standar tinggi = <strong>zona cemas</strong>; keduanya rendah = apatis.</div>
+<h4>Growth culture vs genius culture</h4>
+<p>Slide menyebut peralihan dari "me paradigm" ke "we paradigm". <em>Genius culture</em> memuja bintang individu (talenta dianggap tetap); <em>growth culture</em> percaya semua orang bisa berkembang lewat usaha, coaching, dan belajar dari kegagalan. Kaitannya dengan Week 4: Nadella mengubah Microsoft dari "know-it-all" ke "learn-it-all" dan menghapus stack ranking — kebijakan, insentif, dan teladan pemimpin yang mendukung perilaku bertumbuh.</p>`,
+en: `<p>The slides sum it up in four points. They come from Amy Edmondson's (Harvard) hospital research in the 1990s. She expected the best nursing teams to make the fewest errors. The result was the reverse: the best teams <strong>reported</strong> more errors — not because they erred more, but because members spoke up. In fearful teams, errors are hidden and repeated.</p>
+<p><strong>Definition</strong> (Edmondson, 1999): a shared belief that the team is safe for interpersonal risk-taking — asking, admitting mistakes, proposing ideas and challenging views — without being embarrassed or punished. Google's internal research (Project Aristotle, 2015) also found psychological safety the most important factor in effective teams, above who is on the team.</p>
+<div class="grid2"><div class="card green"><b>What leaders do</b><p>Frame work as a learning problem ("we don't know the answer yet"); admit their own mistakes first; ask "what might I be missing?"; respond to bad news with thanks, not anger.</p></div><div class="card red"><b>What destroys it</b><p>Asking who's to blame before what went wrong; mocking questions; meetings where only the boss talks; punishing people who raise problems.</p></div></div>
+<div class="note warn"><b>It doesn't mean "relaxed"</b>Psychological safety isn't low standards. Edmondson's matrix: high safety + high standards = <strong>learning zone</strong>; high safety + low standards = comfort zone; low safety + high standards = <strong>anxiety zone</strong>; both low = apathy.</div>
+<h4>Growth culture vs genius culture</h4>
+<p>The slides describe the shift from a "me paradigm" to a "we paradigm". A <em>genius culture</em> worships individual stars (talent seen as fixed); a <em>growth culture</em> believes everyone can grow through effort, coaching and learning from failure. Link to Week 4: Nadella moved Microsoft from "know-it-all" to "learn-it-all" and scrapped stack ranking — policies, incentives and leader role-modelling that support growth behaviours.</p>` } } },
+{ s: { h: { id: "Komunikasi yang efektif: pilar dari slide, SBI, dan 'power of words'", en: "Effective communication: the slide's pillars, SBI and the 'power of words'" },
+p: { id: `<h4>Empat kebiasaan buruk saat mendengar (dari slide)</h4>
+<table><tr><th>Kebiasaan</th><th>Contoh</th><th>Ganti dengan</th></tr>
+<tr><td>Evaluating</td><td>"Itu salah!"</td><td>"Bagaimana kamu sampai ke kesimpulan itu?"</td></tr>
+<tr><td>Probing (menginterogasi)</td><td>"Kenapa kamu melakukan itu?"</td><td>"Ceritakan lebih lanjut situasinya."</td></tr>
+<tr><td>Advising</td><td>"Harusnya kamu…" / "Kalau aku sih…"</td><td>"Kamu sendiri sudah memikirkan pilihan apa?"</td></tr>
+<tr><td>Interpreting</td><td>"Kamu cuma capek, makanya begitu."</td><td>"Yang aku dengar, kamu merasa… betul?"</td></tr></table>
+<h4>Mehrabian 7–38–55: hati-hati salah kaprah</h4>
+<p>Angka 7% kata, 38% nada, 55% bahasa tubuh berasal dari eksperimen Mehrabian (1967) yang sangat terbatas: peserta mendengar <em>satu kata</em> yang mengungkapkan perasaan (suka/tidak suka) dengan nada dan wajah yang <em>tidak konsisten</em>. Slide sendiri mengutip Lapakko (2007): klaim "komunikasi 93% non-verbal" adalah mitos — kalau benar, kita tidak perlu belajar bahasa. Pelajaran yang tepat: saat kata dan nada/bahasa tubuh <strong>bertentangan</strong>, orang lebih percaya pada nada dan bahasa tubuh.</p>
+<h4>Pilar komunikasi terbaik di tempat kerja (tabel slide)</h4>
+<ul><li><strong>Konteks</strong> — jelaskan "kenapa" dan manfaatnya untuk mengurangi resistensi.</li>
+<li><strong>Gaya</strong> — pakai ego state secara seimbang agar kompatibel dengan lawan bicara.</li>
+<li><strong>Rasa aman</strong> — bangun trust dan kerja sama.</li>
+<li><strong>Active listening</strong> — konfirmasi ulang poin lawan bicara sebelum menanggapi.</li>
+<li><strong>Kritik berbasis fakta</strong> — pisahkan perilaku dari identitas; pakai <strong>SBI</strong>.</li>
+<li><strong>Komunikasi asinkron yang jelas</strong> — informasi lengkap dalam satu pesan, kurangi rantai balasan.</li></ul>
+<div class="formula">SBI = Situation (kapan/di mana) → Behavior (perilaku yang terlihat, bukan sifat) → Impact (dampaknya)</div>
+<div class="note ex"><b>Contoh SBI</b>Buruk: "Kamu tidak profesional." Baik: "Di rapat klien Selasa pagi [S], kamu menjawab telepon dua kali saat klien bicara [B]. Klien sempat berhenti dan bertanya apakah kita sibuk, jadi kesannya kita kurang menghargai mereka [I]." Model SBI dikembangkan oleh Center for Creative Leadership.</div>
+<h4>Lima "power of words" (Jonah Berger, <em>Magic Words</em>)</h4>
+<table><tr><th>Prinsip</th><th>Isi dari slide</th><th>Contoh</th></tr>
+<tr><td>Similarity</td><td>Karyawan yang gaya bahasanya mirip rekan kerjanya 3× lebih mungkin dipromosikan, dengan penilaian dan bonus lebih baik</td><td>Pakai istilah yang dipakai unit tujuan ("omnichannel" di ritel, "pivot" di startup)</td></tr>
+<tr><td>Pose questions</td><td>Pertanyaan membuat orang terlibat dan merasa didengar</td><td>"Apa yang menurutmu paling berisiko?"</td></tr>
+<tr><td>Emotion</td><td>Bukan hanya positif, tapi emosional ("brilian", "menginspirasi"); cerita terbaik seperti roller coaster — ada naik dan turun</td><td>Ceritakan kegagalan sebelum keberhasilan proyek</td></tr>
+<tr><td>Confidence / agency</td><td>Bahasa yang yakin lebih meyakinkan daripada yang ragu-ragu</td><td>"Saya rekomendasikan…" daripada "Mungkin bisa saja…"</td></tr>
+<tr><td>Concreteness</td><td>Bahasa konkret lebih mudah dipahami dan diingat</td><td>Abstrak: "Ayo lebih inovatif." Konkret: "Tiap Jumat 30 menit coba satu cara baru melayani pelanggan, lalu bagikan hasilnya di rapat Senin."</td></tr></table>`,
+en: `<h4>Four bad listening habits (from the slides)</h4>
+<table><tr><th>Habit</th><th>Example</th><th>Replace with</th></tr>
+<tr><td>Evaluating</td><td>"That's wrong!"</td><td>"How did you reach that conclusion?"</td></tr>
+<tr><td>Probing (interrogating)</td><td>"Why did you do that?"</td><td>"Tell me more about the situation."</td></tr>
+<tr><td>Advising</td><td>"You should just…" / "Here's what I'd do."</td><td>"What options have you considered?"</td></tr>
+<tr><td>Interpreting</td><td>"You're just tired, that's why."</td><td>"What I hear is that you feel… right?"</td></tr></table>
+<h4>Mehrabian's 7–38–55: beware the myth</h4>
+<p>The 7% words, 38% tone, 55% body language figures come from Mehrabian's (1967) very narrow experiments: participants heard <em>one word</em> expressing a feeling (like/dislike) with <em>inconsistent</em> tone and face. The slides themselves cite Lapakko (2007): "communication is 93% non-verbal" is an urban legend — if it were true, why learn languages? The correct lesson: when words and tone/body language <strong>conflict</strong>, people trust the tone and body language.</p>
+<h4>Pillars of good workplace communication (slide table)</h4>
+<ul><li><strong>Context</strong> — explain "why" and the benefit to reduce resistance.</li>
+<li><strong>Style</strong> — use ego states in balance to match the other person.</li>
+<li><strong>Safety</strong> — build trust and cooperation.</li>
+<li><strong>Active listening</strong> — play back the other person's point before responding.</li>
+<li><strong>Fact-based criticism</strong> — separate behaviour from identity; use <strong>SBI</strong>.</li>
+<li><strong>Clear asynchronous communication</strong> — complete information in one message, fewer reply chains.</li></ul>
+<div class="formula">SBI = Situation (when/where) → Behaviour (observable action, not a trait) → Impact (its effect)</div>
+<div class="note ex"><b>SBI example</b>Poor: "You're unprofessional." Good: "In Tuesday morning's client meeting [S], you took two phone calls while the client was speaking [B]. The client paused and asked if we were busy, so it looked like we didn't value them [I]." SBI was developed by the Center for Creative Leadership.</div>
+<h4>Five "powers of words" (Jonah Berger, <em>Magic Words</em>)</h4>
+<table><tr><th>Principle</th><th>From the slides</th><th>Example</th></tr>
+<tr><td>Similarity</td><td>Employees whose language style matched co-workers' were 3× more likely to be promoted, with better ratings and bonuses</td><td>Use the target unit's terms ("omnichannel" in retail, "pivot" in startups)</td></tr>
+<tr><td>Pose questions</td><td>Questions engage people and make them feel heard</td><td>"What do you think is riskiest?"</td></tr>
+<tr><td>Emotion</td><td>Not just positive but emotional ("brilliant", "inspiring"); the best stories are roller coasters with highs and lows</td><td>Tell the setbacks before the success</td></tr>
+<tr><td>Confidence / agency</td><td>Confident language persuades more than hedging</td><td>"I recommend…" rather than "Maybe we could…"</td></tr>
+<tr><td>Concreteness</td><td>Concrete language is easier to understand and remember</td><td>Abstract: "Let's be more innovative." Concrete: "Every Friday, spend 30 minutes trying one new way to serve customers, then share the results on Monday."</td></tr></table>` } } },
+{ s: { h: { id: "Pembahasan latihan Ego State (lembar latihan kelas)", en: "Working through the Ego State exercise sheet" },
+p: { id: `<p><em>Arah jawaban untuk lembar "Ego State Exercise" — bantuan berpikir, bukan kunci resmi.</em></p>
+<h4>Latihan 1 — kenali ego state</h4>
+<table><tr><th>Kalimat</th><th>Ego state</th><th>Versi Adult</th></tr>
+<tr><td>"Kerjaan kamu kok makin ngaco ya belakangan ini?"</td><td>Controlling/Critical Parent (menghakimi orangnya)</td><td>"Dua laporan terakhir ada selisih angka. Ada kendala apa?"</td></tr>
+<tr><td>"Kamu kan baru di sini, ikuti aja cara yang biasa kita pakai."</td><td>Controlling Parent (aturan/dogma)</td><td>"Cara lama kita begini karena… Apa kelebihan cara yang kamu usulkan?"</td></tr>
+<tr><td>"Bikin laporan ini ya, awas jangan sampai salah kayak kemarin."</td><td>Controlling Parent (ancaman, mengungkit)</td><td>"Tolong buat laporan ini sampai Kamis. Cek ulang bagian angka penjualan — kemarin ada yang terlewat."</td></tr></table>
+<h4>Latihan 2</h4>
+<p>Ketiga kalimat ("Saya melihat ada penurunan matriks penjualan… apa hambatan yang kamu hadapi?", "Mari kita bandingkan kelebihan dan risiko…", "Saya butuh laporan ini jam 2… data apa yang kamu butuhkan dari saya?") adalah contoh <strong>Adult</strong>: berbasis fakta, bertanya, fokus pada solusi, tanpa menghakimi.</p>
+<h4>Latihan 3 — Budi (Produk) vs Andi (Engineering)</h4>
+<p><strong>Diagnosis</strong>: Budi berbicara dari <em>Controlling Parent</em> ke Child Andi ("Harusnya kalian lebih disiplin!") di depan umum. Andi merespons dari <em>Rebellious/Adapted Child</em> ("kerjain aja sendiri!") — transaksi silang yang memicu konflik dan mogok kerja.</p>
+<ol><li><strong>De-eskalasi</strong>: fasilitator/HR memanggil keduanya terpisah dengan gaya <em>Nurturing Parent</em> ("Saya paham kamu tertekan dengan tenggat") untuk menurunkan emosi, lalu menggeser ke Adult ("Apa fakta yang terjadi?").</li>
+<li><strong>Percakapan baru Adult–Adult</strong>: Budi: "Tenggat peluncuran tanggal 20 terancam mundur dua minggu. Saya ingin paham hambatan teknisnya dan apa yang bisa tim Produk bantu." Andi: "Ada tiga perubahan kebutuhan setelah spesifikasi dikunci. Kalau kita prioritaskan dua fitur inti, tanggal 20 masih bisa." → transaksi paralel A–A.</li>
+<li><strong>Pencegahan</strong>: sepakati proses perubahan kebutuhan (change request) dan aturan "kritik tidak di depan umum".</li></ol>
+<h4>Latihan 4 — perkenalan di PT ABC (BUMN Karya)</h4>
+<p>Atasan bertanya ringan ("program apa itu mas?") — dari Natural Child/Adult. Jawaban yang cocok adalah <strong>Adult dengan sentuhan Natural Child</strong>, singkat dan rendah hati: "Program P3MD, Pak — program pengembangan pemimpin masa depan. Saya senang bisa langsung ikut proyek rumah sederhana ini." Hindari Critical Parent (memamerkan program) atau Adapted Child (terlalu merendah). Ketika Rudi hanya mengangguk (bisa Adapted Child yang canggung, atau sinyal ragu), ajak bicara secara Adult dan hormat pada senioritasnya: "Pak Rudi, saya akan banyak belajar dari Bapak. Bagian mana yang bisa saya bantu lebih dulu?" — membangun transaksi paralel dan rasa aman.</p>
+<div class="note tip"><b>Posisi hidup "I'm OK – You're OK"</b>Kalimat penutup slide berasal dari konsep posisi hidup dalam Transactional Analysis (dipopulerkan Thomas Harris, 1967). Empat posisi: I'm OK–You're OK (sehat, kolaboratif), I'm OK–You're not OK (merendahkan orang), I'm not OK–You're OK (merendahkan diri), I'm not OK–You're not OK (putus asa). Komunikasi Adult–Adult paling mudah dari posisi pertama.</div>`,
+en: `<p><em>Answer directions for the "Ego State Exercise" sheet — thinking aids, not an official key.</em></p>
+<h4>Exercise 1 — identify the ego state</h4>
+<table><tr><th>Line</th><th>Ego state</th><th>Adult version</th></tr>
+<tr><td>"Why is your work getting so sloppy lately?"</td><td>Controlling/Critical Parent (judging the person)</td><td>"The last two reports had figure mismatches. What's getting in the way?"</td></tr>
+<tr><td>"You're new here, just follow the way we usually do it."</td><td>Controlling Parent (rules/dogma)</td><td>"We do it this way because… What's the advantage of your approach?"</td></tr>
+<tr><td>"Do this report, and don't mess it up like yesterday."</td><td>Controlling Parent (threat, dredging up the past)</td><td>"Please do this report by Thursday. Double-check the sales figures — something was missed last time."</td></tr></table>
+<h4>Exercise 2</h4>
+<p>All three lines ("I see sales metrics dropped this month… what obstacles are you facing?", "Let's compare the pros and risks…", "I need this report by 2 pm… what data do you need from me?") are <strong>Adult</strong>: fact-based, questioning, solution-focused, non-judgemental.</p>
+<h4>Exercise 3 — Budi (Product) vs Andi (Engineering)</h4>
+<p><strong>Diagnosis</strong>: Budi speaks from <em>Controlling Parent</em> to Andi's Child ("You should be more disciplined!") in public. Andi replies from <em>Rebellious/Adapted Child</em> ("do it yourself then!") — a crossed transaction that triggers conflict and a work stoppage.</p>
+<ol><li><strong>De-escalate</strong>: a facilitator/HR meets each separately in <em>Nurturing Parent</em> mode ("I understand the deadline pressure") to lower emotions, then shifts to Adult ("What actually happened?").</li>
+<li><strong>A new Adult–Adult conversation</strong>: Budi: "The launch on the 20th is at risk of slipping two weeks. I want to understand the technical blockers and how Product can help." Andi: "There were three requirement changes after the spec was frozen. If we prioritise the two core features, the 20th is still possible." → a parallel A–A transaction.</li>
+<li><strong>Prevention</strong>: agree a change-request process and a "no criticism in public" rule.</li></ol>
+<h4>Exercise 4 — introductions at PT ABC (a state-owned construction firm)</h4>
+<p>The boss asks lightly ("what programme is that?") — from Natural Child/Adult. A good reply is <strong>Adult with a touch of Natural Child</strong>, short and humble: "P3MD, sir — a future-leaders development programme. I'm glad to join this affordable-housing project straight away." Avoid Critical Parent (showing off the programme) or Adapted Child (over-humble). When Rudi only nods (perhaps an awkward Adapted Child, or a sign of doubt), open an Adult conversation that respects his seniority: "Pak Rudi, I'll learn a lot from you. Where can I help first?" — building a parallel transaction and safety.</p>
+<div class="note tip"><b>The "I'm OK – You're OK" life position</b>The slide's closing line comes from Transactional Analysis life positions (popularised by Thomas Harris, 1967). Four positions: I'm OK–You're OK (healthy, collaborative), I'm OK–You're not OK (looking down on others), I'm not OK–You're OK (self-deprecating), I'm not OK–You're not OK (hopeless). Adult–Adult communication comes most easily from the first.</div>` } } }
+]);
+
+window.addSections("mk1", 6, [
+{ s: { h: { id: "Membaca angka model LCOP: koefisien, uji beda, dan implikasi", en: "Reading the LCOP model numbers: coefficients, the mean test and implications" },
+p: { id: `<p>Slide penuh angka hasil <em>Structural Equation Modeling</em> (SEM) dari riset Yuni Ros Bangun (SBM-ITB) pada perusahaan perkebunan BUMN (PTPN) dan swasta. Cara membacanya:</p>
+<h4>1. Persamaan utama</h4>
+<table><tr><th>Persamaan</th><th>Gabungan</th><th>BUMN</th><th>Swasta</th></tr>
+<tr><td>Kinerja = a·Kapabilitas − b·Politik</td><td>1,26 · K − 0,47 · P</td><td>1,08 · K − <strong>0,94</strong> · P</td><td>1,08 · K − 0,68 · P</td></tr>
+<tr><td>Kapabilitas = c·Kepemimpinan + d·Budaya</td><td>1,03 · L + 0,52 · B</td><td>1,44 · L + 0,60 · B</td><td><strong>1,58</strong> · L + 0,06 · B</td></tr>
+<tr><td>Kepemimpinan → Budaya</td><td>1,43</td><td>1,34</td><td>1,59</td></tr>
+<tr><td>Kepemimpinan → Politik</td><td>−1,37</td><td>−1,19</td><td>−1,47</td></tr></table>
+<p><strong>Cara membaca</strong>: koefisien positif = makin tinggi variabel A, makin tinggi B; negatif = sebaliknya. Di BUMN, politik "memakan" kinerja hampir sebesar kapabilitas menambahnya (−0,94 vs +1,08). Di swasta, kapabilitas hampir sepenuhnya ditentukan kepemimpinan (1,58), sedangkan budaya nyaris tidak berpengaruh langsung (0,06).</p>
+<h4>2. Dimensi yang paling berpengaruh (muatan faktor)</h4>
+<table><tr><th>Variabel</th><th>BUMN — dimensi terkuat</th><th>Swasta — dimensi terkuat</th></tr>
+<tr><td>Kepemimpinan</td><td>Strategik (1,81), transformasional (1,60), transaksional (1,24); laissez-faire negatif (−0,83)</td><td>Strategik (1,93), transformasional (1,43), mempermudah karyawan (1,00); laissez-faire −0,94</td></tr>
+<tr><td>Budaya</td><td>Adaptability (1,31), involvement (1,27)</td><td>Mission/goals (1,00), consistency (0,98)</td></tr>
+<tr><td>Perilaku politik</td><td>Resistance to change (1,44), self-serving bias (1,42), power challenge (1,00), favoritism (0,89)</td><td>External intervention (1,15), self-serving bias (1,11), power challenge (1,00), resistance to change (0,98)</td></tr>
+<tr><td>Kapabilitas</td><td colspan="2">Speed (1,00) dan seeks change (±1,2) paling kuat di kedua populasi; innovation paling lemah (±0,5)</td></tr></table>
+<h4>3. Uji beda rata-rata (independent samples t-test)</h4>
+<p>Pertanyaan: apakah persepsi perilaku politik di BUMN lebih tinggi daripada di swasta? Hipotesis H<sub>0</sub>: μ<sub>BUMN</sub> = μ<sub>Swasta</sub>; H<sub>1</sub>: berbeda. Hasil: nilai signifikansi (Sig. 2-tailed) = 0,000 untuk politik eksternal (selisih rata-rata 0,53) dan politik internal (selisih 0,80). Karena 0,000 &lt; 0,05, H<sub>0</sub> ditolak: <strong>persepsi perilaku politik di BUMN lebih tinggi</strong>. (Catatan: di slide tertulis "jika μ1 − μ2 ≤ 0,05"; yang dibandingkan dengan 0,05 sebenarnya adalah <em>nilai p/signifikansi</em>, bukan selisih rata-ratanya.) Temuan ini sejalan dengan Vigoda-Gadot &amp; Kapun (2005).</p>
+<h4>4. Implikasi manajerial</h4>
+<ul><li>Kinerja dinaikkan dengan membangun kapabilitas, <strong>dan</strong> dijaga dengan menekan politik — keduanya harus dikerjakan bersama.</li>
+<li>Di BUMN, prioritas: kurangi resistance to change dan self-serving bias (misalnya proses keputusan dan promosi yang transparan), perkuat kepemimpinan strategik-transformasional, dan budaya adaptability-involvement.</li>
+<li>Di swasta, waspadai intervensi eksternal (pemilik/pihak luar) dan perkuat kejelasan misi serta konsistensi.</li></ul>
+<h4>Latihan slide: PT ABC, PT PQR, dan PT KPI</h4>
+<p>Langkah menjawab: (1) baca skor sembilan dimensi kapabilitas tiap perusahaan; (2) tandai dimensi dengan muatan faktor tinggi (speed, seeks change, talent, international working environment) yang skornya rendah — itu prioritas karena paling berpengaruh pada kinerja; (3) cek apakah ada gejala politik (favoritisme, resistensi perubahan) yang bisa "memakan" hasil perbaikan; (4) sarankan intervensi kepemimpinan dan budaya yang sesuai. Untuk PT KPI (anak usaha migas), kaitkan juga dengan tabel ROA migas: ROA Pertamina (±5,2%) jauh di bawah Saudi Aramco (±18,4%) dan sedikit di bawah Shell (±5,7%) — pertanyaannya, dimensi kapabilitas mana yang menjelaskan selisih produktivitas per karyawan.</p>`,
+en: `<p>The slides are full of <em>Structural Equation Modeling</em> (SEM) results from Yuni Ros Bangun's (SBM-ITB) research on state-owned (PTPN) and private plantation companies. How to read them:</p>
+<h4>1. The main equations</h4>
+<table><tr><th>Equation</th><th>Combined</th><th>SOE</th><th>Private</th></tr>
+<tr><td>Performance = a·Capability − b·Politics</td><td>1.26 · C − 0.47 · P</td><td>1.08 · C − <strong>0.94</strong> · P</td><td>1.08 · C − 0.68 · P</td></tr>
+<tr><td>Capability = c·Leadership + d·Culture</td><td>1.03 · L + 0.52 · Cu</td><td>1.44 · L + 0.60 · Cu</td><td><strong>1.58</strong> · L + 0.06 · Cu</td></tr>
+<tr><td>Leadership → Culture</td><td>1.43</td><td>1.34</td><td>1.59</td></tr>
+<tr><td>Leadership → Politics</td><td>−1.37</td><td>−1.19</td><td>−1.47</td></tr></table>
+<p><strong>How to read</strong>: a positive coefficient means more A, more B; negative means the reverse. In SOEs, politics "eats" performance almost as much as capability adds to it (−0.94 vs +1.08). In private firms, capability is almost entirely driven by leadership (1.58), while culture has almost no direct effect (0.06).</p>
+<h4>2. The most influential dimensions (factor loadings)</h4>
+<table><tr><th>Variable</th><th>SOE — strongest dimensions</th><th>Private — strongest dimensions</th></tr>
+<tr><td>Leadership</td><td>Strategic (1.81), transformational (1.60), transactional (1.24); laissez-faire negative (−0.83)</td><td>Strategic (1.93), transformational (1.43), facilitating employees (1.00); laissez-faire −0.94</td></tr>
+<tr><td>Culture</td><td>Adaptability (1.31), involvement (1.27)</td><td>Mission/goals (1.00), consistency (0.98)</td></tr>
+<tr><td>Political behaviour</td><td>Resistance to change (1.44), self-serving bias (1.42), power challenge (1.00), favouritism (0.89)</td><td>External intervention (1.15), self-serving bias (1.11), power challenge (1.00), resistance to change (0.98)</td></tr>
+<tr><td>Capability</td><td colspan="2">Speed (1.00) and seeks change (~1.2) strongest in both; innovation weakest (~0.5)</td></tr></table>
+<h4>3. The mean-difference test (independent samples t-test)</h4>
+<p>Question: is perceived political behaviour higher in SOEs than in private firms? H<sub>0</sub>: μ<sub>SOE</sub> = μ<sub>Private</sub>; H<sub>1</sub>: they differ. Result: significance (Sig. 2-tailed) = 0.000 for external politics (mean difference 0.53) and internal politics (difference 0.80). Since 0.000 &lt; 0.05, H<sub>0</sub> is rejected: <strong>perceived political behaviour is higher in SOEs</strong>. (Note: the slide says "if μ1 − μ2 ≤ 0.05"; what is compared with 0.05 is actually the <em>p-value/significance</em>, not the mean difference.) This agrees with Vigoda-Gadot &amp; Kapun (2005).</p>
+<h4>4. Managerial implications</h4>
+<ul><li>Raise performance by building capability <strong>and</strong> protect it by curbing politics — both together.</li>
+<li>In SOEs, prioritise reducing resistance to change and self-serving bias (for example transparent decision and promotion processes), strengthen strategic and transformational leadership, and an adaptable, involving culture.</li>
+<li>In private firms, watch for external intervention (owners/outsiders) and strengthen mission clarity and consistency.</li></ul>
+<h4>Slide exercise: PT ABC, PT PQR and PT KPI</h4>
+<p>Steps: (1) read each company's nine capability scores; (2) flag dimensions with high loadings (speed, seeks change, talent, international working environment) that score low — they are priorities because they drive performance most; (3) check for political symptoms (favouritism, resistance to change) that could "eat" the gains; (4) propose matching leadership and culture interventions. For PT KPI (an oil and gas subsidiary), link to the oil and gas ROA table: Pertamina's ROA (~5.2%) is far below Saudi Aramco's (~18.4%) and slightly below Shell's (~5.7%) — the question is which capability dimensions explain the gap in productivity per employee.</p>` } } }
+]);
+
+window.addSections("mk1", 7, [
+{ s: { h: { id: "Rem hierarki: tiga temuan riset dari slide", en: "Hierarchy's checks and balances: three research findings from the slides" },
+p: { id: `<p>Slide menegaskan hierarki jarang menghasilkan satu pemenang mutlak — ada kekuatan penyeimbang. Tiga studi yang dikutip:</p>
+<table><tr><th>Studi</th><th>Temuan</th><th>Pelajaran untuk manajer</th></tr>
+<tr><td>Wade, O'Reilly &amp; Pollock (2006) — 120 perusahaan, 5 tahun</td><td>Ketika eksekutif puncak dibayar berlebihan, karyawan level bawah lebih mungkin keluar</td><td>Keadilan imbalan di puncak memengaruhi loyalitas di bawah (kaitkan dengan Equity Theory, Week 3)</td></tr>
+<tr><td>Lammers dkk. (2008)</td><td>Hierarki yang dianggap tidak sah (illegitimate) memicu keresahan; orang berkuasa rendah justru lebih berani mengambil tindakan dan risiko untuk memulihkan legitimasi</td><td>Kekuasaan tanpa legitimasi (promosi karena kedekatan, bukan kinerja) mengundang perlawanan</td></tr>
+<tr><td>Anderson dkk. (2012)</td><td>Orang sengaja memilih posisi status rendah/menengah bila merasa kontribusinya bagi kelompok lebih kecil</td><td>Banyak orang tidak mengejar jabatan secara membabi buta; mereka menyesuaikan dengan nilai yang bisa mereka berikan</td></tr></table>
+<h4>Harga status dan momentum status (Pettit dkk.)</h4>
+<ul><li>Orang rela membayar lebih untuk <strong>menghindari kehilangan status</strong> daripada untuk mendapatkan status (mirip <em>loss aversion</em>), bahkan lebih mungkin curang demi mencegah turun status.</li>
+<li><strong>Momentum</strong>: orang yang tiba di suatu posisi karena naik dinilai lebih tinggi statusnya daripada orang di posisi yang sama tetapi karena turun.</li>
+<li><strong>Over-claiming</strong> (mengklaim status lebih tinggi dari yang diakui kelompok) cenderung dihukum — kaitkan dengan Pak Bram di kasus Week 3.</li></ul>`,
+en: `<p>The slides stress that hierarchy rarely produces one all-powerful winner — there are countervailing forces. Three studies cited:</p>
+<table><tr><th>Study</th><th>Finding</th><th>Lesson for managers</th></tr>
+<tr><td>Wade, O'Reilly &amp; Pollock (2006) — 120 firms over 5 years</td><td>When top executives were overpaid, lower-level employees were more likely to leave</td><td>Fairness of pay at the top affects loyalty below (link to Equity Theory, Week 3)</td></tr>
+<tr><td>Lammers et al. (2008)</td><td>Illegitimate hierarchies create unrest; low-power people take more action and risk to restore legitimacy</td><td>Power without legitimacy (promotion through closeness, not performance) invites resistance</td></tr>
+<tr><td>Anderson et al. (2012)</td><td>People deliberately choose lower or middle status positions when they believe they add less value to the group</td><td>Many people don't chase rank blindly; they match it to the value they can offer</td></tr></table>
+<h4>The price of status and status momentum (Pettit et al.)</h4>
+<ul><li>People pay more to <strong>avoid losing status</strong> than to gain it (like <em>loss aversion</em>), and are even more likely to cheat to prevent a drop.</li>
+<li><strong>Momentum</strong>: someone who reached a position by rising is judged higher in status than someone at the same position who got there by falling.</li>
+<li><strong>Over-claiming</strong> (claiming more status than the group grants) tends to be punished — link to Pak Bram in Week 3's case.</li></ul>` } } },
+{ s: { h: { id: "Taktik memengaruhi dan political skill: berpolitik secara etis", en: "Influence tactics and political skill: being political ethically" },
+p: { id: `<p>Slide mendefinisikan politik organisasi sebagai kegiatan di luar peran resmi yang memengaruhi pembagian keuntungan dan kerugian (Farrell &amp; Petersen, 1982), dan biasanya muncul saat sumber daya penting dan terbatas dipertaruhkan. Politik tidak bisa dihindari — pertanyaannya adalah <em>bagaimana</em> memengaruhi orang secara efektif dan etis.</p>
+<h4>Sembilan taktik memengaruhi (Yukl)</h4>
+<table><tr><th>Taktik</th><th>Contoh</th><th>Efektivitas umum</th></tr>
+<tr><td>Rational persuasion</td><td>Data dan logika</td><td>Tinggi, terutama ke atasan</td></tr>
+<tr><td>Inspirational appeal</td><td>Menghubungkan dengan nilai dan visi</td><td>Tinggi</td></tr>
+<tr><td>Consultation</td><td>Mengajak ikut merancang solusi</td><td>Tinggi</td></tr>
+<tr><td>Collaboration</td><td>Menawarkan bantuan agar permintaan mudah dijalankan</td><td>Tinggi</td></tr>
+<tr><td>Ingratiation</td><td>Memuji/bersikap menyenangkan sebelum meminta</td><td>Sedang; mudah terlihat "cari muka"</td></tr>
+<tr><td>Exchange</td><td>"Saya bantu ini, kamu bantu itu"</td><td>Sedang</td></tr>
+<tr><td>Personal appeal</td><td>Meminta atas dasar pertemanan</td><td>Sedang</td></tr>
+<tr><td>Coalition</td><td>Mengumpulkan dukungan pihak lain</td><td>Rendah–sedang; bisa memicu perlawanan</td></tr>
+<tr><td>Pressure / legitimating</td><td>Ancaman, desakan, atau "ini perintah direksi"</td><td>Rendah; menghasilkan kepatuhan, bukan komitmen</td></tr></table>
+<p>Taktik yang memakai <strong>kekuasaan personal</strong> (keahlian, referen) cenderung menghasilkan komitmen; taktik yang memakai <strong>kekuasaan posisi</strong> (paksaan, legitimasi) cenderung menghasilkan kepatuhan sementara atau perlawanan.</p>
+<h4>Political skill (Ferris dkk.)</h4>
+<p>Empat komponen: <strong>social astuteness</strong> (peka membaca orang dan situasi), <strong>interpersonal influence</strong> (menyesuaikan gaya pada tiap orang), <strong>networking ability</strong> (membangun jaringan dan koalisi), dan <strong>apparent sincerity</strong> (terlihat — dan sebaiknya memang — tulus). Political skill yang tinggi dikaitkan dengan kinerja dan kemajuan karier yang lebih baik.</p>
+<h4>Tes etika sederhana sebelum bertindak politis</h4>
+<ol><li><strong>Kepentingan siapa?</strong> Apakah tindakan ini melayani tujuan organisasi atau hanya diri sendiri?</li>
+<li><strong>Hak orang lain</strong>: apakah melanggar hak atau merugikan pihak lain secara tidak adil?</li>
+<li><strong>Keadilan</strong>: apakah adil dan bisa dipertanggungjawabkan bila diketahui umum ("tes koran")?</li></ol>`,
+en: `<p>The slides define organisational politics as activities outside one's formal role that influence the distribution of advantages and disadvantages (Farrell &amp; Petersen, 1982), usually when critical, scarce resources are at stake. Politics can't be avoided — the question is <em>how</em> to influence people effectively and ethically.</p>
+<h4>Nine influence tactics (Yukl)</h4>
+<table><tr><th>Tactic</th><th>Example</th><th>General effectiveness</th></tr>
+<tr><td>Rational persuasion</td><td>Data and logic</td><td>High, especially upward</td></tr>
+<tr><td>Inspirational appeal</td><td>Linking to values and vision</td><td>High</td></tr>
+<tr><td>Consultation</td><td>Inviting people to shape the solution</td><td>High</td></tr>
+<tr><td>Collaboration</td><td>Offering help to make the request easy</td><td>High</td></tr>
+<tr><td>Ingratiation</td><td>Flattery or being pleasant before asking</td><td>Moderate; easily seen as "currying favour"</td></tr>
+<tr><td>Exchange</td><td>"I help with this, you help with that"</td><td>Moderate</td></tr>
+<tr><td>Personal appeal</td><td>Asking on the basis of friendship</td><td>Moderate</td></tr>
+<tr><td>Coalition</td><td>Gathering others' support</td><td>Low–moderate; can trigger resistance</td></tr>
+<tr><td>Pressure / legitimating</td><td>Threats, demands or "the board ordered this"</td><td>Low; produces compliance, not commitment</td></tr></table>
+<p>Tactics drawing on <strong>personal power</strong> (expertise, referent) tend to produce commitment; tactics drawing on <strong>position power</strong> (coercion, legitimacy) tend to produce temporary compliance or resistance.</p>
+<h4>Political skill (Ferris et al.)</h4>
+<p>Four components: <strong>social astuteness</strong> (reading people and situations), <strong>interpersonal influence</strong> (adapting style to each person), <strong>networking ability</strong> (building networks and coalitions) and <strong>apparent sincerity</strong> (seeming — and ideally being — genuine). High political skill is linked to better performance and career progress.</p>
+<h4>A simple ethics test before acting politically</h4>
+<ol><li><strong>Whose interest?</strong> Does this serve the organisation's goals or only my own?</li>
+<li><strong>Others' rights</strong>: does it violate rights or unfairly harm others?</li>
+<li><strong>Fairness</strong>: is it fair and defensible if made public (the "newspaper test")?</li></ol>` } } }
+]);
+
 window.redoWeek("mk4", 1, {
   summary: {
     id: "Pengantar OSCM (Bab 1). Dimulai dari kasus pembuka Southwest Airlines (kenapa tidak memberi nomor kursi), lalu empat tujuan belajar: (1) elemen OSCM — design, operation, improvement; operations vs supply chain; jaringan pasok jaket parka; lima proses supply chain (plan, source, make, deliver, return); lima perbedaan jasa dan barang; jasa sebagai paket fitur; kontinum barang–jasa dan product–service bundling (IBM), (2) karier di OSCM sampai COO dan asosiasi profesi, (3) sejarah konsep besar OSCM (strategi manufaktur, JIT, TQM, reengineering, Six Sigma, SCM, e-commerce, analytics), sustainability & triple bottom line, business analytics, isu terkini, dan (4) mengukur efisiensi perusahaan: efisiensi vs efektivitas vs nilai, lima rasio efisiensi Wall Street, dan contoh Honda vs Toyota, GM, Ford.",
