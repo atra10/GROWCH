@@ -16858,6 +16858,305 @@ en: `<p>The "average error 3.2%" in the distributor case is the <strong>MAPE</st
 <p><strong>Other uses in finance</strong> (from the slide map): <em>cash planning</em> (is there enough cash every day — similar to the MK2 Week 3 cash budget), <em>fraud detection</em> (transactions unlike the usual pattern, e.g. anomaly analysis), <em>currency risk</em> (how far the exchange rate can move — Value at Risk), and <em>investment appraisal</em> (which assumption drives NPV most — sensitivity analysis and simulation).</p>` } } }
 ]);
 
+/* Contoh soal tambahan — satu soal untuk setiap rumus yang belum punya contoh (MK2 & MK6). ID + EN. */
+(function(){
+window.moreSoal=function(c,n,a){var k=c+"-w"+n;window.SOAL[k]=(window.SOAL[k]||[]).concat(a)};
+function S(lvl,t,q,steps,ans){return{lvl:lvl,t:t,q:q,steps:steps,ans:ans}}
+function B(id,en){return{id:id,en:en}}
+
+/* ================= MK2 ================= */
+window.moreSoal("mk2",2,[
+S(1,B("Rasio aktivitas","Activity ratios"),
+ B(`<p>Data setahun (Rp juta): penjualan 3.000; HPP 1.800; persediaan awal 280 dan akhir 320; piutang akhir 250; rata-rata total aset 2.400.</p><p>Hitung (a) perputaran persediaan dan hari persediaan, (b) rata-rata periode penagihan, (c) perputaran total aset.</p>`,
+   `<p>One year's data (IDR million): sales 3,000; COGS 1,800; inventory 280 at the start and 320 at the end; year-end receivables 250; average total assets 2,400.</p><p>Compute (a) inventory turnover and days of inventory, (b) the average collection period, (c) total asset turnover.</p>`),
+ [B(`Rata-rata persediaan = (280 + 320) ÷ 2 = 300. <div class="formula">Perputaran persediaan = HPP ÷ Rata-rata persediaan = 1.800 ÷ 300 = 6×</div>`,`Average inventory = (280 + 320) ÷ 2 = 300. <div class="formula">Inventory turnover = COGS ÷ Average inventory = 1,800 ÷ 300 = 6×</div>`),
+  B(`Hari persediaan = 365 ÷ 6 ≈ <strong>60,8 hari</strong> — barang rata-rata diam di gudang dua bulan.`,`Days of inventory = 365 ÷ 6 ≈ <strong>60.8 days</strong> — goods sit in the warehouse about two months on average.`),
+  B(`Penjualan harian = 3.000 ÷ 365 = 8,22. <div class="formula">Rata-rata periode penagihan = Piutang ÷ Penjualan harian = 250 ÷ 8,22 ≈ 30,4 hari</div>`,`Daily sales = 3,000 ÷ 365 = 8.22. <div class="formula">Average collection period = Receivables ÷ Daily sales = 250 ÷ 8.22 ≈ 30.4 days</div>`),
+  B(`<div class="formula">Perputaran total aset = Penjualan ÷ Rata-rata total aset = 3.000 ÷ 2.400 = 1,25×</div>`,`<div class="formula">Total asset turnover = Sales ÷ Average total assets = 3,000 ÷ 2,400 = 1.25×</div>`)],
+ B(`Persediaan 6× (±61 hari), penagihan ±30 hari, perputaran aset 1,25×. Bandingkan dengan tahun lalu dan industri sebelum menyimpulkan.`,`Inventory 6× (about 61 days), collection about 30 days, asset turnover 1.25×. Compare with last year and the industry before drawing conclusions.`)),
+S(1,B("Rasio profitabilitas","Profitability ratios"),
+ B(`<p>Penjualan Rp3.000 juta, laba kotor 900, laba operasi 360, laba bersih 210. Rata-rata total aset 2.400, rata-rata ekuitas 1.200. Hitung GPM, OPM, NPM, ROA, dan ROE.</p>`,
+   `<p>Sales IDR 3,000 million, gross profit 900, operating income 360, net income 210. Average total assets 2,400, average equity 1,200. Compute GPM, OPM, NPM, ROA and ROE.</p>`),
+ [B(`Gross profit margin = 900 ÷ 3.000 = <strong>30%</strong>.`,`Gross profit margin = 900 ÷ 3,000 = <strong>30%</strong>.`),
+  B(`Operating profit margin = 360 ÷ 3.000 = <strong>12%</strong>.`,`Operating profit margin = 360 ÷ 3,000 = <strong>12%</strong>.`),
+  B(`Net profit margin = 210 ÷ 3.000 = <strong>7%</strong>.`,`Net profit margin = 210 ÷ 3,000 = <strong>7%</strong>.`),
+  B(`ROA = Laba bersih ÷ Rata-rata aset = 210 ÷ 2.400 = <strong>8,75%</strong>.`,`ROA = Net income ÷ Average assets = 210 ÷ 2,400 = <strong>8.75%</strong>.`),
+  B(`ROE = Laba bersih ÷ Rata-rata ekuitas = 210 ÷ 1.200 = <strong>17,5%</strong>. Cek DuPont: 7% × 1,25 × 2,0 = 17,5% ✓`,`ROE = Net income ÷ Average equity = 210 ÷ 1,200 = <strong>17.5%</strong>. DuPont check: 7% × 1.25 × 2.0 = 17.5% ✓`)],
+ B(`GPM 30%, OPM 12%, NPM 7%, ROA 8,75%, ROE 17,5%.`,`GPM 30%, OPM 12%, NPM 7%, ROA 8.75%, ROE 17.5%.`)),
+S(2,B("Rasio valuasi: EPS, P/E, P/BV","Valuation ratios: EPS, P/E, P/BV"),
+ B(`<p>Laba bersih Rp210 miliar, dividen saham preferen Rp10 miliar, saham biasa beredar 400 juta lembar. Harga saham Rp6.000. Ekuitas pemegang saham biasa Rp1.200 miliar. Hitung EPS, P/E, nilai buku per saham, dan P/BV.</p>`,
+   `<p>Net income IDR 210 billion, preferred dividends IDR 10 billion, 400 million common shares outstanding. Share price IDR 6,000. Common equity IDR 1,200 billion. Compute EPS, P/E, book value per share and P/BV.</p>`),
+ [B(`Laba untuk pemegang saham biasa = 210 − 10 = Rp200 miliar.`,`Earnings available to common = 210 − 10 = IDR 200 billion.`),
+  B(`<div class="formula">EPS = 200 miliar ÷ 400 juta lembar = Rp500</div>`,`<div class="formula">EPS = 200 billion ÷ 400 million shares = IDR 500</div>`),
+  B(`P/E = Harga ÷ EPS = 6.000 ÷ 500 = <strong>12×</strong> — investor membayar Rp12 untuk setiap Rp1 laba.`,`P/E = Price ÷ EPS = 6,000 ÷ 500 = <strong>12×</strong> — investors pay IDR 12 for every IDR 1 of earnings.`),
+  B(`Nilai buku per saham = 1.200 miliar ÷ 400 juta = Rp3.000. P/BV = 6.000 ÷ 3.000 = <strong>2,0×</strong>.`,`Book value per share = 1,200 billion ÷ 400 million = IDR 3,000. P/BV = 6,000 ÷ 3,000 = <strong>2.0×</strong>.`)],
+ B(`EPS Rp500, P/E 12×, BV/saham Rp3.000, P/BV 2,0×.`,`EPS IDR 500, P/E 12×, BV/share IDR 3,000, P/BV 2.0×.`)),
+S(2,B("Common-size dan analisis horizontal","Common-size and horizontal analysis"),
+ B(`<p>Tahun lalu → tahun ini (Rp miliar): pendapatan 1.000 → 1.190; piutang 200 → 276; persediaan 150 → 237. Hitung (a) pertumbuhan tiap pos (horizontal), (b) piutang sebagai % pendapatan (vertikal) di kedua tahun. Apa yang perlu dicurigai?</p>`,
+   `<p>Last year → this year (IDR billion): revenue 1,000 → 1,190; receivables 200 → 276; inventory 150 → 237. Compute (a) the growth of each item (horizontal), (b) receivables as % of revenue (vertical) in both years. What should raise suspicion?</p>`),
+ [B(`<div class="formula">Horizontal: Periode sekarang ÷ Periode dasar − 1</div> Pendapatan 1.190 ÷ 1.000 − 1 = <strong>19%</strong>; piutang 276 ÷ 200 − 1 = <strong>38%</strong>; persediaan 237 ÷ 150 − 1 = <strong>58%</strong>.`,`<div class="formula">Horizontal: Current period ÷ Base period − 1</div> Revenue 1,190 ÷ 1,000 − 1 = <strong>19%</strong>; receivables 276 ÷ 200 − 1 = <strong>38%</strong>; inventory 237 ÷ 150 − 1 = <strong>58%</strong>.`),
+  B(`<div class="formula">Vertikal: Pos ÷ Pos dasar (pendapatan)</div> Piutang/pendapatan: 200 ÷ 1.000 = 20% → 276 ÷ 1.190 = <strong>23,2%</strong>.`,`<div class="formula">Vertical: Line item ÷ Base item (revenue)</div> Receivables/revenue: 200 ÷ 1,000 = 20% → 276 ÷ 1,190 = <strong>23.2%</strong>.`),
+  B(`Piutang dan persediaan tumbuh jauh lebih cepat dari pendapatan — ini <em>red flag</em> seperti contoh di slide. Kemungkinan: kredit dilonggarkan, penagihan melambat, pengakuan pendapatan agresif, atau persediaan usang/menumpuk.`,`Receivables and inventory grow far faster than revenue — a <em>red flag</em> like the slide example. Possible causes: looser credit, slower collections, aggressive revenue recognition, or obsolete/piling inventory.`)],
+ B(`Pendapatan +19%, piutang +38%, persediaan +58%; piutang naik dari 20% ke 23,2% pendapatan → perlu diselidiki.`,`Revenue +19%, receivables +38%, inventory +58%; receivables rise from 20% to 23.2% of revenue → investigate.`))
+]);
+
+window.moreSoal("mk2",3,[
+S(1,B("Tax shield penyusutan","Depreciation tax shield"),
+ B(`<p>Penyusutan tahun ini Rp80 juta, tarif pajak 22%. Berapa penghematan pajak dari penyusutan? Kenapa penyusutan yang lebih cepat bernilai lebih?</p>`,`<p>This year's depreciation is IDR 80 million, tax rate 22%. How much tax does depreciation save? Why is faster depreciation worth more?</p>`),
+ [B(`<div class="formula">Tax shield = Penyusutan × Tarif pajak = 80 × 22% = Rp17,6 juta</div>`,`<div class="formula">Tax shield = Depreciation × Tax rate = 80 × 22% = IDR 17.6 million</div>`),
+  B(`Penyusutan tidak memakai kas, tetapi mengurangi laba kena pajak → pajak yang dibayar turun Rp17,6 juta.`,`Depreciation uses no cash but lowers taxable income → tax paid falls by IDR 17.6 million.`),
+  B(`Total penyusutan selama umur aset sama, tetapi penyusutan cepat (MACRS) memindahkan penghematan pajak ke tahun-tahun awal — dan uang yang datang lebih awal lebih bernilai (nilai waktu uang).`,`Total depreciation over the asset's life is the same, but faster depreciation (MACRS) moves the tax savings into early years — and earlier money is worth more (time value of money).`)],
+ B(`Penghematan pajak Rp17,6 juta.`,`Tax saving IDR 17.6 million.`)),
+S(2,B("Pro forma laba rugi: persen penjualan vs biaya tetap","Pro forma income: percent of sales vs fixed costs"),
+ B(`<p>Penjualan tahun ini Rp200 juta: HPP 150 (terdiri dari tetap 60 + variabel 45% penjualan), beban operasi 20 (tetap 10 + variabel 5%), bunga 4 (tetap). Tahun depan penjualan diperkirakan Rp240 juta. Hitung laba sebelum pajak tahun depan dengan (a) metode persen penjualan, (b) pemisahan biaya tetap dan variabel.</p>`,
+   `<p>This year's sales are IDR 200 million: COGS 150 (fixed 60 + variable 45% of sales), operating expenses 20 (fixed 10 + variable 5%), interest 4 (fixed). Next year's sales are forecast at IDR 240 million. Compute next year's profit before tax with (a) the percent-of-sales method, (b) a fixed/variable split.</p>`),
+ [B(`(a) Rasio tahun ini: HPP 150/200 = 75%, beban operasi 10%, bunga 2%. Laba sebelum pajak = 240 − 180 − 24 − 4,8 = <strong>31,2</strong>.`,`(a) This year's ratios: COGS 150/200 = 75%, operating expenses 10%, interest 2%. Profit before tax = 240 − 180 − 24 − 4.8 = <strong>31.2</strong>.`),
+  B(`(b) HPP = 60 + 45% × 240 = 168. Beban operasi = 10 + 5% × 240 = 22. Bunga = 4.`,`(b) COGS = 60 + 45% × 240 = 168. Operating expenses = 10 + 5% × 240 = 22. Interest = 4.`),
+  B(`Laba sebelum pajak = 240 − 168 − 22 − 4 = <strong>46</strong>.`,`Profit before tax = 240 − 168 − 22 − 4 = <strong>46</strong>.`),
+  B(`Selisih 14,8: metode persen penjualan menganggap semua biaya ikut naik 20%, padahal biaya tetap tidak naik → laba <em>terlalu rendah</em> (sama seperti kasus Fair Traders di slide).`,`A gap of 14.8: percent of sales assumes every cost rises 20%, but fixed costs do not → profit is <em>understated</em> (as in the Fair Traders case on the slides).`)],
+ B(`(a) Rp31,2 juta; (b) Rp46 juta. Metode (b) lebih akurat.`,`(a) IDR 31.2 million; (b) IDR 46 million. Method (b) is more accurate.`)),
+S(2,B("Pro forma neraca: kebutuhan dana eksternal (plug)","Pro forma balance sheet: external financing (plug)"),
+ B(`<p>Perkiraan akhir tahun depan (Rp juta): total aset 520. Liabilitas yang diperkirakan (utang usaha, pajak, utang bank yang ada) 210. Ekuitas awal 250, laba ditahan tambahan dari pro forma laba rugi 30. Berapa dana eksternal yang dibutuhkan?</p>`,
+   `<p>Forecast for next year-end (IDR million): total assets 520. Forecast liabilities (payables, taxes, existing bank debt) 210. Opening equity 250, extra retained earnings from the pro forma income statement 30. How much external financing is needed?</p>`),
+ [B(`Ekuitas akhir = 250 + 30 = 280.`,`Ending equity = 250 + 30 = 280.`),
+  B(`Sumber dana yang sudah ada = 210 + 280 = 490.`,`Funding already in place = 210 + 280 = 490.`),
+  B(`<div class="formula">Dana eksternal = Total aset − (Liabilitas + Ekuitas) = 520 − 490 = 30</div> Pada pendekatan judgmental, angka ini adalah "plug" penyeimbang neraca.`,`<div class="formula">External financing = Total assets − (Liabilities + Equity) = 520 − 490 = 30</div> In the judgmental approach this is the "plug" that balances the sheet.`),
+  B(`Jika hasilnya negatif, artinya ada kelebihan dana yang bisa dipakai membayar utang atau diinvestasikan.`,`A negative result means surplus funds that can repay debt or be invested.`)],
+ B(`Butuh dana eksternal Rp30 juta.`,`IDR 30 million of external financing is needed.`))
+]);
+
+window.moreSoal("mk2",4,[
+S(1,B("Prime cost dan conversion cost","Prime cost and conversion cost"),
+ B(`<p>Biaya produksi bulan ini (Rp juta): bahan langsung 120, tenaga kerja langsung 80, overhead pabrik 100. Hitung prime cost dan conversion cost.</p>`,`<p>This month's production costs (IDR million): direct materials 120, direct labour 80, manufacturing overhead 100. Compute prime cost and conversion cost.</p>`),
+ [B(`<div class="formula">Prime cost = DM + DL = 120 + 80 = 200</div>`,`<div class="formula">Prime cost = DM + DL = 120 + 80 = 200</div>`),
+  B(`<div class="formula">Conversion cost = DL + MOH = 80 + 100 = 180</div>`,`<div class="formula">Conversion cost = DL + MOH = 80 + 100 = 180</div>`),
+  B(`Tenaga kerja langsung masuk ke keduanya, jadi prime + conversion (380) ≠ total biaya produksi (300). Jangan dijumlahkan.`,`Direct labour sits in both, so prime + conversion (380) ≠ total manufacturing cost (300). Do not add them together.`)],
+ B(`Prime cost Rp200 juta; conversion cost Rp180 juta.`,`Prime cost IDR 200 million; conversion cost IDR 180 million.`)),
+S(2,B("Jadwal COGM dan COGS","COGM and COGS schedule"),
+ B(`<p>(Rp juta) Bahan baku awal 30, pembelian 200, bahan baku akhir 40. Tenaga kerja langsung 150. Overhead dibebankan 180. WIP awal 50, WIP akhir 60. Barang jadi awal 70, barang jadi akhir 90. Hitung COGM dan COGS.</p>`,`<p>(IDR million) Opening raw materials 30, purchases 200, closing raw materials 40. Direct labour 150. Overhead applied 180. Opening WIP 50, closing WIP 60. Opening finished goods 70, closing finished goods 90. Compute COGM and COGS.</p>`),
+ [B(`Bahan baku dipakai = 30 + 200 − 40 = 190.`,`Raw materials used = 30 + 200 − 40 = 190.`),
+  B(`Total biaya manufaktur = 190 + 150 + 180 = 520.`,`Total manufacturing cost = 190 + 150 + 180 = 520.`),
+  B(`<div class="formula">COGM = 520 + WIP awal 50 − WIP akhir 60 = 510</div>`,`<div class="formula">COGM = 520 + opening WIP 50 − closing WIP 60 = 510</div>`),
+  B(`<div class="formula">COGS = Barang jadi awal 70 + COGM 510 − Barang jadi akhir 90 = 490</div>`,`<div class="formula">COGS = Opening FG 70 + COGM 510 − Closing FG 90 = 490</div>`)],
+ B(`COGM Rp510 juta; COGS Rp490 juta (sebelum penyesuaian overhead).`,`COGM IDR 510 million; COGS IDR 490 million (before the overhead adjustment).`)),
+S(2,B("Overhead kurang/lebih dibebankan","Under/overapplied overhead"),
+ B(`<p>POHR = Rp600.000 ÷ 40.000 jam = Rp15 per jam tenaga kerja langsung. Di akhir tahun, jam aktual 42.000 dan overhead aktual Rp610.000. Hitung overhead dibebankan, selisihnya, dan dampaknya pada COGS.</p>`,`<p>POHR = IDR 600,000 ÷ 40,000 hours = IDR 15 per direct labour hour. At year-end, actual hours are 42,000 and actual overhead is IDR 610,000. Compute overhead applied, the difference, and its effect on COGS.</p>`),
+ [B(`<div class="formula">Overhead dibebankan = POHR × Jam aktual = 15 × 42.000 = Rp630.000</div>`,`<div class="formula">Overhead applied = POHR × Actual hours = 15 × 42,000 = IDR 630,000</div>`),
+  B(`Selisih = Aktual − Dibebankan = 610.000 − 630.000 = −20.000 → overhead <strong>lebih dibebankan (overapplied)</strong> Rp20.000.`,`Difference = Actual − Applied = 610,000 − 630,000 = −20,000 → overhead is <strong>overapplied</strong> by IDR 20,000.`),
+  B(`Biaya produk dicatat terlalu tinggi, jadi COGS <em>dikurangi</em> Rp20.000 (jika selisih kecil ditutup ke COGS).`,`Product costs were recorded too high, so COGS is <em>reduced</em> by IDR 20,000 (if a small difference is closed to COGS).`)],
+ B(`Overapplied Rp20.000 → COGS turun Rp20.000.`,`Overapplied by IDR 20,000 → COGS falls by IDR 20,000.`))
+]);
+
+window.moreSoal("mk2",5,[
+S(2,B("Titik impas multi-produk (sales mix)","Multi-product break-even (sales mix)"),
+ B(`<p>Produk A: margin kontribusi Rp30/unit. Produk B: Rp12/unit. Bauran penjualan 1 A : 3 B. Biaya tetap Rp330.000. Berapa unit A dan B di titik impas? Apa yang terjadi kalau bauran bergeser ke B?</p>`,`<p>Product A: contribution margin IDR 30/unit. Product B: IDR 12/unit. Sales mix 1 A : 3 B. Fixed costs IDR 330,000. How many units of A and B break even? What happens if the mix shifts toward B?</p>`),
+ [B(`CM per "paket" (1A + 3B) = 30 + 3 × 12 = Rp66.`,`CM per "bundle" (1A + 3B) = 30 + 3 × 12 = IDR 66.`),
+  B(`<div class="formula">Paket impas = Biaya tetap ÷ CM per paket = 330.000 ÷ 66 = 5.000 paket</div>`,`<div class="formula">Break-even bundles = Fixed costs ÷ CM per bundle = 330,000 ÷ 66 = 5,000 bundles</div>`),
+  B(`Unit: A = 5.000 × 1 = <strong>5.000</strong>; B = 5.000 × 3 = <strong>15.000</strong>.`,`Units: A = 5,000 × 1 = <strong>5,000</strong>; B = 5,000 × 3 = <strong>15,000</strong>.`),
+  B(`Jika bauran bergeser ke B (CM lebih kecil), CM rata-rata turun → titik impas naik, walau harga dan biaya tiap produk tidak berubah.`,`If the mix shifts to B (lower CM), the average CM falls → break-even rises, even though each product's price and cost are unchanged.`)],
+ B(`5.000 unit A dan 15.000 unit B.`,`5,000 units of A and 15,000 units of B.`)),
+S(2,B("Segment margin: tutup segmen atau tidak?","Segment margin: drop the segment or not?"),
+ B(`<p>(Rp juta) Segmen X: penjualan 500, biaya variabel 300, biaya tetap traceable 120. Segmen Y: penjualan 400, biaya variabel 280, biaya tetap traceable 150. Biaya tetap bersama (common) 60. Hitung segment margin dan laba perusahaan. Kalau Y ditutup (biaya traceable-nya hilang), apa yang terjadi?</p>`,`<p>(IDR million) Segment X: sales 500, variable costs 300, traceable fixed costs 120. Segment Y: sales 400, variable costs 280, traceable fixed costs 150. Common fixed costs 60. Compute segment margins and company profit. If Y is closed (its traceable costs disappear), what happens?</p>`),
+ [B(`CM X = 500 − 300 = 200; CM Y = 400 − 280 = 120.`,`CM X = 500 − 300 = 200; CM Y = 400 − 280 = 120.`),
+  B(`<div class="formula">Segment margin = CM − Biaya tetap traceable</div> X = 200 − 120 = 80; Y = 120 − 150 = <strong>−30</strong>.`,`<div class="formula">Segment margin = CM − Traceable fixed costs</div> X = 200 − 120 = 80; Y = 120 − 150 = <strong>−30</strong>.`),
+  B(`Laba perusahaan = 80 − 30 − 60 = <strong>−10</strong>.`,`Company profit = 80 − 30 − 60 = <strong>−10</strong>.`),
+  B(`Tanpa Y: laba = 80 − 60 = <strong>+20</strong> (naik 30). Biaya bersama 60 tidak boleh dibebankan ke Y saat menilai, karena tidak hilang walau Y ditutup.`,`Without Y: profit = 80 − 60 = <strong>+20</strong> (up 30). The common 60 must not be charged to Y when judging it, because it does not disappear if Y closes.`)],
+ B(`Segment margin X 80, Y −30; menutup Y menaikkan laba dari −10 ke +20 (jika biaya traceable Y memang hilang).`,`Segment margins X 80, Y −30; closing Y lifts profit from −10 to +20 (if Y's traceable costs truly disappear).`)),
+S(3,B("Activity-Based Costing: tarif aktivitas","Activity-based costing: activity rates"),
+ B(`<p>Pool aktivitas: setup Rp90.000 (300 setup), inspeksi Rp60.000 (1.200 inspeksi), permesinan Rp150.000 (10.000 jam mesin). Produk P (1.000 unit) memakai 50 setup, 400 inspeksi, 2.000 jam mesin. Hitung overhead per unit P dengan ABC dan dengan tarif tunggal per jam mesin.</p>`,`<p>Activity pools: setup IDR 90,000 (300 setups), inspection IDR 60,000 (1,200 inspections), machining IDR 150,000 (10,000 machine hours). Product P (1,000 units) uses 50 setups, 400 inspections, 2,000 machine hours. Compute overhead per unit of P with ABC and with a single plantwide machine-hour rate.</p>`),
+ [B(`<div class="formula">Tarif aktivitas = Biaya pool ÷ Jumlah driver</div> Setup 90.000 ÷ 300 = 300; inspeksi 60.000 ÷ 1.200 = 50; permesinan 150.000 ÷ 10.000 = 15 per jam.`,`<div class="formula">Activity rate = Pool cost ÷ Driver quantity</div> Setup 90,000 ÷ 300 = 300; inspection 60,000 ÷ 1,200 = 50; machining 150,000 ÷ 10,000 = 15 per hour.`),
+  B(`Overhead P (ABC) = 50 × 300 + 400 × 50 + 2.000 × 15 = 15.000 + 20.000 + 30.000 = 65.000 → <strong>Rp65/unit</strong>.`,`P's overhead (ABC) = 50 × 300 + 400 × 50 + 2,000 × 15 = 15,000 + 20,000 + 30,000 = 65,000 → <strong>IDR 65/unit</strong>.`),
+  B(`Tarif tunggal = 300.000 ÷ 10.000 jam = 30/jam → P = 2.000 × 30 = 60.000 → <strong>Rp60/unit</strong>.`,`Single rate = 300,000 ÷ 10,000 hours = 30/hour → P = 2,000 × 30 = 60,000 → <strong>IDR 60/unit</strong>.`),
+  B(`P memakai banyak setup dan inspeksi relatif terhadap jam mesinnya, jadi sistem tradisional <em>undercost</em> P sebesar Rp5/unit.`,`P uses many setups and inspections relative to its machine hours, so the traditional system <em>undercosts</em> P by IDR 5/unit.`)],
+ B(`ABC Rp65/unit vs tradisional Rp60/unit.`,`ABC IDR 65/unit vs traditional IDR 60/unit.`))
+]);
+
+window.moreSoal("mk2",6,[
+S(1,B("Perpetuitas dan perpetuitas tumbuh","Perpetuity and growing perpetuity"),
+ B(`<p>Sebuah wakaf memberi Rp12 juta per tahun selamanya, mulai tahun depan. Tingkat diskonto 8%. (a) Berapa nilainya hari ini? (b) Jika pembayaran tumbuh 3% per tahun (tahun depan tetap Rp12 juta)?</p>`,`<p>An endowment pays IDR 12 million a year forever, starting next year. Discount rate 8%. (a) What is it worth today? (b) What if payments grow 3% a year (next year still IDR 12 million)?</p>`),
+ [B(`<div class="formula">PV perpetuitas = CF₁ ÷ r = 12 ÷ 0,08 = Rp150 juta</div>`,`<div class="formula">PV of perpetuity = CF₁ ÷ r = 12 ÷ 0.08 = IDR 150 million</div>`),
+  B(`<div class="formula">PV perpetuitas tumbuh = CF₁ ÷ (r − g) = 12 ÷ (0,08 − 0,03) = Rp240 juta</div>`,`<div class="formula">PV of growing perpetuity = CF₁ ÷ (r − g) = 12 ÷ (0.08 − 0.03) = IDR 240 million</div>`),
+  B(`Rumus hanya berlaku jika r &gt; g. Semakin dekat g ke r, nilainya melonjak — itulah kenapa asumsi pertumbuhan harus hati-hati.`,`The formula only works if r &gt; g. The closer g gets to r, the more the value explodes — so growth assumptions need care.`)],
+ B(`(a) Rp150 juta; (b) Rp240 juta.`,`(a) IDR 150 million; (b) IDR 240 million.`)),
+S(2,B("PV arus kas campuran","PV of a mixed stream"),
+ B(`<p>Proyek memberi Rp30 juta (akhir tahun 1), Rp50 juta (tahun 2), dan Rp40 juta (tahun 3). Tingkat diskonto 10%. Berapa PV-nya?</p>`,`<p>A project pays IDR 30 million (end of year 1), IDR 50 million (year 2) and IDR 40 million (year 3). Discount rate 10%. What is its PV?</p>`),
+ [B(`Jumlahnya tidak sama, jadi diskonto satu per satu: PV = CFₜ ÷ (1 + r)ᵗ.`,`The amounts differ, so discount each one: PV = CFₜ ÷ (1 + r)ᵗ.`),
+  B(`30 ÷ 1,1 = 27,27; 50 ÷ 1,21 = 41,32; 40 ÷ 1,331 = 30,05.`,`30 ÷ 1.1 = 27.27; 50 ÷ 1.21 = 41.32; 40 ÷ 1.331 = 30.05.`),
+  B(`Total PV = 27,27 + 41,32 + 30,05 = <strong>98,65</strong>.`,`Total PV = 27.27 + 41.32 + 30.05 = <strong>98.65</strong>.`)],
+ B(`PV ≈ Rp98,65 juta.`,`PV ≈ IDR 98.65 million.`)),
+S(3,B("Mencari tingkat bunga dan jumlah periode","Solving for the rate and the number of periods"),
+ B(`<p>(a) Rp20 juta menjadi Rp32 juta dalam 6 tahun. Berapa tingkat bunga tahunannya? (b) Dengan bunga 9%, berapa tahun uang berlipat dua? Bandingkan dengan Rule of 72.</p>`,`<p>(a) IDR 20 million grows to IDR 32 million in 6 years. What is the annual rate? (b) At 9%, how many years does money take to double? Compare with the Rule of 72.</p>`),
+ [B(`Dari FV = PV(1 + r)ⁿ: <div class="formula">r = (FV ÷ PV)^(1/n) − 1 = (32 ÷ 20)^(1/6) − 1 = 1,6^(1/6) − 1 ≈ 8,15%</div>`,`From FV = PV(1 + r)ⁿ: <div class="formula">r = (FV ÷ PV)^(1/n) − 1 = (32 ÷ 20)^(1/6) − 1 = 1.6^(1/6) − 1 ≈ 8.15%</div>`),
+  B(`<div class="formula">n = ln(FV ÷ PV) ÷ ln(1 + r) = ln 2 ÷ ln 1,09 ≈ 8,04 tahun</div>`,`<div class="formula">n = ln(FV ÷ PV) ÷ ln(1 + r) = ln 2 ÷ ln 1.09 ≈ 8.04 years</div>`),
+  B(`Rule of 72: 72 ÷ 9 = 8 tahun — sangat dekat dengan hasil tepat 8,04.`,`Rule of 72: 72 ÷ 9 = 8 years — very close to the exact 8.04.`)],
+ B(`(a) ±8,15% per tahun; (b) ±8 tahun.`,`(a) about 8.15% a year; (b) about 8 years.`))
+]);
+
+window.moreSoal("mk2",7,[
+S(1,B("Bunga majemuk kontinu","Continuous compounding"),
+ B(`<p>Bunga nominal 10% per tahun dimajemukkan secara kontinu. Berapa EAR-nya? Bandingkan dengan majemuk bulanan.</p>`,`<p>A nominal 10% a year is compounded continuously. What is the EAR? Compare with monthly compounding.</p>`),
+ [B(`<div class="formula">EAR (kontinu) = e^r − 1 = e^0,10 − 1 ≈ 10,517%</div>`,`<div class="formula">EAR (continuous) = e^r − 1 = e^0.10 − 1 ≈ 10.517%</div>`),
+  B(`Bulanan: (1 + 0,10/12)^12 − 1 ≈ 10,471%.`,`Monthly: (1 + 0.10/12)^12 − 1 ≈ 10.471%.`),
+  B(`Majemuk kontinu adalah batas atas: semakin sering dimajemukkan, EAR semakin tinggi, tetapi kenaikannya mengecil.`,`Continuous compounding is the upper limit: the more often interest compounds, the higher the EAR, but the gains shrink.`)],
+ B(`EAR kontinu ≈ 10,52% (bulanan ≈ 10,47%).`,`Continuous EAR ≈ 10.52% (monthly ≈ 10.47%).`)),
+S(2,B("DSCR dan batas cicilan","DSCR and the maximum debt service"),
+ B(`<p>Kas tersedia untuk membayar utang (CFADS) Rp1.200 juta per tahun. Cicilan pokok + bunga Rp900 juta per tahun. Bank mensyaratkan DSCR minimal 1,25. Apakah lolos? Berapa cicilan maksimum yang masih diizinkan?</p>`,`<p>Cash flow available for debt service (CFADS) is IDR 1,200 million a year. Principal + interest payments are IDR 900 million a year. The bank requires a minimum DSCR of 1.25. Does it pass? What is the maximum payment allowed?</p>`),
+ [B(`<div class="formula">DSCR = CFADS ÷ Total cicilan = 1.200 ÷ 900 ≈ 1,33</div>`,`<div class="formula">DSCR = CFADS ÷ Total debt service = 1,200 ÷ 900 ≈ 1.33</div>`),
+  B(`1,33 ≥ 1,25 → <strong>lolos</strong>, dengan bantalan ±7%.`,`1.33 ≥ 1.25 → <strong>passes</strong>, with about a 7% cushion.`),
+  B(`Cicilan maksimum = CFADS ÷ DSCR minimum = 1.200 ÷ 1,25 = <strong>Rp960 juta</strong> per tahun.`,`Maximum debt service = CFADS ÷ minimum DSCR = 1,200 ÷ 1.25 = <strong>IDR 960 million</strong> a year.`)],
+ B(`DSCR 1,33 (lolos); cicilan maksimum Rp960 juta/tahun.`,`DSCR 1.33 (passes); maximum IDR 960 million/year.`)),
+S(3,B("Nilai terminal dan PV-nya","Terminal value and its PV"),
+ B(`<p>Proyeksi arus kas eksplisit sampai tahun 10. Arus kas tahun 11 diperkirakan Rp110 miliar dan tumbuh 4% selamanya. Tingkat diskonto 11%. Hitung nilai terminal di tahun 10 dan nilai sekarangnya.</p>`,`<p>Explicit cash flows are projected to year 10. Year-11 cash flow is forecast at IDR 110 billion, growing 4% forever. Discount rate 11%. Compute the terminal value at year 10 and its present value.</p>`),
+ [B(`<div class="formula">TV₁₀ = CF₁₁ ÷ (r − g) = 110 ÷ (0,11 − 0,04) ≈ 1.571,4</div>`,`<div class="formula">TV₁₀ = CF₁₁ ÷ (r − g) = 110 ÷ (0.11 − 0.04) ≈ 1,571.4</div>`),
+  B(`<div class="formula">PV = TV₁₀ ÷ (1 + r)¹⁰ = 1.571,4 ÷ 1,11¹⁰ ≈ 553,4</div>`,`<div class="formula">PV = TV₁₀ ÷ (1 + r)¹⁰ = 1,571.4 ÷ 1.11¹⁰ ≈ 553.4</div>`),
+  B(`Pakai CF tahun 11 (bukan tahun 10) agar tidak terhitung ganda, dan diskonto 10 tahun karena TV berada di akhir tahun 10.`,`Use the year-11 cash flow (not year 10) to avoid double counting, and discount 10 years because TV sits at the end of year 10.`)],
+ B(`TV₁₀ ≈ Rp1.571 miliar; PV ≈ Rp553 miliar.`,`TV₁₀ ≈ IDR 1,571 billion; PV ≈ IDR 553 billion.`))
+]);
+
+window.moreSoal("mk2",8,[
+S(1,B("Return satu periode","Holding-period return"),
+ B(`<p>Saham dibeli Rp10.000 (P<sub>t−1</sub>), setahun kemudian harganya Rp11.000 (P<sub>t</sub>) dan membayar dividen Rp500 (C<sub>t</sub>). Berapa return-nya?</p>`,`<p>A share is bought at IDR 10,000 (P<sub>t−1</sub>); a year later it is worth IDR 11,000 (P<sub>t</sub>) and has paid a IDR 500 dividend (C<sub>t</sub>). What is the return?</p>`),
+ [B(`<div class="formula">r_t = (C_t + P_t − P_t−1) ÷ P_t−1</div>`,`<div class="formula">r_t = (C_t + P_t − P_t−1) ÷ P_t−1</div>`),
+  B(`= (500 + 11.000 − 10.000) ÷ 10.000 = 1.500 ÷ 10.000 = <strong>15%</strong>.`,`= (500 + 11,000 − 10,000) ÷ 10,000 = 1,500 ÷ 10,000 = <strong>15%</strong>.`),
+  B(`Terdiri dari dividend yield 5% + capital gain 10%.`,`Made up of a 5% dividend yield + a 10% capital gain.`)],
+ B(`Return 15%.`,`Return 15%.`)),
+S(2,B("Expected return dan standar deviasi","Expected return and standard deviation"),
+ B(`<p>Skenario aset A: pesimis (peluang 0,25) return 5%; paling mungkin (0,50) 15%; optimis (0,25) 25%. Hitung expected return dan standar deviasi.</p>`,`<p>Asset A scenarios: pessimistic (probability 0.25) return 5%; most likely (0.50) 15%; optimistic (0.25) 25%. Compute the expected return and standard deviation.</p>`),
+ [B(`<div class="formula">r̄ = Σ r_j × Pr_j = 0,25×5 + 0,5×15 + 0,25×25 = 15%</div>`,`<div class="formula">r̄ = Σ r_j × Pr_j = 0.25×5 + 0.5×15 + 0.25×25 = 15%</div>`),
+  B(`Selisih kuadrat × peluang: 0,25×(5−15)² + 0,5×0² + 0,25×(25−15)² = 25 + 0 + 25 = 50.`,`Squared deviations × probability: 0.25×(5−15)² + 0.5×0² + 0.25×(25−15)² = 25 + 0 + 25 = 50.`),
+  B(`<div class="formula">σ = √50 ≈ 7,07%</div>`,`<div class="formula">σ = √50 ≈ 7.07%</div>`)],
+ B(`Expected return 15%; σ ≈ 7,07%.`,`Expected return 15%; σ ≈ 7.07%.`)),
+S(1,B("Koefisien variasi (CV)","Coefficient of variation (CV)"),
+ B(`<p>Aset A: expected return 15%, σ 7,07%. Aset B: expected return 12%, σ 3%. Mana yang lebih berisiko per unit return?</p>`,`<p>Asset A: expected return 15%, σ 7.07%. Asset B: expected return 12%, σ 3%. Which is riskier per unit of return?</p>`),
+ [B(`<div class="formula">CV = σ ÷ r̄</div> A = 7,07 ÷ 15 ≈ 0,47; B = 3 ÷ 12 = 0,25.`,`<div class="formula">CV = σ ÷ r̄</div> A = 7.07 ÷ 15 ≈ 0.47; B = 3 ÷ 12 = 0.25.`),
+  B(`CV A lebih tinggi → A menanggung risiko hampir dua kali lebih besar untuk setiap 1% return.`,`A's CV is higher → A carries almost twice the risk for each 1% of return.`)],
+ B(`A lebih berisiko relatif (CV 0,47 vs 0,25).`,`A is relatively riskier (CV 0.47 vs 0.25).`)),
+S(1,B("Return dan beta portofolio","Portfolio return and beta"),
+ B(`<p>Portofolio: 60% saham X (expected return 12%, β 1,2) dan 40% saham Y (8%, β 0,8). Hitung expected return dan beta portofolio.</p>`,`<p>Portfolio: 60% stock X (expected return 12%, β 1.2) and 40% stock Y (8%, β 0.8). Compute the portfolio's expected return and beta.</p>`),
+ [B(`<div class="formula">r_p = Σ w_j × r_j = 0,6×12 + 0,4×8 = 10,4%</div>`,`<div class="formula">r_p = Σ w_j × r_j = 0.6×12 + 0.4×8 = 10.4%</div>`),
+  B(`Beta portofolio juga rata-rata tertimbang: 0,6×1,2 + 0,4×0,8 = <strong>1,04</strong>.`,`Portfolio beta is also a weighted average: 0.6×1.2 + 0.4×0.8 = <strong>1.04</strong>.`),
+  B(`Catatan: return dan beta bisa dirata-rata, tetapi <em>standar deviasi tidak</em> — σ portofolio bergantung pada korelasi.`,`Note: return and beta can be averaged, but <em>standard deviation cannot</em> — portfolio σ depends on correlation.`)],
+ B(`r_p = 10,4%; β_p = 1,04.`,`r_p = 10.4%; β_p = 1.04.`)),
+S(2,B("CAPM dan pergeseran SML","CAPM and a shift in the SML"),
+ B(`<p>R_F = 6%, r_m = 12%, β saham = 1,3. (a) Berapa required return? (b) Jika inflasi naik sehingga R_F dan r_m sama-sama naik 2 poin, berapa required return baru?</p>`,`<p>R_F = 6%, r_m = 12%, the stock's β = 1.3. (a) What is the required return? (b) If inflation rises so that R_F and r_m both rise 2 points, what is the new required return?</p>`),
+ [B(`<div class="formula">r = R_F + β(r_m − R_F) = 6% + 1,3 × (12% − 6%) = 13,8%</div>`,`<div class="formula">r = R_F + β(r_m − R_F) = 6% + 1.3 × (12% − 6%) = 13.8%</div>`),
+  B(`(b) R_F = 8%, r_m = 14%; premi pasar tetap 6%. r = 8% + 1,3 × 6% = <strong>15,8%</strong>.`,`(b) R_F = 8%, r_m = 14%; the market premium stays 6%. r = 8% + 1.3 × 6% = <strong>15.8%</strong>.`),
+  B(`SML bergeser sejajar ke atas sebesar 2 poin; kemiringan (premi pasar) tidak berubah.`,`The SML shifts up in parallel by 2 points; its slope (market premium) is unchanged.`)],
+ B(`(a) 13,8%; (b) 15,8%.`,`(a) 13.8%; (b) 15.8%.`)),
+S(2,B("Biaya utang sebelum dan sesudah pajak","Cost of debt before and after tax"),
+ B(`<p>Obligasi nominal $1.000, kupon 9% (I = $90), 10 tahun. Hasil bersih penjualan per obligasi setelah biaya emisi N_d = $960. Pajak 22%. Hitung r_d dengan rumus aproksimasi dan biaya utang sesudah pajak.</p>`,`<p>A $1,000-par bond, 9% coupon (I = $90), 10 years. Net proceeds per bond after flotation N_d = $960. Tax 22%. Compute r_d with the approximation formula and the after-tax cost of debt.</p>`),
+ [B(`<div class="formula">r_d ≈ [I + (1.000 − N_d) ÷ n] ÷ [(N_d + 1.000) ÷ 2]</div>`,`<div class="formula">r_d ≈ [I + (1,000 − N_d) ÷ n] ÷ [(N_d + 1,000) ÷ 2]</div>`),
+  B(`Pembilang = 90 + 40 ÷ 10 = 94. Penyebut = (960 + 1.000) ÷ 2 = 980. r_d ≈ 94 ÷ 980 ≈ <strong>9,59%</strong>.`,`Numerator = 90 + 40 ÷ 10 = 94. Denominator = (960 + 1,000) ÷ 2 = 980. r_d ≈ 94 ÷ 980 ≈ <strong>9.59%</strong>.`),
+  B(`Sesudah pajak = r_d × (1 − T) = 9,59% × 0,78 ≈ <strong>7,48%</strong>. Bunga mengurangi pajak, jadi utang lebih murah.`,`After tax = r_d × (1 − T) = 9.59% × 0.78 ≈ <strong>7.48%</strong>. Interest is tax-deductible, so debt is cheaper.`)],
+ B(`r_d ≈ 9,59%; sesudah pajak ≈ 7,48%.`,`r_d ≈ 9.59%; after tax ≈ 7.48%.`)),
+S(1,B("Biaya saham preferen","Cost of preferred stock"),
+ B(`<p>Saham preferen nominal $100 membayar dividen tahunan 10% (D_p = $10). Hasil bersih penjualan per lembar N_p = $95. Berapa biayanya?</p>`,`<p>A $100-par preferred share pays a 10% annual dividend (D_p = $10). Net proceeds per share N_p = $95. What is its cost?</p>`),
+ [B(`<div class="formula">r_p = D_p ÷ N_p = 10 ÷ 95 ≈ 10,53%</div>`,`<div class="formula">r_p = D_p ÷ N_p = 10 ÷ 95 ≈ 10.53%</div>`),
+  B(`Tidak ada penyesuaian pajak karena dividen preferen dibayar dari laba setelah pajak.`,`No tax adjustment, because preferred dividends are paid from after-tax profit.`)],
+ B(`r_p ≈ 10,53%.`,`r_p ≈ 10.53%.`)),
+S(2,B("Biaya saham biasa: Gordon, CAPM, dan saham baru","Cost of common equity: Gordon, CAPM and new shares"),
+ B(`<p>D_1 = $2,40; P_0 = $40; g = 6%. Saham baru harus dijual dengan underpricing $2 dan biaya emisi $1 per lembar. Sebagai pembanding: R_F 5%, β 1,2, r_m 11%. Hitung r_s (Gordon), r_s (CAPM), r_n, dan r_r.</p>`,`<p>D_1 = $2.40; P_0 = $40; g = 6%. New shares must be sold with $2 underpricing and $1 flotation cost per share. For comparison: R_F 5%, β 1.2, r_m 11%. Compute r_s (Gordon), r_s (CAPM), r_n and r_r.</p>`),
+ [B(`<div class="formula">r_s = D_1 ÷ P_0 + g = 2,40 ÷ 40 + 6% = 12%</div>`,`<div class="formula">r_s = D_1 ÷ P_0 + g = 2.40 ÷ 40 + 6% = 12%</div>`),
+  B(`CAPM: r_s = 5% + 1,2 × (11% − 5%) = 12,2% — dekat dengan Gordon, jadi estimasi ±12% cukup meyakinkan.`,`CAPM: r_s = 5% + 1.2 × (11% − 5%) = 12.2% — close to Gordon, so about 12% is a credible estimate.`),
+  B(`N_n = 40 − 2 − 1 = $37. <div class="formula">r_n = D_1 ÷ N_n + g = 2,40 ÷ 37 + 6% ≈ 12,49%</div>`,`N_n = 40 − 2 − 1 = $37. <div class="formula">r_n = D_1 ÷ N_n + g = 2.40 ÷ 37 + 6% ≈ 12.49%</div>`),
+  B(`Laba ditahan: r_r = r_s = 12% — tidak ada biaya emisi, tetapi tetap punya opportunity cost bagi pemegang saham.`,`Retained earnings: r_r = r_s = 12% — no flotation cost, but still an opportunity cost for shareholders.`)],
+ B(`r_s 12% (CAPM 12,2%), r_n ≈ 12,49%, r_r = 12%.`,`r_s 12% (CAPM 12.2%), r_n ≈ 12.49%, r_r = 12%.`)),
+S(2,B("WACC","WACC"),
+ B(`<p>Struktur modal target: utang 40% (r_d 9,59%), saham preferen 10% (r_p 10,53%), saham biasa 50% (r_s 12%, dibiayai laba ditahan). Pajak 22%. Hitung WACC. Proyek dengan IRR 11% layak?</p>`,`<p>Target capital structure: debt 40% (r_d 9.59%), preferred 10% (r_p 10.53%), common 50% (r_s 12%, funded by retained earnings). Tax 22%. Compute WACC. Is a project with an 11% IRR acceptable?</p>`),
+ [B(`<div class="formula">r<sub>WACC</sub> = w_d × r_d × (1 − T) + w_p × r_p + w_s × r_s</div>`,`<div class="formula">r<sub>WACC</sub> = w_d × r_d × (1 − T) + w_p × r_p + w_s × r_s</div>`),
+  B(`Utang: 0,4 × 9,59% × 0,78 ≈ 2,99%. Preferen: 0,1 × 10,53% ≈ 1,05%. Saham biasa: 0,5 × 12% = 6,00%.`,`Debt: 0.4 × 9.59% × 0.78 ≈ 2.99%. Preferred: 0.1 × 10.53% ≈ 1.05%. Common: 0.5 × 12% = 6.00%.`),
+  B(`WACC ≈ 2,99 + 1,05 + 6,00 = <strong>10,05%</strong>.`,`WACC ≈ 2.99 + 1.05 + 6.00 = <strong>10.05%</strong>.`),
+  B(`IRR 11% &gt; WACC 10,05% → proyek menambah nilai (dengan risiko setara rata-rata perusahaan). Jika laba ditahan habis dan harus menerbitkan saham baru, pakai r_n 12,49% → WACC naik ±0,25 poin.`,`IRR 11% &gt; WACC 10.05% → the project adds value (at average company risk). If retained earnings run out and new shares are needed, use r_n 12.49% → WACC rises about 0.25 points.`)],
+ B(`WACC ≈ 10,05%; proyek IRR 11% layak.`,`WACC ≈ 10.05%; the 11% IRR project is acceptable.`))
+]);
+
+/* ================= MK6 ================= */
+window.moreSoal("mk6",1,[
+S(1,B("Hitungan cepat preskriptif: diskon vs depot","Quick prescriptive maths: discount vs depots"),
+ B(`<p>BetonPrima: opsi diskon harga berbiaya Rp48 M per kuartal (berulang). Opsi dua depot berbiaya Rp180 M sekali bayar. Setelah berapa bulan depot lebih murah dari diskon? Apa yang tidak tertangkap hitungan ini?</p>`,`<p>BetonPrima: the price-discount option costs IDR 48bn per quarter (recurring). The two-depot option costs IDR 180bn once. After how many months are the depots cheaper than the discount? What does this calculation miss?</p>`),
+ [B(`Biaya diskon per bulan = 48 ÷ 3 = Rp16 M.`,`Discount cost per month = 48 ÷ 3 = IDR 16bn.`),
+  B(`<div class="formula">Titik impas = Biaya sekali ÷ Biaya berulang per bulan = 180 ÷ 16 ≈ 11,25 bulan</div>`,`<div class="formula">Break-even = One-off cost ÷ Recurring cost per month = 180 ÷ 16 ≈ 11.25 months</div>`),
+  B(`Setelah ±11 bulan depot lebih murah — dan depot menyerang akar masalah (pengiriman saat hujan), sedangkan diskon hanya gejala. Yang tidak tertangkap: waktu pembangunan 9–12 bulan (pelanggan bisa terus pergi), risiko pelaksanaan, dan nilai waktu uang.`,`After about 11 months the depots are cheaper — and they attack the root cause (rainy-day delivery) while the discount treats a symptom. Missed: the 9–12-month build time (customers may keep leaving), execution risk, and the time value of money.`)],
+ B(`±11,25 bulan.`,`About 11.25 months.`))
+]);
+
+window.moreSoal("mk6",3,[
+S(2,B("Statistik deskriptif dan outlier","Descriptive statistics and outliers"),
+ B(`<p>Waktu tunggu pelanggan (menit) dari 10 transaksi: 4, 5, 5, 6, 6, 7, 7, 8, 9, 21. Hitung mean, median, modus, standar deviasi sampel, Q1, Q3, IQR, dan cek outlier dengan aturan 1,5 × IQR.</p>`,`<p>Customer waiting times (minutes) for 10 transactions: 4, 5, 5, 6, 6, 7, 7, 8, 9, 21. Compute the mean, median, mode, sample standard deviation, Q1, Q3, IQR, and check for outliers with the 1.5 × IQR rule.</p>`),
+ [B(`Mean = 78 ÷ 10 = <strong>7,8</strong>. Median = rata-rata data ke-5 dan ke-6 = (6 + 7) ÷ 2 = <strong>6,5</strong>. Modus: 5, 6, dan 7 masing-masing muncul dua kali (multimodal).`,`Mean = 78 ÷ 10 = <strong>7.8</strong>. Median = average of the 5th and 6th values = (6 + 7) ÷ 2 = <strong>6.5</strong>. Mode: 5, 6 and 7 each appear twice (multimodal).`),
+  B(`<div class="formula">s = √[Σ(x − x̄)² ÷ (n − 1)] ≈ 4,87 menit</div>`,`<div class="formula">s = √[Σ(x − x̄)² ÷ (n − 1)] ≈ 4.87 minutes</div>`),
+  B(`Q1 = 5,25; Q3 = 7,75 (metode interpolasi Excel/NumPy). IQR = 7,75 − 5,25 = 2,5.`,`Q1 = 5.25; Q3 = 7.75 (Excel/NumPy interpolation). IQR = 7.75 − 5.25 = 2.5.`),
+  B(`Batas atas = Q3 + 1,5 × IQR = 7,75 + 3,75 = 11,5 → nilai <strong>21 adalah outlier</strong>. Batas bawah 5,25 − 3,75 = 1,5 → tidak ada outlier bawah.`,`Upper fence = Q3 + 1.5 × IQR = 7.75 + 3.75 = 11.5 → <strong>21 is an outlier</strong>. Lower fence 5.25 − 3.75 = 1.5 → no low outliers.`),
+  B(`Mean (7,8) &gt; median (6,5) karena data miring ke kanan. Laporkan median + IQR, dan selidiki transaksi 21 menit itu.`,`Mean (7.8) &gt; median (6.5) because the data is right-skewed. Report the median + IQR, and investigate the 21-minute transaction.`)],
+ B(`Mean 7,8; median 6,5; s ≈ 4,87; IQR 2,5; 21 menit = outlier.`,`Mean 7.8; median 6.5; s ≈ 4.87; IQR 2.5; 21 minutes = outlier.`)),
+S(3,B("Korelasi Pearson","Pearson correlation"),
+ B(`<p>Belanja promosi (x, Rp juta) dan penjualan (y, ratusan unit) lima minggu: (1, 2), (2, 4), (3, 5), (4, 4), (5, 5). Hitung koefisien korelasi r dan tafsirkan.</p>`,`<p>Promotion spend (x, IDR million) and sales (y, hundreds of units) over five weeks: (1, 2), (2, 4), (3, 5), (4, 4), (5, 5). Compute the correlation coefficient r and interpret it.</p>`),
+ [B(`x̄ = 3; ȳ = 20 ÷ 5 = 4.`,`x̄ = 3; ȳ = 20 ÷ 5 = 4.`),
+  B(`Deviasi x: −2, −1, 0, 1, 2. Deviasi y: −2, 0, 1, 0, 1. Σ(dx·dy) = 4 + 0 + 0 + 0 + 2 = 6.`,`x deviations: −2, −1, 0, 1, 2. y deviations: −2, 0, 1, 0, 1. Σ(dx·dy) = 4 + 0 + 0 + 0 + 2 = 6.`),
+  B(`Σdx² = 10; Σdy² = 4 + 0 + 1 + 0 + 1 = 6.`,`Σdx² = 10; Σdy² = 4 + 0 + 1 + 0 + 1 = 6.`),
+  B(`<div class="formula">r = Σ(dx·dy) ÷ √(Σdx² × Σdy²) = 6 ÷ √60 ≈ 0,77</div>`,`<div class="formula">r = Σ(dx·dy) ÷ √(Σdx² × Σdy²) = 6 ÷ √60 ≈ 0.77</div>`),
+  B(`Hubungan positif cukup kuat. Tetapi hanya 5 titik, dan korelasi ≠ kausalitas — mungkin promosi kebetulan dilakukan saat musim ramai. Plot datanya dan uji dengan eksperimen.`,`A fairly strong positive relationship. But there are only 5 points, and correlation ≠ causation — promotions may simply have run in busy weeks. Plot the data and test with an experiment.`)],
+ B(`r ≈ 0,77.`,`r ≈ 0.77.`))
+]);
+
+window.moreSoal("mk6",4,[
+S(1,B("Prediksi regresi dan residual","Regression prediction and residual"),
+ B(`<p>Model regresi harga rumah (Rp juta): harga = 150 + 4 × luas (m²) + 50 × jumlah kamar. Rumah 90 m² dengan 3 kamar terjual Rp700 juta. Berapa prediksi model dan residualnya? Apa arti koefisien 4?</p>`,`<p>A house-price regression (IDR million): price = 150 + 4 × area (m²) + 50 × bedrooms. A 90 m² house with 3 bedrooms sold for IDR 700 million. What is the model's prediction and the residual? What does the coefficient 4 mean?</p>`),
+ [B(`Prediksi = 150 + 4 × 90 + 50 × 3 = 150 + 360 + 150 = <strong>660</strong>.`,`Prediction = 150 + 4 × 90 + 50 × 3 = 150 + 360 + 150 = <strong>660</strong>.`),
+  B(`<div class="formula">Residual = Aktual − Prediksi = 700 − 660 = +40</div> Model meremehkan harga rumah ini Rp40 juta (mungkin lokasinya lebih baik dari rata-rata).`,`<div class="formula">Residual = Actual − Predicted = 700 − 660 = +40</div> The model underprices this house by IDR 40 million (perhaps a better-than-average location).`),
+  B(`Koefisien 4: setiap tambahan 1 m², harga naik rata-rata Rp4 juta <em>dengan jumlah kamar tetap</em> — bukan bukti sebab-akibat.`,`Coefficient 4: each extra 1 m² adds IDR 4 million on average <em>holding bedrooms constant</em> — not proof of cause and effect.`)],
+ B(`Prediksi Rp660 juta; residual +Rp40 juta.`,`Prediction IDR 660 million; residual +IDR 40 million.`))
+]);
+
+window.moreSoal("mk6",6,[
+S(2,B("Customer lifetime value (CLV)","Customer lifetime value (CLV)"),
+ B(`<p>Pelanggan memberi margin Rp600 ribu per tahun. Peluang bertahan (retensi) tiap tahun 80%, tingkat diskonto 10%. Hitung CLV untuk horizon 3 tahun.</p>`,`<p>A customer brings IDR 600 thousand of margin a year. The yearly retention rate is 80% and the discount rate 10%. Compute CLV over a 3-year horizon.</p>`),
+ [B(`<div class="formula">CLV = Σ m · rᵗ ÷ (1 + d)ᵗ</div>`,`<div class="formula">CLV = Σ m · rᵗ ÷ (1 + d)ᵗ</div>`),
+  B(`t = 1: 600 × 0,8 ÷ 1,1 = 436,4. t = 2: 600 × 0,64 ÷ 1,21 = 317,4. t = 3: 600 × 0,512 ÷ 1,331 = 230,8.`,`t = 1: 600 × 0.8 ÷ 1.1 = 436.4. t = 2: 600 × 0.64 ÷ 1.21 = 317.4. t = 3: 600 × 0.512 ÷ 1.331 = 230.8.`),
+  B(`CLV = 436,4 + 317,4 + 230,8 ≈ <strong>Rp984 ribu</strong>.`,`CLV = 436.4 + 317.4 + 230.8 ≈ <strong>IDR 984 thousand</strong>.`),
+  B(`Artinya, biaya akuisisi pelanggan di atas ±Rp984 ribu tidak akan kembali dalam 3 tahun. Menaikkan retensi dari 80% ke 85% menaikkan CLV cukup besar — retensi sering lebih murah daripada akuisisi.`,`So acquisition costs above about IDR 984 thousand will not be recovered in 3 years. Raising retention from 80% to 85% lifts CLV noticeably — retention is often cheaper than acquisition.`)],
+ B(`CLV ≈ Rp984 ribu.`,`CLV ≈ IDR 984 thousand.`))
+]);
+
+window.moreSoal("mk6",7,[
+S(2,B("Efek Lebaran dalam forecast","Lebaran effects in a forecast"),
+ B(`<p>Forecast dasar (trend + bulan) untuk Februari = Rp60 M. Di Februari ada 10 hari sibuk sebelum Lebaran (+1,7% per hari) dan 3 hari libur Lebaran (−3,5% per hari). Efeknya multiplikatif. Berapa forecast Februari?</p>`,`<p>The base forecast (trend + month) for February = IDR 60bn. February has 10 busy days before Lebaran (+1.7% per day) and 3 Lebaran holiday days (−3.5% per day). Effects are multiplicative. What is February's forecast?</p>`),
+ [B(`Faktor hari sibuk = 1,017¹⁰ ≈ 1,184.`,`Busy-day factor = 1.017¹⁰ ≈ 1.184.`),
+  B(`Faktor libur = 0,965³ ≈ 0,899.`,`Holiday factor = 0.965³ ≈ 0.899.`),
+  B(`Forecast = 60 × 1,184 × 0,899 ≈ <strong>Rp63,8 M</strong>.`,`Forecast = 60 × 1.184 × 0.899 ≈ <strong>IDR 63.8bn</strong>.`),
+  B(`Tanpa kolom Lebaran, angka ini akan jatuh di bulan yang salah — penting untuk rencana kas dan stok.`,`Without the Lebaran columns, this volume would land in the wrong month — which matters for cash and stock planning.`)],
+ B(`±Rp63,8 M.`,`About IDR 63.8bn.`)),
+S(2,B("Metrik credit scoring dari data uji","Credit-scoring metrics from test data"),
+ B(`<p>Logistic regression pada 250 aplikasi uji: 87 default, 163 pembayar baik. Model menangkap 53 default (ditolak) dan salah menolak 23 pembayar baik. Hitung accuracy, recall default, precision, dan tingkat default di antara yang disetujui.</p>`,`<p>Logistic regression on 250 test applications: 87 defaults, 163 good payers. The model catches 53 defaults (rejected) and wrongly rejects 23 good payers. Compute accuracy, default recall, precision, and the default rate among approved applicants.</p>`),
+ [B(`TP = 53; FN = 87 − 53 = 34; FP = 23; TN = 163 − 23 = 140.`,`TP = 53; FN = 87 − 53 = 34; FP = 23; TN = 163 − 23 = 140.`),
+  B(`Accuracy = (53 + 140) ÷ 250 = <strong>77,2%</strong>. Recall = 53 ÷ 87 ≈ <strong>60,9%</strong>. Precision = 53 ÷ (53 + 23) ≈ <strong>69,7%</strong>.`,`Accuracy = (53 + 140) ÷ 250 = <strong>77.2%</strong>. Recall = 53 ÷ 87 ≈ <strong>60.9%</strong>. Precision = 53 ÷ (53 + 23) ≈ <strong>69.7%</strong>.`),
+  B(`Disetujui = FN + TN = 34 + 140 = 174. Default di antara yang disetujui = 34 ÷ 174 ≈ <strong>19,5%</strong> (turun dari 34,8% jika semua disetujui).`,`Approved = FN + TN = 34 + 140 = 174. Default rate among approved = 34 ÷ 174 ≈ <strong>19.5%</strong> (down from 34.8% if everyone were approved).`)],
+ B(`Accuracy 77,2%; recall 60,9%; precision 69,7%; default di antara yang disetujui 19,5%.`,`Accuracy 77.2%; recall 60.9%; precision 69.7%; default among approved 19.5%.`))
+]);
+
+window.moreSoal("mk6",8,[
+S(1,B("Density dan degree centrality","Density and degree centrality"),
+ B(`<p>Jaringan 6 orang (A–F) dengan 7 hubungan: A–B, A–C, B–C, C–D, D–E, E–F, D–F. Hitung density jaringan dan degree centrality C.</p>`,`<p>A 6-person network (A–F) with 7 ties: A–B, A–C, B–C, C–D, D–E, E–F, D–F. Compute the network density and C's degree centrality.</p>`),
+ [B(`<div class="formula">Edge yang mungkin = n(n − 1) ÷ 2 = 6 × 5 ÷ 2 = 15</div>`,`<div class="formula">Possible edges = n(n − 1) ÷ 2 = 6 × 5 ÷ 2 = 15</div>`),
+  B(`Density = 7 ÷ 15 ≈ <strong>0,47</strong>.`,`Density = 7 ÷ 15 ≈ <strong>0.47</strong>.`),
+  B(`Degree C = 3 (A, B, D). <div class="formula">Degree centrality = degree ÷ (n − 1) = 3 ÷ 5 = 0,60</div>`,`C's degree = 3 (A, B, D). <div class="formula">Degree centrality = degree ÷ (n − 1) = 3 ÷ 5 = 0.60</div>`)],
+ B(`Density 0,47; degree centrality C = 0,60.`,`Density 0.47; C's degree centrality = 0.60.`)),
+S(2,B("Closeness dan betweenness","Closeness and betweenness"),
+ B(`<p>Pakai jaringan yang sama. Hitung closeness centrality A dan D, serta betweenness C (dinormalisasi). Siapa "jembatan" antar-kelompok?</p>`,`<p>Use the same network. Compute the closeness centrality of A and D, and C's (normalised) betweenness. Who is the "bridge" between groups?</p>`),
+ [B(`Jarak terpendek dari A: B 1, C 1, D 2, E 3, F 3 → total 10. <div class="formula">Closeness = (n − 1) ÷ Σ jarak = 5 ÷ 10 = 0,50</div>`,`Shortest distances from A: B 1, C 1, D 2, E 3, F 3 → total 10. <div class="formula">Closeness = (n − 1) ÷ Σ distances = 5 ÷ 10 = 0.50</div>`),
+  B(`Dari D: C 1, E 1, F 1, A 2, B 2 → total 7 → closeness = 5 ÷ 7 ≈ <strong>0,71</strong>.`,`From D: C 1, E 1, F 1, A 2, B 2 → total 7 → closeness = 5 ÷ 7 ≈ <strong>0.71</strong>.`),
+  B(`Betweenness C: pasangan yang jalur terpendeknya <em>harus</em> lewat C = {A, B} × {D, E, F} = 6 pasangan. Normalisasi ÷ [(n − 1)(n − 2) ÷ 2] = 6 ÷ 10 = <strong>0,60</strong>. D juga 0,60 (pasangan {A, B, C} × {E, F}).`,`C's betweenness: pairs whose shortest path <em>must</em> pass through C = {A, B} × {D, E, F} = 6 pairs. Normalise ÷ [(n − 1)(n − 2) ÷ 2] = 6 ÷ 10 = <strong>0.60</strong>. D is also 0.60 (pairs {A, B, C} × {E, F}).`),
+  B(`C dan D adalah jembatan: jika hubungan C–D putus, jaringan terbelah dua. Mereka penting untuk aliran informasi, tetapi juga titik rawan.`,`C and D are the bridges: if the C–D tie breaks, the network splits in two. They matter for information flow, but are also a weak point.`)],
+ B(`Closeness A 0,50, D 0,71; betweenness C = D = 0,60.`,`Closeness A 0.50, D 0.71; betweenness C = D = 0.60.`)),
+S(2,B("Density di dalam vs antar tim (silo)","Within- vs between-team density (silos)"),
+ B(`<p>Masih jaringan yang sama. Tim X = {A, B, C}, tim Y = {D, E, F}. Hitung density di dalam tiap tim dan density antar tim. Adakah silo?</p>`,`<p>Same network. Team X = {A, B, C}, team Y = {D, E, F}. Compute the density within each team and between the teams. Is there a silo?</p>`),
+ [B(`Di dalam X: hubungan A–B, A–C, B–C = 3 dari 3 kemungkinan → density <strong>1,0</strong>. Di dalam Y: D–E, E–F, D–F = 3 dari 3 → <strong>1,0</strong>.`,`Within X: ties A–B, A–C, B–C = 3 of 3 possible → density <strong>1.0</strong>. Within Y: D–E, E–F, D–F = 3 of 3 → <strong>1.0</strong>.`),
+  B(`Antar tim: kemungkinan = 3 × 3 = 9; yang ada hanya C–D = 1 → density <strong>0,11</strong>.`,`Between teams: possible = 3 × 3 = 9; only C–D exists = 1 → density <strong>0.11</strong>.`),
+  B(`Sangat rapat di dalam, sangat jarang antar tim → pola <strong>silo</strong>, dan seluruh koordinasi bergantung pada satu hubungan C–D. Tindakan: proyek lintas tim, rotasi, atau forum bersama.`,`Very dense inside, very sparse between → a <strong>silo</strong> pattern, with all coordination resting on the single C–D tie. Actions: cross-team projects, rotation or shared forums.`)],
+ B(`Di dalam tim 1,0; antar tim 0,11 → silo.`,`Within teams 1.0; between teams 0.11 → silo.`))
+]);
+})();
+
 </script>
 <script>
 (function(){
@@ -16873,7 +17172,7 @@ var UI={
   scoreT:"Hasil kuismu",scoreP:function(s,t){return"Kamu menjawab benar "+s+" dari "+t+" soal."+(s===t?" Sempurna!":s>=t*0.6?" Bagus, tinggal sedikit lagi.":" Coba baca lagi bagian materinya, lalu ulangi.")},
   retry:"Ulangi kuis",best:"Skor terbaik",flip:"Ketuk kartu untuk membalik",card:"Kartu",noQuiz:"Belum ada kuis untuk minggu ini.",
   qLabel:"Pertanyaan",aLabel:"Jawaban",note:"Catatan"},
- en:{search:"Search the material…",home:"Home",week:"Week",materi:"Material",kasus:"Cases",kuis:"Quiz",kartu:"Flashcards",keys:"Key takeaways",sources:"Sources",caseTag:"Case & worked answers",soal:"Worked problems",soalN:"Problem",lvl:["","Easy","Medium","Challenging"],stepBtn:"Show step",allBtn:"Show all",hideBtn:"Hide again",ansL:"Answer:",soalHint:"Try it on paper first, then reveal the solution step by step. (Worked problems are written in Indonesian.)",soalCount:"worked problems",prev:"Previous",next:"Next",mark:"Mark as done",marked:"Done",none:"No results.",
+ en:{search:"Search the material…",home:"Home",week:"Week",materi:"Material",kasus:"Cases",kuis:"Quiz",kartu:"Flashcards",keys:"Key takeaways",sources:"Sources",caseTag:"Case & worked answers",soal:"Worked problems",soalN:"Problem",lvl:["","Easy","Medium","Challenging"],stepBtn:"Show step",allBtn:"Show all",hideBtn:"Hide again",ansL:"Answer:",soalHint:"Try it on paper first, then reveal the solution step by step. (Some older worked problems are written in Indonesian only.)",soalCount:"worked problems",prev:"Previous",next:"Next",mark:"Mark as done",marked:"Done",none:"No results.",
   hi:"Hi! What do you want to study today?",intro:"All the material from six P3MD courses, week by week, explained again in plain language, with charts, tables, interactive calculators, quizzes and worked cases.",
   start:"Start studying",progress:"Your progress",progTxt:function(d,t){return d+" of "+t+" sessions done (new material is added every week). Mark sessions as done or finish their quizzes."},
   courses:"Courses",six:"6 courses · new material every week",byWeek:"Study by week",byWeekSub:"Each week's material across all courses",cont:"Continue studying",go:"Continue →",weeks:"weeks",done:"done",allWeeks:"All weeks",
