@@ -12105,7 +12105,7 @@ Average-risk projects must earn <strong>more than 9.28%</strong> to add value.</
       "CAPM: r = R_F + β(r_m − R_F). Digambar = Security Market Line; inflasi naik menggeser SML ke atas sejajar.",
       "Cost of capital = return minimum proyek agar nilai perusahaan naik.",
       "Biaya utang sesudah pajak = r_d × (1 − T); utang biasanya termurah karena lebih aman dan ada manfaat pajak.",
-      "r_p = D_p ÷ N_p; r_s = D1 ÷ P0 + g (Gordon) atau CAPM; r_n = D1 ÷ N_n + g; r_r = r_s.",
+      "r_p = D_p ÷ N_p; r_s = D_1 ÷ P_0 + g (Gordon) atau CAPM; r_n = D_1 ÷ N_n + g; r_r = r_s.",
       "WACC = Σ bobot × biaya, bobot nilai pasar (jumlah = 1); proyek diterima jika return > WACC."
     ],
     en: [
@@ -12117,7 +12117,7 @@ Average-risk projects must earn <strong>more than 9.28%</strong> to add value.</
       "CAPM: r = R_F + β(r_m − R_F); plotted as the SML; higher inflation shifts the SML up in parallel.",
       "Cost of capital = the minimum project return that increases firm value.",
       "After-tax cost of debt = r_d × (1 − T); debt is usually cheapest (less risky, tax benefit).",
-      "r_p = D_p ÷ N_p; r_s = D1 ÷ P0 + g (Gordon) or CAPM; r_n = D1 ÷ N_n + g; r_r = r_s.",
+      "r_p = D_p ÷ N_p; r_s = D_1 ÷ P_0 + g (Gordon) or CAPM; r_n = D_1 ÷ N_n + g; r_r = r_s.",
       "WACC = Σ weight × cost using market-value weights summing to 1; accept projects whose return exceeds WACC."
     ]
   },
@@ -12143,7 +12143,7 @@ window.addPlus("mk2", 8, {
         { name: { id: "Risiko sistematis (tersisa)", en: "Systematic risk (remains)" }, data: [19, 19, 19, 19, 19, 19, 19, 19], color: "bad" }
       ],
       cap: { id: "Jarak antara dua garis = risiko unsistematis yang hilang lewat diversifikasi. Setelah ±15–20 saham, tambahan manfaatnya kecil.", en: "The gap between the lines is unsystematic risk removed by diversification; beyond ~15–20 stocks the gain is small." } },
-    sml: { type: "line", xType: "linear", title: { id: "Security Market Line: R_F 2%, r_m 6% (Contoh 8.14)", en: "Security Market Line: R_F 2%, r_m 6% (Example 8.14)" },
+    sml: { type: "line", xType: "linear", title: { id: "Security Market Line: bebas risiko 2%, pasar 6% (Contoh 8.14)", en: "Security Market Line: risk-free 2%, market 6% (Example 8.14)" },
       x: { id: "Beta", en: "Beta" }, y: { id: "Required return (%)", en: "Required return (%)" },
       series: [
         { name: { id: "SML awal", en: "Original SML" }, data: [{ x: 0, y: 2 }, { x: 0.5, y: 4 }, { x: 1, y: 6 }, { x: 1.5, y: 8 }, { x: 2, y: 10 }], color: "c", points: false },
@@ -12203,12 +12203,12 @@ window.addPlus("mk2", 8, {
     { q: { id: "Saham preferen 8% dengan par $80, flotation $2,50/lembar. Biayanya…", en: "8% preferred, $80 par, $2.50 flotation. Its cost is…" },
       o: { id: ["8,000%", "8,258%", "7,750%", "6,400%"], en: ["8.000%", "8.258%", "7.750%", "6.400%"] }, a: 1,
       e: { id: "D_p = 0,08 × 80 = 6,40; N_p = 77,50; r_p = 6,40 ÷ 77,50 = 8,258%.", en: "6.40 ÷ 77.50 = 8.258%." } },
-    { q: { id: "D1 = $3,99, P0 = $50, g = 5%. Biaya ekuitas (Gordon) adalah…", en: "D1 = $3.99, P0 = $50, g = 5%. Gordon cost of equity?" },
+    { q: { id: "D_1 = $3,99, P_0 = $50, g = 5%. Biaya ekuitas (Gordon) adalah…", en: "D_1 = $3.99, P_0 = $50, g = 5%. Gordon cost of equity?" },
       o: { id: ["7,98%", "12,00%", "12,98%", "13,58%"], en: ["7.98%", "12.00%", "12.98%", "13.58%"] }, a: 2,
       e: { id: "3,99 ÷ 50 + 0,05 = 0,0798 + 0,05 = 12,98% (Contoh 9.8).", en: "0.0798 + 0.05 = 12.98% (Example 9.8)." } },
     { q: { id: "Mengapa biaya saham biasa baru (r_n) lebih tinggi daripada biaya laba ditahan (r_r)?", en: "Why is new common stock (r_n) costlier than retained earnings (r_r)?" },
       o: { id: ["Karena ada underpricing dan flotation cost yang menurunkan dana diterima", "Karena laba ditahan tidak punya biaya", "Karena saham baru mengurangi pajak", "Karena beta saham baru lebih tinggi"], en: ["Underpricing and flotation costs reduce proceeds", "Retained earnings are free", "New stock is tax-deductible", "New stock has a higher beta"] }, a: 0,
-      e: { id: "r_n = D1 ÷ N_n + g dengan N_n < P0. Laba ditahan tetap berbiaya: r_r = r_s.", en: "N_n < P0 raises the cost; retained earnings still cost r_s." } },
+      e: { id: "r_n = D_1 ÷ N_n + g dengan N_n < P_0. Laba ditahan tetap berbiaya: r_r = r_s.", en: "N_n < P_0 raises the cost; retained earnings still cost r_s." } },
     { q: { id: "Bobot 40% utang (4,88%), 10% preferen (8,26%), 50% ekuitas (13%). WACC-nya…", en: "Weights: 40% debt (4.88%), 10% preferred (8.26%), 50% equity (13%). WACC?" },
       o: { id: ["8,71%", "9,28%", "10,00%", "13,00%"], en: ["8.71%", "9.28%", "10.00%", "13.00%"] }, a: 1,
       e: { id: "1,95% + 0,83% + 6,50% = 9,28% (Tabel 9.2).", en: "1.95% + 0.83% + 6.50% = 9.28% (Table 9.2)." } },
@@ -17265,6 +17265,10 @@ render();
 })();
 
 </script>
-
+<script>(function(){var RX=/(?<![A-Za-z0-9_.\-])([A-Za-zβλμσρ]{1,8})_\{?([A-Za-z0-9]{1,3})\}?(?![A-Za-z0-9_]|\.[A-Za-z])|\^\(([^()]{1,12})\)|\^([0-9]{1,2}|n|t)(?![A-Za-z0-9])/g,SKIP={SCRIPT:1,STYLE:1,TEXTAREA:1,INPUT:1,CODE:1,PRE:1,SUB:1,SUP:1,OPTION:1,TITLE:1};
+function fix(root){if(!root)return;var w=document.createTreeWalker(root,NodeFilter.SHOW_TEXT,{acceptNode:function(n){for(var p=n.parentNode;p&&p!==root.parentNode;p=p.parentNode){if(p.nodeType===1&&(SKIP[p.nodeName]||p.isContentEditable))return 2}RX.lastIndex=0;return RX.test(n.nodeValue)?1:2}}),L=[],n;while(n=w.nextNode())L.push(n);
+L.forEach(function(t){var s=t.nodeValue,f=document.createDocumentFragment(),i=0,m;RX.lastIndex=0;while(m=RX.exec(s)){f.appendChild(document.createTextNode(s.slice(i,m.index)));var e;if(m[1]){f.appendChild(document.createTextNode(m[1]));e=document.createElement("sub");e.textContent=m[2]}else{e=document.createElement("sup");e.textContent=m[3]||m[4]}f.appendChild(e);i=RX.lastIndex}f.appendChild(document.createTextNode(s.slice(i)));t.parentNode.replaceChild(f,t)})}
+window.__fixSub=fix;var q=0;function run(){q=0;fix(document.body)}new MutationObserver(function(){if(!q){q=1;(window.queueMicrotask||setTimeout)(run)}}).observe(document.documentElement,{childList:true,subtree:true,characterData:true});document.addEventListener("DOMContentLoaded",run);run()})();</script>
+<style>sub,sup{font-size:.72em;line-height:0}sub{vertical-align:-.25em}sup{vertical-align:.45em}</style>
 <script>if("serviceWorker" in navigator&&!window.claude){addEventListener("load",function(){navigator.serviceWorker.register("/sw.js").catch(function(){})})}</script>
 </body></html>
