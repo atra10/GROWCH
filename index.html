@@ -889,6 +889,11 @@ body:not([data-sec="belajar"]) .acctbtn{margin-left:0}
 .hv-key span{white-space:nowrap}
 .hv-key .hv-mk{display:inline-block;height:14px;border-left:2px dashed var(--ink)}
 @media (max-width:560px){.hv-two{grid-template-columns:1fr}.hv-row{grid-template-columns:84px minmax(0,1fr);gap:8px}.hv-seg{font-size:12px}}
+.hv-calc{display:flex;flex-wrap:wrap;gap:4px 16px;font-size:13px;color:var(--muted);margin-top:-4px}
+.hv-calc span{white-space:nowrap}
+.hv-calc b{color:var(--ink)}
+.hv-calc .sw{display:inline-block;width:10px;height:10px;border-radius:3px;margin-right:5px;vertical-align:-1px}
+.hv-calc .sw.a{background:var(--primary)}.hv-calc .sw.b{background:var(--good)}.hv-calc .sw.c{background:var(--warn)}
 
 .lg{--c:var(--legal);max-width:820px;margin:0 auto;display:flex;flex-direction:column;gap:18px}
 .lg-soon{background:var(--surface);border-radius:var(--r-lg);box-shadow:var(--shadow);padding:24px;display:flex;flex-direction:column;gap:6px}
@@ -15014,7 +15019,10 @@ function rankList(rows,unit,L,hiFirst){
   return rows.map(function(r,i){return '<div class="hv-row"><div class="hv-l">'+(i+1)+'. '+r[0]+'</div><div class="hv-bar"><div class="hv-fill'+(i===0?'':' mute')+'" style="width:'+(r[1]/max*62)+'%"></div><span>'+r[2]+unit+'</span></div></div>'}).join("");
 }
 function ovenBar(segs,L){
-  return '<div class="hv-stack">'+segs.map(function(s){return '<div class="hv-seg '+s[2]+'" style="width:'+(s[1]/400*100)+'%"><span>'+s[0]+'<br><b>'+s[1]+(L==="id"?' jam':' h')+'</b></span></div>'}).join("")+'</div>';
+  var I=L==="id",fx=function(x){return I?String(x).replace(".",","):String(x)};
+  var bar='<div class="hv-stack">'+segs.map(function(s){var h=Math.round(s[1]*s[2]);return '<div class="hv-seg '+s[3]+'" style="width:'+(h/400*100)+'%"><span>'+s[0]+'<br><b>'+h+(I?' jam':' h')+'</b></span></div>'}).join("")+'</div>';
+  var calc='<div class="hv-calc">'+segs.map(function(s){var h=Math.round(s[1]*s[2]);return '<span><i class="sw '+s[3]+'"></i>'+s[0]+': <b>'+s[1]+(I?' ribu pak':'k packs')+'</b> × '+fx(s[2])+(I?' jam oven per ribu pak':' oven h per 1k packs')+' = <b>'+h+(I?' jam':' h')+'</b></span>'}).join("")+'</div>';
+  return bar+calc;
 }
 function orderRows(L){
   var O=[[1,10,83.9],[2,5,40.8],[3,6,57.9]],max=90;
@@ -15040,9 +15048,9 @@ var V={};
     +'<div><div class="hv-h">'+(I?"Margin per jam oven (cara benar)":"Margin per oven hour (right view)")+'</div>'+rankList(I?[["Roti",2.5,"Rp2,50 jt/jam"],["Biskuit",2.25,"Rp2,25 jt/jam"],["Kue",1.5,"Rp1,50 jt/jam"]]:[["Bread",2.5,"IDR 2.50m/hour"],["Biscuits",2.25,"IDR 2.25m/hour"],["Cakes",1.5,"IDR 1.50m/hour"]],"",L)+'</div></div>',
     I?"Kanan dihitung dari margin per 1.000 pak ÷ jam oven per 1.000 pak (contoh roti: Rp3 jt ÷ 1,2 jam = Rp2,5 jt/jam). Kue juara di kiri, tetapi terakhir di kanan.":"The right side is margin per 1,000 packs ÷ oven hours per 1,000 packs (bread: IDR 3m ÷ 1.2 hours = IDR 2.5m/hour). Cakes win on the left but come last on the right.");
   V.opts=V.opts||{};V.opts[L]=box(I?"Ke mana 400 jam oven dipakai":"Where the 400 oven hours go",
-    '<div class="hv-h">'+(I?"Bulan lalu → margin Rp855 jt":"Last month → margin IDR 855m")+'</div>'+ovenBar([[I?"Roti 150":"Bread 150",180,"a"],[I?"Biskuit 50":"Biscuits 50",100,"b"],[I?"Kue 30":"Cakes 30",120,"c"]],L)
-    +'<div class="hv-h">'+(I?"Rencana optimal → margin Rp936 jt (+Rp81 jt)":"Optimal plan → margin IDR 936m (+IDR 81m)")+'</div>'+ovenBar([[I?"Roti 180":"Bread 180",216,"a"],[I?"Biskuit 80":"Biscuits 80",160,"b"],[I?"Kue 6":"Cakes 6",24,"c"]],L),
-    I?"Angka di dalam blok = ribu pak dan jam oven yang dipakai. Oven sama-sama penuh (400 jam); bedanya jam oven dipindah dari kue (Rp1,5 jt/jam) ke roti dan biskuit (Rp2,5 dan Rp2,25 jt/jam).":"Numbers inside each block = thousand packs and oven hours used. The oven is full both times (400 hours); the difference is moving oven hours from cakes (IDR 1.5m/hour) to bread and biscuits (IDR 2.5m and 2.25m/hour).");
+    '<div class="hv-h">'+(I?"Bulan lalu → margin Rp855 jt":"Last month → margin IDR 855m")+'</div>'+ovenBar([[I?"Roti":"Bread",150,1.2,"a"],[I?"Biskuit":"Biscuits",50,2,"b"],[I?"Kue":"Cakes",30,4,"c"]],L)
+    +'<div class="hv-h">'+(I?"Rencana optimal → margin Rp936 jt (+Rp81 jt)":"Optimal plan → margin IDR 936m (+IDR 81m)")+'</div>'+ovenBar([[I?"Roti":"Bread",180,1.2,"a"],[I?"Biskuit":"Biscuits",80,2,"b"],[I?"Kue":"Cakes",6,4,"c"]],L),
+    I?"Blok berwarna hanya menunjukkan JAM OVEN (total 400 jam). Jumlah produk (ribu pak) ada di baris hitungan di bawah tiap bar: produk × jam oven per 1.000 pak = jam oven. Oven sama-sama penuh (400 jam); bedanya jam oven dipindah dari kue (Rp1,5 jt/jam) ke roti dan biskuit (Rp2,5 dan Rp2,25 jt/jam).":"Coloured blocks show OVEN HOURS only (400 hours in total). Product volume (thousand packs) is in the calculation line under each bar: packs × oven hours per 1,000 packs = oven hours. The oven is full both times (400 hours); the difference is moving oven hours from cakes (IDR 1.5m/hour) to bread and biscuits (IDR 2.5m and 2.25m/hour).");
   V.stockout=V.stockout||{};V.stockout[L]=box(I?"Tiga pesanan dari simulasi: cukupkah stok 64 ton?":"Three simulated orders: is 64 tonnes of stock enough?",orderRows(L),
     I?"Bagian merah = tepung yang dibutuhkan tetapi sudah tidak ada (kehabisan). Dari 10.000 pesanan yang disimulasikan, 47,3% berakhir seperti pesanan 1.":"The red part = flour needed but no longer in stock (a stock-out). Of 10,000 simulated orders, 47.3% end up like order 1.");
   V.rop=V.rop||{};V.rop[L]=box(I?"Biaya total per bulan untuk tiap reorder point":"Total monthly cost for each reorder point",ropRows(L),
