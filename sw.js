@@ -1,5 +1,5 @@
 /* Growch service worker: works offline, always prefers fresh pages when online. */
-const VER = "growch-20261106093404";
+const VER = "growch-20261106140148";
 const CORE = ["/", "/index.html", "/manifest.webmanifest", "/icons/icon-192.png", "/icons/icon-512.png"];
 
 self.addEventListener("install", e => {
