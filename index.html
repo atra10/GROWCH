@@ -929,6 +929,11 @@ body:not([data-sec="belajar"]) .acctbtn{margin-left:0}
 .cb-tab td:first-child small{display:block;font-weight:500;font-size:12px;color:var(--muted)}
 .cbcalc .cb-tab input{padding:6px 8px !important;font-size:14px !important;height:auto !important}
 @media (max-width:560px){.cbcalc{padding:12px}.cbcalc .cb-tab input{padding:6px 5px !important;font-size:14px !important}.cb-tab th,.cb-tab td{padding:4px 3px}.cb-tab:not(.cb-pv) td:not(:first-child){width:41%}}
+.cb-w{border-top:1px dashed var(--line);padding-top:10px;margin-top:10px;font-size:14px;line-height:1.55;min-width:0}
+.cb-w p{margin:6px 0}
+.cb-wh{font-weight:700;font-size:14px;color:var(--ink)}
+.cb-w .cb-tab td small{display:inline;font-size:12px;color:var(--muted)}
+.cb-w .cb-tab td:last-child{white-space:normal}
 
 .lg{--c:var(--legal);max-width:820px;margin:0 auto;display:flex;flex-direction:column;gap:18px}
 .lg-soon{background:var(--surface);border-radius:var(--r-lg);box-shadow:var(--shadow);padding:24px;display:flex;flex-direction:column;gap:6px}
@@ -3566,6 +3571,49 @@ function build(el){
     el.querySelector("[data-r]").oninput=function(){st.r=this.value;out()};
     out();
   }
+
+  function pct(x,d){return fm(x*100,d==null?1:d)+"%"}
+  function working(cf,r,m,pvRows,cpv){
+    var I=-cf[0],pvIn=m.npv-cf[0],h="";
+    /* 1. NPV */
+    h+='<div class="cb-w"><div class="cb-wh">1 · NPV</div><p>NPV = Σ CF_t ÷ (1 + r)^t − CF_0, r = '+pct(r,2)+'</p>'+
+      '<div class="cb-wrap"><table class="cb-tab cb-pv"><tr><th>t</th><th>CF</th><th>1/(1+r)^t</th><th>PV</th><th>'+T("Kumulatif CF","Cumulative CF")+'</th></tr>'+pvRows+
+      '<tr><td colspan="3"><b>NPV = Σ PV</b></td><td><b>'+money(cpv)+'</b></td><td></td></tr></table></div>'+
+      '<p>'+T("NPV "+(m.npv>=0?"≥ 0 → proyek menambah nilai → terima.":"< 0 → proyek mengurangi nilai → tolak."),"NPV "+(m.npv>=0?"≥ 0 → the project adds value → accept.":"< 0 → the project destroys value → reject."))+'</p></div>';
+    /* 2. PI */
+    h+='<div class="cb-w"><div class="cb-wh">2 · Profitability index (PI)</div>'+
+      '<p>'+T("PV arus masuk = jumlah PV tahun 1 sampai "+(cf.length-1),"PV of inflows = sum of PV for years 1 to "+(cf.length-1))+' = '+money(cpv)+' + '+money(I)+' = <b>'+money(pvIn)+'</b></p>'+
+      '<p>PI = '+T("PV arus masuk ÷ investasi awal","PV of inflows ÷ initial investment")+' = '+money(pvIn)+' ÷ '+money(I)+' = <b>'+fm(m.pi,3)+'</b></p>'+
+      '<p>'+T("PI "+(m.pi>=1?"≥ 1 → terima. Artinya setiap $1 investasi menghasilkan $"+fm(m.pi,2)+" nilai sekarang.":"< 1 → tolak."),"PI "+(m.pi>=1?"≥ 1 → accept. Each $1 invested returns $"+fm(m.pi,2)+" in present value.":"< 1 → reject."))+'</p></div>';
+    /* 3. IRR */
+    h+='<div class="cb-w"><div class="cb-wh">3 · IRR</div><p>'+T("IRR adalah r yang membuat NPV = 0. Tidak ada rumus langsung, jadi dicari dengan coba-coba (trial and error):","IRR is the r that makes NPV = 0. There is no direct formula, so it is found by trial and error:")+'</p>';
+    if(isFinite(m.irr)){
+      var k=Math.floor(m.irr*100),lo=k/100,hi=(k+1)/100,nl=npv(cf,lo),nh=npv(cf,hi),est=lo+(hi-lo)*nl/(nl-nh);
+      h+='<div class="cb-wrap"><table class="cb-tab cb-pv"><tr><th>'+T("Coba r","Try r")+'</th><th>NPV</th></tr>'+
+        '<tr><td>'+pct(r,1)+' <small>'+T("(biaya modal)","(cost of capital)")+'</small></td><td>'+money(m.npv)+'</td></tr>'+
+        '<tr><td>'+pct(lo,0)+'</td><td>'+money(nl)+'</td></tr>'+
+        '<tr><td>'+pct(hi,0)+'</td><td>'+money(nh)+'</td></tr></table></div>'+
+        '<p>'+T("NPV masih "+(m.npv>0?"positif":"negatif")+" di "+pct(r,1)+", positif di "+pct(lo,0)+" dan negatif di "+pct(hi,0)+" → IRR ada di antara "+pct(lo,0)+" dan "+pct(hi,0)+".","NPV is "+(m.npv>0?"positive":"negative")+" at "+pct(r,1)+", positive at "+pct(lo,0)+" and negative at "+pct(hi,0)+" → IRR lies between "+pct(lo,0)+" and "+pct(hi,0)+".")+'</p>'+
+        '<p>'+T("Interpolasi","Interpolation")+': IRR ≈ '+pct(lo,0)+' + 1% × '+money(nl)+' ÷ ('+money(nl)+' + '+money(-nh)+') = <b>'+pct(est,2)+'</b></p>'+
+        '<p>'+T("Hasil tepat (Excel =IRR atau kalkulator)","Exact result (Excel =IRR or a calculator)")+': <b>'+pct(m.irr,2)+'</b>. '+T("Cek: NPV di r ini","Check: NPV at this r")+' = '+money(Math.abs(npv(cf,m.irr))<0.5?0:npv(cf,m.irr))+'.</p>'+
+        '<p>IRR '+pct(m.irr,1)+(m.irr>=r?' ≥ ':' < ')+'r '+pct(r,1)+' → '+(m.irr>=r?T("terima","accept"):T("tolak","reject"))+'.</p>';
+    } else h+='<p>'+T("Tidak ada r yang membuat NPV = 0 untuk arus kas ini, jadi IRR tidak bisa dihitung.","No r makes NPV = 0 for these cash flows, so IRR cannot be computed.")+'</p>';
+    h+='</div>';
+    /* 4. Payback */
+    h+='<div class="cb-w"><div class="cb-wh">4 · Payback period</div>';
+    var eq=cf.slice(1).every(function(x){return x===cf[1]});
+    if(!isFinite(m.pb)) h+='<p>'+T("Total arus kas masuk ("+money(cf.slice(1).reduce(function(a,b){return a+b},0))+") lebih kecil dari investasi, jadi uang tidak kembali dalam periode ini.","Total inflows ("+money(cf.slice(1).reduce(function(a,b){return a+b},0))+") are less than the investment, so the money is not recovered in this period.")+'</p>';
+    else if(eq) h+='<p>'+T("Arus kas tiap tahun sama (anuitas), jadi","Equal cash flows every year (an annuity), so")+': payback = '+T("investasi ÷ arus kas per tahun","investment ÷ annual cash flow")+' = '+money(I)+' ÷ '+money(cf[1])+' = <b>'+fm(m.pb,2)+T(" tahun"," years")+'</b></p>';
+    else{
+      var c=cf[0],t=1;while(c+cf[t]<0){c+=cf[t];t++}
+      h+='<p>'+T("Arus kas tidak sama, jadi pakai kolom kumulatif CF di tabel NPV di atas:","Cash flows are uneven, so use the cumulative CF column in the NPV table above:")+'</p>'+
+        '<p>'+T("Sampai akhir tahun "+(t-1)+", sisa yang belum kembali","By the end of year "+(t-1)+", still unrecovered")+' = '+money(-c)+'.<br>'+
+        T("Tahun "+t+" menghasilkan "+money(cf[t])+", jadi butuh ","Year "+t+" brings "+money(cf[t])+", so it takes ")+money(-c)+' ÷ '+money(cf[t])+' = '+fm(-c/cf[t],2)+T(" tahun lagi."," more years.")+'</p>'+
+        '<p>Payback = '+(t-1)+' + '+fm(-c/cf[t],2)+' = <b>'+fm(m.pb,2)+T(" tahun"," years")+'</b></p>';
+    }
+    if(isFinite(m.pb))h+='<p class="cb-help">'+T("Payback tidak punya aturan terima/tolak sendiri: bandingkan dengan batas maksimum yang ditetapkan perusahaan. Kelemahannya: tidak memperhitungkan nilai waktu uang dan mengabaikan arus kas setelah balik modal.","Payback has no built-in accept/reject rule: compare it with the firm's maximum. Weaknesses: it ignores the time value of money and any cash flows after payback.")+'</p>';
+    return h+'</div>';
+  }
   function card(name,cf,r){
     if(!cf)return"";
     var m=metrics(cf,r),ok=function(b){return b?'<b class="cb-y">'+T("terima","accept")+'</b>':'<b class="cb-n">'+T("tolak","reject")+'</b>'};
@@ -3576,9 +3624,7 @@ function build(el){
       '<div class="cb-m"><span>IRR</span><strong>'+(isFinite(m.irr)?fm(m.irr*100,1)+"%":"—")+'</strong>'+(isFinite(m.irr)?ok(m.irr>=r):"")+'</div>'+
       '<div class="cb-m"><span>PI</span><strong>'+fm(m.pi,2)+'</strong>'+ok(m.pi>=1)+'</div>'+
       '<div class="cb-m"><span>Payback</span><strong>'+(isFinite(m.pb)?fm(m.pb,2)+T(" tahun"," years"):T("tidak kembali","not recovered"))+'</strong></div>'+
-      '<details><summary>'+T("Lihat perhitungan","Show working")+'</summary><div class="cb-wrap"><table class="cb-tab cb-pv"><tr><th>t</th><th>CF</th><th>1/(1+r)^t</th><th>PV</th><th>'+T("Kumulatif CF","Cumulative CF")+'</th></tr>'+pv+
-      '<tr><td colspan="3"><b>NPV = Σ PV</b></td><td><b>'+money(cpv)+'</b></td><td></td></tr></table></div>'+
-      '<p class="cb-help">PI = '+T("PV arus masuk","PV of inflows")+' ÷ '+T("investasi","investment")+' = '+money(m.npv-cf[0])+' ÷ '+money(-cf[0])+'. IRR = r '+T("yang membuat NPV = 0 (dicari otomatis).","that makes NPV = 0 (found automatically).")+'</p></details></div>';
+      '<details><summary>'+T("Lihat perhitungan","Show working")+'</summary>'+working(cf,r,m,pv,cpv)+'</details></div>';
   }
   function out(){
     var L=en()?"en":"id",r=num(st.r)/100,o=el.querySelector(".cb-out");
