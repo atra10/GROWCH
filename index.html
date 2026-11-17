@@ -17167,6 +17167,43 @@ window.addWeek("mk4", {
       }
     },
     {
+      h: { id: "Kapabilitas dalam angka: ppm cacat, Six Sigma, dan fungsi kerugian Taguchi", en: "Capability in numbers: defect ppm, Six Sigma and the Taguchi loss function" },
+      p: {
+        id: `<p>Cp terasa abstrak sampai diterjemahkan menjadi <strong>jumlah cacat</strong>. Untuk proses yang tepat di tengah dan berdistribusi normal, bagian di luar spesifikasi adalah luas ekor kurva normal di luar ±3·Cp sigma:</p>
+<div class="formula">Proporsi di luar spesifikasi (proses di tengah) = 2 × [1 − Φ(3 × Cp)]</div>
+<table><tr><th>Cp (di tengah)</th><th>Jarak spesifikasi dari rata-rata</th><th>Cacat per sejuta (ppm)</th><th>Contoh bantalan</th></tr>
+<tr><td>0,83</td><td>±2,5σ</td><td>±12.400</td><td>Kondisi hari ini (σ = 0,002)</td></tr>
+<tr><td>1,00</td><td>±3σ</td><td>±2.700</td><td>σ = 0,00167</td></tr>
+<tr><td>1,33</td><td>±4σ</td><td>±63</td><td>σ = 0,00125</td></tr>
+<tr><td>1,50</td><td>±4,5σ</td><td>±6,8</td><td>σ = 0,00111</td></tr>
+<tr><td>2,00</td><td>±6σ</td><td>±0,002 (2 per miliar)</td><td>σ = 0,00083</td></tr></table>
+<p>Dari σ = 0,002 ke σ = 0,00125 (turun 37,5%), cacat turun dari ±12.400 ke ±63 ppm, hampir 200 kali lebih sedikit. Itulah alasan pernyataan di slide: mengecilkan σ "membeli" penurunan cacat yang sangat besar.</p>
+<div class="note tip"><b>Kaitan dengan Six Sigma (Week 9)</b>Angka terkenal "3,4 cacat per sejuta (DPMO)" untuk Six Sigma <em>bukan</em> 0,002 ppm, karena Motorola mengasumsikan rata-rata proses bisa bergeser ±1,5σ dalam jangka panjang. Dengan pergeseran itu, jarak ke batas terdekat tinggal 6 − 1,5 = 4,5σ, dan ekor di luar 4,5σ ≈ 3,4 per sejuta. Jadi Six Sigma ≈ Cp 2,0 tetapi Cpk jangka panjang ≈ 1,5.</div>
+<p><strong>Menaksir σ dari data control chart.</strong> Untuk menghitung Cp dari data X̄–R, σ proses ditaksir dari range rata-rata:</p>
+<div class="formula">σ̂ = R̄ ÷ d2 (d2 = 2,326 untuk n = 5; 2,059 untuk n = 4; 1,693 untuk n = 3)</div>
+<p><em>Contoh ilustratif</em> (spesifikasi tidak ada di slide): data Exhibit 13.9, x̿ = 10,21 dan R̄ = 0,60 → σ̂ = 0,60 ÷ 2,326 = 0,258. Jika spesifikasinya 10,00 ± 1,00: Cp = 2,00 ÷ (6 × 0,258) = <strong>1,29</strong>; Cpk = min(11,00 − 10,21; 10,21 − 9,00) ÷ (3 × 0,258) = 0,79 ÷ 0,774 = <strong>1,02</strong>. Lebar proses cukup, tetapi rata-ratanya terlalu dekat ke batas atas. Ingat: hitungan ini hanya sah jika chart menunjukkan proses terkendali.</p>
+<p><strong>Fungsi kerugian Taguchi</strong> (pelengkap dari literatur kualitas). Pandangan "di dalam spesifikasi = baik, di luar = buruk" disebut <em>goalpost</em>. Taguchi berpendapat setiap penyimpangan dari target menimbulkan kerugian bagi masyarakat dan pelanggan, makin jauh makin besar, secara kuadrat:</p>
+<div class="formula">L(x) = k × (x − T)² · k = kerugian di batas toleransi ÷ (toleransi)² · rata-rata kerugian per unit = k × [σ² + (μ − T)²]</div>
+<p><em>Contoh:</em> target 50 mm; komponen yang meleset 2 mm membuat pelanggan rugi $40 → k = 40 ÷ 2² = 10. Komponen 51 mm (masih di dalam spesifikasi) tetap menimbulkan kerugian 10 × 1² = $10. Proses dengan μ = 50,4 dan σ = 0,5 punya kerugian rata-rata 10 × (0,25 + 0,16) = <strong>$4,10 per unit</strong>. Rumus ini menunjukkan dua tuas yang sama dengan Cpk: kecilkan σ dan dekatkan μ ke target.</p>`,
+        en: `<p>Cp feels abstract until it is turned into <strong>defect counts</strong>. For a centred, normally distributed process, the share outside spec is the area of the normal tails beyond ±3·Cp sigma:</p>
+<div class="formula">Share outside spec (centred process) = 2 × [1 − Φ(3 × Cp)]</div>
+<table><tr><th>Cp (centred)</th><th>Spec distance from mean</th><th>Defects per million (ppm)</th><th>Bearing example</th></tr>
+<tr><td>0.83</td><td>±2.5σ</td><td>about 12,400</td><td>Today (σ = 0.002)</td></tr>
+<tr><td>1.00</td><td>±3σ</td><td>about 2,700</td><td>σ = 0.00167</td></tr>
+<tr><td>1.33</td><td>±4σ</td><td>about 63</td><td>σ = 0.00125</td></tr>
+<tr><td>1.50</td><td>±4.5σ</td><td>about 6.8</td><td>σ = 0.00111</td></tr>
+<tr><td>2.00</td><td>±6σ</td><td>about 0.002 (2 per billion)</td><td>σ = 0.00083</td></tr></table>
+<p>Going from σ = 0.002 to σ = 0.00125 (37.5% less) cuts defects from about 12,400 to about 63 ppm, nearly 200 times fewer. That's what the slide means by what shrinking σ "buys".</p>
+<div class="note tip"><b>Link to Six Sigma (Week 9)</b>Six Sigma's famous "3.4 defects per million (DPMO)" is <em>not</em> 0.002 ppm, because Motorola assumed the mean can drift ±1.5σ over the long run. After that drift the nearest limit is 6 − 1.5 = 4.5σ away, and the tail beyond 4.5σ ≈ 3.4 per million. So Six Sigma ≈ Cp 2.0 but a long-run Cpk ≈ 1.5.</div>
+<p><strong>Estimating σ from control-chart data.</strong> To compute Cp from X̄–R data, estimate the process σ from the average range:</p>
+<div class="formula">σ̂ = R̄ ÷ d2 (d2 = 2.326 for n = 5; 2.059 for n = 4; 1.693 for n = 3)</div>
+<p><em>An illustrative example</em> (the slides give no spec): Exhibit 13.9 data, x̿ = 10.21 and R̄ = 0.60 → σ̂ = 0.60 ÷ 2.326 = 0.258. With a spec of 10.00 ± 1.00: Cp = 2.00 ÷ (6 × 0.258) = <strong>1.29</strong>; Cpk = min(11.00 − 10.21; 10.21 − 9.00) ÷ (3 × 0.258) = 0.79 ÷ 0.774 = <strong>1.02</strong>. The spread is fine, but the mean sits too close to the upper limit. Remember: this is only valid if the chart shows the process is in control.</p>
+<p><strong>The Taguchi loss function</strong> (a complement from the quality literature). The view "inside spec = good, outside = bad" is called the <em>goalpost</em> view. Taguchi argued that any deviation from target causes a loss to customers and society, growing with the square of the distance:</p>
+<div class="formula">L(x) = k × (x − T)² · k = loss at the tolerance limit ÷ (tolerance)² · average loss per unit = k × [σ² + (μ − T)²]</div>
+<p><em>Example:</em> target 50 mm; a part 2 mm off costs the customer $40 → k = 40 ÷ 2² = 10. A 51 mm part (still inside spec) still costs 10 × 1² = $10. A process with μ = 50.4 and σ = 0.5 has an average loss of 10 × (0.25 + 0.16) = <strong>$4.10 per unit</strong>. The formula shows the same two levers as Cpk: shrink σ and move μ to target.</p>`
+      }
+    },
+    {
       h: { id: "Dasar SPC: atribut vs variabel, dan memilih chart", en: "SPC basics: attribute vs variable, and choosing the chart" },
       p: {
         id: `<div class="grid4"><div class="card blue"><h4>3σ</h4><p>Batas standar: 99,7% titik dari proses yang tidak berubah jatuh di dalamnya.</p></div><div class="card"><h4>25</h4><p>Jumlah sampel yang dikumpulkan sebelum menyusun chart.</p></div><div class="card"><h4>4–5</h4><p>Unit per sampel untuk data variabel; rata-ratanya mendekati normal.</p></div><div class="card yellow"><h4>1 dari 370</h4><p>Titik di luar 3σ murni karena kebetulan: "anggaran" alarm palsu.</p></div></div>
@@ -17200,6 +17237,47 @@ window.addWeek("mk4", {
       }
     },
     {
+      h: { id: "Membaca chart dengan disiplin: aturan Western Electric, ARL, dan fase I vs II", en: "Reading a chart with discipline: Western Electric rules, ARL, and Phase I vs II" },
+      p: {
+        id: `<p>"Waspadai pola" perlu dibuat konkret supaya semua orang membaca chart dengan cara yang sama. Standarnya adalah <strong>aturan Western Electric</strong> (buku pegangan Western Electric, 1956). Area antara garis tengah dan batas 3σ dibagi tiga zona di tiap sisi:</p>
+<table><tr><th>Zona</th><th>Jarak dari garis tengah</th></tr>
+<tr><td>C</td><td>0 sampai 1σ</td></tr>
+<tr><td>B</td><td>1σ sampai 2σ</td></tr>
+<tr><td>A</td><td>2σ sampai 3σ (batas kontrol)</td></tr></table>
+<table><tr><th>Aturan</th><th>Sinyal assignable cause jika…</th><th>Biasanya menandakan</th></tr>
+<tr><td>1</td><td>1 titik di luar 3σ</td><td>Kejadian tiba-tiba (alat patah, bahan salah)</td></tr>
+<tr><td>2</td><td>2 dari 3 titik berturut-turut di zona A atau lebih, di sisi yang sama</td><td>Pergeseran sedang</td></tr>
+<tr><td>3</td><td>4 dari 5 titik berturut-turut di zona B atau lebih, di sisi yang sama</td><td>Pergeseran kecil</td></tr>
+<tr><td>4</td><td>8 titik berturut-turut di satu sisi garis tengah</td><td>Pergeseran kecil yang bertahan (run)</td></tr></table>
+<p>Aturan tambahan yang sering dipakai (Nelson dan turunannya): ±6–7 titik naik atau turun terus (<strong>tren</strong>, misalnya alat aus); 14 titik naik-turun bergantian (<strong>overcontrol</strong> atau dua sumber bergantian); 15 titik berturut-turut di zona C (<strong>stratifikasi</strong>: batas terlalu lebar, mungkin data dua mesin dicampur).</p>
+<div class="note ex"><b>Diterapkan ke slide</b>Exhibit 13.9: sampel 13–17 hanya lima titik di atas rata-rata, belum memenuhi aturan 4 (butuh 8), tetapi beberapa titik berada di zona B atas → layak dicek dengan aturan 3. KAI Commuter: minggu 1–12 di bawah garis tengah dan 13–24 di atas = dua run 12 titik → aturan 4 jelas terpenuhi, walau tidak ada titik di luar 3σ.</div>
+<p><strong>Average run length (ARL)</strong> menjelaskan kenapa batasnya 3σ. ARL = rata-rata jumlah sampel sampai muncul sinyal = 1 ÷ peluang sinyal per sampel.</p>
+<div class="formula">ARL = 1 ÷ P(titik di luar batas)</div>
+<ul><li><strong>Proses tidak berubah (ARL₀):</strong> P = 0,0027 → ARL₀ = 1 ÷ 0,0027 ≈ <strong>370</strong>. Inilah "1 dari 370" di slide: alarm palsu rata-rata sekali tiap 370 sampel. Ini kesalahan tipe I (α).</li>
+<li><strong>Rata-rata bergeser 1σ (ARL₁), X̄-chart n = 5:</strong> pergeseran itu = √5 ≈ 2,24 σ<sub>x̄</sub>, jadi batas tinggal 3 − 2,24 = 0,76 σ<sub>x̄</sub> di atas rata-rata baru. P(sinyal) = 1 − Φ(0,76) ≈ 0,22 → ARL₁ ≈ <strong>4,5 sampel</strong>. Selama itu pergeseran belum terdeteksi: kesalahan tipe II (β).</li></ul>
+<p>Menambah aturan 2–4 mempercepat deteksi pergeseran kecil, dengan harga alarm palsu sedikit lebih sering.</p>
+<div class="vs"><div><h4>Fase I: menyusun batas</h4>Kumpulkan ±25 sampel, hitung batas percobaan, cari penyebab setiap titik yang keluar, buang titik yang penyebabnya ditemukan dan diperbaiki, hitung ulang batas.</div><i>vs</i><div><h4>Fase II: memantau</h4>Batas dibekukan dan dipakai untuk memantau produksi berjalan. Batas hanya dihitung ulang jika prosesnya sengaja diubah (change management), bukan setiap kali ada titik baru.</div></div>`,
+        en: `<p>"Watch for patterns" needs to be concrete so everyone reads a chart the same way. The standard is the <strong>Western Electric rules</strong> (Western Electric handbook, 1956). The area between the centre line and the 3σ limit is split into three zones on each side:</p>
+<table><tr><th>Zone</th><th>Distance from centre line</th></tr>
+<tr><td>C</td><td>0 to 1σ</td></tr>
+<tr><td>B</td><td>1σ to 2σ</td></tr>
+<tr><td>A</td><td>2σ to 3σ (the control limit)</td></tr></table>
+<table><tr><th>Rule</th><th>Assignable-cause signal if…</th><th>Usually means</th></tr>
+<tr><td>1</td><td>1 point beyond 3σ</td><td>A sudden event (broken tool, wrong material)</td></tr>
+<tr><td>2</td><td>2 of 3 consecutive points in zone A or beyond, same side</td><td>A moderate shift</td></tr>
+<tr><td>3</td><td>4 of 5 consecutive points in zone B or beyond, same side</td><td>A small shift</td></tr>
+<tr><td>4</td><td>8 consecutive points on one side of the centre line</td><td>A small sustained shift (a run)</td></tr></table>
+<p>Common extra rules (Nelson and variants): about 6–7 points steadily rising or falling (a <strong>trend</strong>, e.g. tool wear); 14 points alternating up and down (<strong>overcontrol</strong> or two alternating sources); 15 consecutive points in zone C (<strong>stratification</strong>: limits too wide, maybe two machines' data mixed).</p>
+<div class="note ex"><b>Applied to the slides</b>Exhibit 13.9: samples 13–17 are only five points above the mean, short of rule 4 (needs 8), but several sit in the upper zone B → worth checking against rule 3. KAI Commuter: weeks 1–12 below the centre line and 13–24 above = two runs of 12 → rule 4 clearly met, though no point is beyond 3σ.</div>
+<p><strong>Average run length (ARL)</strong> explains why limits are at 3σ. ARL = the average number of samples until a signal = 1 ÷ the probability of a signal per sample.</p>
+<div class="formula">ARL = 1 ÷ P(point beyond the limits)</div>
+<ul><li><strong>Unchanged process (ARL₀):</strong> P = 0.0027 → ARL₀ = 1 ÷ 0.0027 ≈ <strong>370</strong>. That's the slide's "1 in 370": a false alarm on average once every 370 samples. A type I error (α).</li>
+<li><strong>Mean shifted by 1σ (ARL₁), X̄-chart n = 5:</strong> the shift = √5 ≈ 2.24 σ<sub>x̄</sub>, so the limit is only 3 − 2.24 = 0.76 σ<sub>x̄</sub> above the new mean. P(signal) = 1 − Φ(0.76) ≈ 0.22 → ARL₁ ≈ <strong>4.5 samples</strong>. Until then the shift goes undetected: a type II error (β).</li></ul>
+<p>Adding rules 2–4 detects small shifts faster, at the cost of slightly more frequent false alarms.</p>
+<div class="vs"><div><h4>Phase I: setting limits</h4>Collect about 25 samples, compute trial limits, investigate every point outside, drop points whose cause was found and fixed, recompute the limits.</div><i>vs</i><div><h4>Phase II: monitoring</h4>The limits are frozen and used to monitor ongoing production. They're recomputed only when the process is deliberately changed (change management), not every time a new point arrives.</div></div>`
+      }
+    },
+    {
       h: { id: "p-chart dan c-chart: contoh perhitungan", en: "p-charts and c-charts: worked examples" },
       p: {
         id: `<div class="formula">p-chart: p̄ = total cacat ÷ total diperiksa · σp = √(p̄(1 − p̄) ÷ n) · UCL/LCL = p̄ ± z·σp (LCL minimal 0)</div>
@@ -17230,6 +17308,27 @@ window.addWeek("mk4", {
 <div class="formula">c-chart (Poisson): σ = √c̄ · UCL/LCL = c̄ ± z·√c̄ (LCL floored at 0)</div>
 <p><strong>Example 13.3:</strong> average defects per unit c̄ = 4 → σ = √4 = 2 → UCL = 4 + 3 × 2 = <strong>10</strong>; LCL = 4 − 6 → <strong>0</strong> (counts can't be negative).</p>
 <div class="note ex"><b>When to use a c-chart</b>When you count defects on one "unit of opportunity": scratches per glass sheet, errors per report page, complaints per day, potholes per km of road.</div>`
+      }
+    },
+    {
+      h: { id: "Chart lain dari keluarga yang sama: np, u, X̄ dengan σ diketahui, dan I-MR", en: "Other charts in the same family: np, u, X̄ with known σ, and I-MR" },
+      p: {
+        id: `<table><tr><th>Chart</th><th>Kapan dipakai</th><th>Batas kontrol</th></tr>
+<tr><td><strong>np-chart</strong></td><td>Sama dengan p-chart (unit cacat, n tetap), tetapi yang diplot <em>jumlah</em> cacat, bukan proporsi. Lebih mudah dibaca operator.</td><td>np̄ ± z√(np̄(1 − p̄))</td></tr>
+<tr><td><strong>u-chart</strong></td><td>Seperti c-chart (jumlah cacat), tetapi ukuran unit peluang berbeda-beda (misalnya panjang kain atau jumlah halaman berbeda tiap hari).</td><td>ū ± z√(ū ÷ nᵢ), batas berubah mengikuti nᵢ</td></tr>
+<tr><td><strong>X̄-chart dengan σ diketahui</strong></td><td>Jika σ proses sudah diketahui dari data panjang (bukan ditaksir dari R̄).</td><td>x̿ ± z·σ ÷ √n</td></tr>
+<tr><td><strong>I-MR</strong> (individual–moving range)</td><td>Hanya satu pengukuran per periode (misalnya biaya per bulan, waktu proses per batch).</td><td>x̄ ± 2,66·MR̄ (MR = selisih dua titik berurutan)</td></tr></table>
+<p><strong>np-chart dari Solved Problem 2:</strong> n = 100, p̄ = 0,0307 → np̄ = 3,07; σ = √(3,07 × 0,9693) = 1,725. Dengan z = 3: UCL = 3,07 + 5,18 = <strong>8,25 formulir</strong>; LCL = 0. Hasilnya sama dengan p-chart (0,082 × 100), hanya satuannya formulir, bukan proporsi.</p>
+<p><strong>X̄ dengan σ diketahui:</strong> mesin pengisi botol, target 1,000 liter, σ = 0,02 liter dari data setahun, sampel n = 4. σ<sub>x̄</sub> = 0,02 ÷ √4 = 0,01 → batas 3σ = 1,000 ± 0,03 = <strong>0,97 – 1,03 liter</strong>.</p>
+<div class="note tip"><b>Kenapa n masuk lewat √n</b>Rata-rata dari n unit bervariasi lebih kecil daripada unit tunggal: σ<sub>x̄</sub> = σ ÷ √n. Itu sebabnya batas X̄ jauh lebih sempit daripada batas spesifikasi untuk unit tunggal, dan kenapa titik X̄ tidak boleh dibandingkan langsung dengan spesifikasi.</div>`,
+        en: `<table><tr><th>Chart</th><th>When to use it</th><th>Control limits</th></tr>
+<tr><td><strong>np-chart</strong></td><td>Same as a p-chart (defective units, fixed n), but it plots the <em>number</em> defective, not the fraction. Easier for operators to read.</td><td>np̄ ± z√(np̄(1 − p̄))</td></tr>
+<tr><td><strong>u-chart</strong></td><td>Like a c-chart (defect counts), but the unit of opportunity varies in size (e.g. fabric length or page count differs each day).</td><td>ū ± z√(ū ÷ nᵢ), limits move with nᵢ</td></tr>
+<tr><td><strong>X̄-chart with known σ</strong></td><td>When the process σ is known from long history (not estimated from R̄).</td><td>x̿ ± z·σ ÷ √n</td></tr>
+<tr><td><strong>I-MR</strong> (individuals–moving range)</td><td>Only one measurement per period (e.g. monthly cost, time per batch).</td><td>x̄ ± 2.66·MR̄ (MR = difference between consecutive points)</td></tr></table>
+<p><strong>An np-chart from Solved Problem 2:</strong> n = 100, p̄ = 0.0307 → np̄ = 3.07; σ = √(3.07 × 0.9693) = 1.725. At z = 3: UCL = 3.07 + 5.18 = <strong>8.25 forms</strong>; LCL = 0. Same result as the p-chart (0.082 × 100), just in forms instead of a fraction.</p>
+<p><strong>X̄ with known σ:</strong> a bottle filler, target 1.000 litre, σ = 0.02 litre from a year of data, sample n = 4. σ<sub>x̄</sub> = 0.02 ÷ √4 = 0.01 → 3σ limits = 1.000 ± 0.03 = <strong>0.97 – 1.03 litres</strong>.</p>
+<div class="note tip"><b>Why n enters through √n</b>The mean of n units varies less than a single unit: σ<sub>x̄</sub> = σ ÷ √n. That's why X̄ limits are much tighter than single-unit spec limits, and why X̄ points must never be compared directly with the spec.</div>`
       }
     },
     {
@@ -17291,6 +17390,43 @@ window.addWeek("mk4", {
       }
     },
     {
+      h: { id: "Mendesain rencana sampling, AOQ, AOQL, dan di mana inspeksi ditempatkan", en: "Designing a sampling plan, AOQ, AOQL, and where to inspect" },
+      p: {
+        id: `<p><strong>Dari AQL/LTPD ke n dan c.</strong> Pembeli dan pemasok menyepakati empat angka: AQL, LTPD, α, dan β. Lalu dicari n dan c terkecil yang memenuhi keduanya: P(terima | AQL) ≥ 1 − α dan P(terima | LTPD) ≤ β. Buku teks memakai tabel rasio LTPD ÷ AQL; dengan komputer bisa dicoba langsung.</p>
+<p><em>Contoh:</em> AQL 2%, LTPD 8%, α = 0,05, β = 0,10 (rasio 8 ÷ 2 = 4). Rencana terkecil yang lolos: <strong>n = 98, c = 4</strong>: P(terima | 2%) = 0,953 (≥ 0,95) dan P(terima | 8%) = 0,099 (≤ 0,10). Hasil ini sejalan dengan cara tabel di buku Jacobs &amp; Chase (n ≈ 99, c = 4).</p>
+<div class="vs"><div><h4>Rasio LTPD ÷ AQL besar</h4>Lot baik dan buruk mudah dibedakan → sampel kecil cukup.</div><i>vs</i><div><h4>Rasio LTPD ÷ AQL kecil</h4>Lot baik dan buruk mirip → butuh sampel besar dan c lebih besar agar kurva OC cukup curam.</div></div>
+<p><strong>Average outgoing quality (AOQ).</strong> Pada <em>rectifying inspection</em>, lot yang ditolak diperiksa 100% dan semua cacatnya diganti. Jadi kualitas yang keluar adalah campuran lot yang diterima (masih membawa cacat) dan lot yang sudah dibersihkan:</p>
+<div class="formula">AOQ = Pa × p × (N − n) ÷ N · ATI (rata-rata unit diperiksa) = n + (1 − Pa) × (N − n)</div>
+<p>Untuk rencana n = 50, c = 2 dan lot N = 1.000:</p>
+<div class="viz" data-viz="aoq"></div>
+<table><tr><th>p masuk</th><th>1%</th><th>2%</th><th>3%</th><th>4%</th><th>6%</th><th>8%</th><th>10%</th></tr>
+<tr><td>Pa</td><td>0,986</td><td>0,922</td><td>0,811</td><td>0,677</td><td>0,416</td><td>0,226</td><td>0,112</td></tr>
+<tr><td>AOQ</td><td>0,94%</td><td>1,75%</td><td>2,31%</td><td>2,57%</td><td>2,37%</td><td>1,72%</td><td>1,06%</td></tr></table>
+<p>AOQ naik lalu turun lagi. Saat kualitas masuk sangat buruk, hampir semua lot ditolak dan dibersihkan, jadi yang keluar justru bagus. Puncaknya disebut <strong>AOQL ≈ 2,6%</strong> (pada p ≈ 4,5%): seburuk apa pun kualitas masuk, rata-rata kualitas keluar tidak lebih buruk dari 2,6%. Harganya inspeksi: pada p = 4%, ATI = 50 + 0,323 × 950 ≈ <strong>357 unit per lot</strong>.</p>
+<table><tr><th>Jenis rencana</th><th>Cara kerja</th><th>Kelebihan</th></tr>
+<tr><td>Single sampling</td><td>Satu sampel n, putuskan dengan c</td><td>Paling sederhana</td></tr>
+<tr><td>Double sampling</td><td>Sampel pertama kecil; jika hasilnya ragu-ragu, ambil sampel kedua</td><td>Rata-rata sampel lebih kecil</td></tr>
+<tr><td>Sequential sampling</td><td>Unit diperiksa satu per satu sampai keputusan jelas</td><td>Paling hemat sampel, paling rumit</td></tr></table>
+<p><strong>Di mana inspeksi ditempatkan?</strong> Pedoman umum literatur operasi: (1) saat bahan masuk dari pemasok; (2) sebelum proses yang mahal atau tidak bisa dibalik (sebelum pengecatan, perakitan akhir, penyegelan); (3) sebelum titik yang menyembunyikan cacat; (4) sebelum barang dikirim ke pelanggan. Di layanan: di titik kontak pelanggan.</p>`,
+        en: `<p><strong>From AQL/LTPD to n and c.</strong> Buyer and supplier agree four numbers: AQL, LTPD, α and β. Then find the smallest n and c that meet both: P(accept | AQL) ≥ 1 − α and P(accept | LTPD) ≤ β. Textbooks use an LTPD ÷ AQL ratio table; a computer can simply search.</p>
+<p><em>Example:</em> AQL 2%, LTPD 8%, α = 0.05, β = 0.10 (ratio 8 ÷ 2 = 4). The smallest plan that passes: <strong>n = 98, c = 4</strong>: P(accept | 2%) = 0.953 (≥ 0.95) and P(accept | 8%) = 0.099 (≤ 0.10). This agrees with the table method in Jacobs &amp; Chase (n ≈ 99, c = 4).</p>
+<div class="vs"><div><h4>Large LTPD ÷ AQL ratio</h4>Good and bad lots are easy to tell apart → a small sample is enough.</div><i>vs</i><div><h4>Small LTPD ÷ AQL ratio</h4>Good and bad lots look alike → you need a large sample and a larger c for a steep enough OC curve.</div></div>
+<p><strong>Average outgoing quality (AOQ).</strong> Under <em>rectifying inspection</em>, rejected lots are 100% screened and every defect replaced. So outgoing quality is a mix of accepted lots (still carrying defects) and cleaned lots:</p>
+<div class="formula">AOQ = Pa × p × (N − n) ÷ N · ATI (average units inspected) = n + (1 − Pa) × (N − n)</div>
+<p>For the plan n = 50, c = 2 and lot size N = 1,000:</p>
+<div class="viz" data-viz="aoq"></div>
+<table><tr><th>Incoming p</th><th>1%</th><th>2%</th><th>3%</th><th>4%</th><th>6%</th><th>8%</th><th>10%</th></tr>
+<tr><td>Pa</td><td>0.986</td><td>0.922</td><td>0.811</td><td>0.677</td><td>0.416</td><td>0.226</td><td>0.112</td></tr>
+<tr><td>AOQ</td><td>0.94%</td><td>1.75%</td><td>2.31%</td><td>2.57%</td><td>2.37%</td><td>1.72%</td><td>1.06%</td></tr></table>
+<p>AOQ rises then falls. When incoming quality is very bad, almost every lot is rejected and cleaned, so outgoing quality is actually good. The peak is the <strong>AOQL ≈ 2.6%</strong> (at p ≈ 4.5%): however bad the incoming quality, average outgoing quality is no worse than 2.6%. The price is inspection: at p = 4%, ATI = 50 + 0.323 × 950 ≈ <strong>357 units per lot</strong>.</p>
+<table><tr><th>Plan type</th><th>How it works</th><th>Advantage</th></tr>
+<tr><td>Single sampling</td><td>One sample n, decide with c</td><td>Simplest</td></tr>
+<tr><td>Double sampling</td><td>A small first sample; if the result is borderline, take a second</td><td>Smaller average sample</td></tr>
+<tr><td>Sequential sampling</td><td>Inspect units one at a time until the decision is clear</td><td>Fewest units, most complex</td></tr></table>
+<p><strong>Where should inspection go?</strong> Common operations guidance: (1) when material arrives from suppliers; (2) before costly or irreversible steps (before painting, final assembly, sealing); (3) before a step that would hide defects; (4) before shipment to the customer. In services: at customer contact points.</p>`
+      }
+    },
+    {
       h: { id: "Quality Management System dan Quality 4.0", en: "The Quality Management System and Quality 4.0" },
       p: {
         id: `<p>Control chart adalah instrumen; <strong>QMS</strong>-lah yang bertindak atas bacaannya. Tujuh elemen menentukan apa yang terjadi pada sebuah sinyal:</p>
@@ -17323,6 +17459,31 @@ window.addWeek("mk4", {
 <div class="grid3"><div class="card"><h4>Process</h4><p>Quality plans and non-conformance handling move into software; no hand transcription.</p></div><div class="card"><h4>Technology</h4><p>Connected products, data and analytics push data from the edge; no weekly paper report.</p></div><div class="card"><h4>People</h4><p>Culture, leadership, competency and visible quality KPIs. The ring most often skipped.</p></div></div>
 <p><strong>The analytics ladder:</strong> descriptive → diagnostic → predictive → prescriptive. A control chart is diagnostic; Quality 4.0 predicts before a limit is crossed.</p>
 <div class="note ex"><b>An important caveat</b>More data shows a bad process faster; it doesn't make it better. A stable-but-incapable process stays incapable at any sampling rate.</div>`
+      }
+    },
+    {
+      h: { id: "ISO 9001 dan tujuh prinsip manajemen mutu", en: "ISO 9001 and the seven quality management principles" },
+      p: {
+        id: `<p>QMS yang paling banyak dipakai di dunia mengikuti standar <strong>ISO 9001</strong>. Edisi 2015 dibangun di atas siklus <strong>Plan–Do–Check–Act</strong>, pendekatan proses, dan <em>risk-based thinking</em>. Edisi revisi, <strong>ISO 9001:2026</strong> (edisi ke-6), dijadwalkan terbit September 2026 dengan masa transisi sekitar tiga tahun; isinya evolusi, bukan perombakan (PDCA, pendekatan proses, dan pemikiran berbasis risiko tetap menjadi inti).</p>
+<table><tr><th>Prinsip (ISO 9000)</th><th>Artinya dalam SPC</th></tr>
+<tr><td>1 · Fokus pada pelanggan</td><td>Spesifikasi diturunkan dari kebutuhan pelanggan (kontrak OTP 3% KAI)</td></tr>
+<tr><td>2 · Kepemimpinan</td><td>Direksi menetapkan siapa merespons sinyal</td></tr>
+<tr><td>3 · Keterlibatan orang</td><td>Operator membaca chart sendiri, bukan hanya mengisi data</td></tr>
+<tr><td>4 · Pendekatan proses</td><td>Chart memantau proses, bukan menyalahkan orang</td></tr>
+<tr><td>5 · Perbaikan</td><td>Corrective action → verifikasi → batas baru</td></tr>
+<tr><td>6 · Keputusan berbasis bukti</td><td>"Bawa perhitungannya, bukan kesan"</td></tr>
+<tr><td>7 · Manajemen hubungan</td><td>Acceptance sampling dan AQL disepakati dengan pemasok</td></tr></table>
+<div class="note ex"><b>Kaitan dengan biaya kualitas (Week 9)</b>Inspeksi dan acceptance sampling termasuk <em>appraisal cost</em>; SPC, pelatihan, dan desain proses termasuk <em>prevention cost</em>. Makin capable prosesnya, makin sedikit inspeksi yang dibutuhkan (ingat aturan all-or-nothing), dan biaya <em>failure</em> internal maupun eksternal ikut turun.</div>`,
+        en: `<p>The world's most used QMS follows <strong>ISO 9001</strong>. The 2015 edition is built on the <strong>Plan–Do–Check–Act</strong> cycle, the process approach and <em>risk-based thinking</em>. The revision, <strong>ISO 9001:2026</strong> (6th edition), was scheduled for publication in September 2026 with a transition of about three years; it is an evolution, not an overhaul (PDCA, the process approach and risk-based thinking remain central).</p>
+<table><tr><th>Principle (ISO 9000)</th><th>What it means for SPC</th></tr>
+<tr><td>1 · Customer focus</td><td>Specs come from customer needs (KAI's 3% OTP contract)</td></tr>
+<tr><td>2 · Leadership</td><td>The board decides who responds to a signal</td></tr>
+<tr><td>3 · Engagement of people</td><td>Operators read the chart themselves, not just fill it in</td></tr>
+<tr><td>4 · Process approach</td><td>Charts monitor the process, not blame people</td></tr>
+<tr><td>5 · Improvement</td><td>Corrective action → verification → new limits</td></tr>
+<tr><td>6 · Evidence-based decisions</td><td>"Bring the calculation, not an impression"</td></tr>
+<tr><td>7 · Relationship management</td><td>Acceptance sampling and AQLs agreed with suppliers</td></tr></table>
+<div class="note ex"><b>Link to the cost of quality (Week 9)</b>Inspection and acceptance sampling are <em>appraisal costs</em>; SPC, training and process design are <em>prevention costs</em>. The more capable the process, the less inspection it needs (recall the all-or-nothing rule), and internal and external <em>failure</em> costs fall too.</div>`
       }
     },
     {
@@ -17362,6 +17523,35 @@ window.addWeek("mk4", {
 <tr><td><strong>E</strong>mpathy</td><td>Caring, individual attention</td><td>Where service recovery is won</td></tr>
 <tr><td><strong>R</strong>esponsiveness</td><td>Willing to help, quickly</td><td>React fast when it goes wrong</td></tr></table>
 <div class="note warn"><b>Link to SPC</b>SPC measures conformance to a spec; RATER measures how customers judge. Only Reliability fits on a control chart. A process can be <em>in control</em> and still lose on Assurance and Empathy.</div>`
+      }
+    },
+    {
+      h: { id: "Mengukur SERVQUAL: skor gap dan bobot dimensi", en: "Measuring SERVQUAL: gap scores and dimension weights" },
+      p: {
+        id: `<p>SERVQUAL asli memakai <strong>22 pernyataan</strong> yang tersebar di lima dimensi RATER. Setiap pernyataan ditanyakan dua kali dengan skala 1–7: sekali untuk <em>harapan</em> (perusahaan yang sangat baik seharusnya…) dan sekali untuk <em>persepsi</em> (perusahaan ini…).</p>
+<div class="formula">Skor gap = Persepsi (P) − Harapan (E) · negatif = di bawah harapan · Skor tertimbang = Σ (bobot dimensi × gap dimensi)</div>
+<p><em>Contoh ilustratif</em> untuk layanan kereta komuter (angka rekaan; bobot = tingkat kepentingan menurut responden, total 100%):</p>
+<table><tr><th>Dimensi</th><th>E</th><th>P</th><th>Gap (P − E)</th><th>Bobot</th><th>Tertimbang</th></tr>
+<tr><td>Reliability</td><td>6,5</td><td>4,8</td><td>−1,7</td><td>32%</td><td>−0,54</td></tr>
+<tr><td>Responsiveness</td><td>6,3</td><td>4,6</td><td>−1,7</td><td>22%</td><td>−0,37</td></tr>
+<tr><td>Assurance</td><td>6,0</td><td>5,2</td><td>−0,8</td><td>19%</td><td>−0,15</td></tr>
+<tr><td>Empathy</td><td>5,8</td><td>4,9</td><td>−0,9</td><td>16%</td><td>−0,14</td></tr>
+<tr><td>Tangibles</td><td>5,5</td><td>5,6</td><td>+0,1</td><td>11%</td><td>+0,01</td></tr>
+<tr><td colspan="5"><strong>Skor SERVQUAL tertimbang</strong></td><td><strong>−1,20</strong></td></tr></table>
+<p>Cara membacanya: tangibles (kereta baru, stasiun bersih) sudah melampaui harapan, tetapi bobotnya paling kecil. Reliability dan responsiveness paling jauh di bawah harapan dan paling penting, jadi menyumbang hampir 75% kekurangan. Ini konsisten dengan slide: tangibles paling mudah dibeli tetapi prediktor paling lemah, dan reliability adalah satu-satunya dimensi yang bisa dipantau dengan SPC (OTP).</p>
+<div class="note warn"><b>Kritik yang perlu diketahui</b>Sebagian peneliti (misalnya Cronin &amp; Taylor dengan SERVPERF) berpendapat skor persepsi saja sudah cukup memprediksi kepuasan, dan mengukur harapan setelah layanan diterima rawan bias. Dalam praktik banyak perusahaan memakai versi ringkas, tetapi logika gap tetap berguna untuk menunjuk dimensi mana yang harus diperbaiki dulu.</div>`,
+        en: `<p>The original SERVQUAL uses <strong>22 statements</strong> spread across the five RATER dimensions. Each is asked twice on a 1–7 scale: once for <em>expectation</em> (an excellent company should…) and once for <em>perception</em> (this company…).</p>
+<div class="formula">Gap score = Perception (P) − Expectation (E) · negative = below expectation · Weighted score = Σ (dimension weight × dimension gap)</div>
+<p><em>An illustrative example</em> for a commuter-rail service (made-up figures; weights = importance as rated by respondents, totalling 100%):</p>
+<table><tr><th>Dimension</th><th>E</th><th>P</th><th>Gap (P − E)</th><th>Weight</th><th>Weighted</th></tr>
+<tr><td>Reliability</td><td>6.5</td><td>4.8</td><td>−1.7</td><td>32%</td><td>−0.54</td></tr>
+<tr><td>Responsiveness</td><td>6.3</td><td>4.6</td><td>−1.7</td><td>22%</td><td>−0.37</td></tr>
+<tr><td>Assurance</td><td>6.0</td><td>5.2</td><td>−0.8</td><td>19%</td><td>−0.15</td></tr>
+<tr><td>Empathy</td><td>5.8</td><td>4.9</td><td>−0.9</td><td>16%</td><td>−0.14</td></tr>
+<tr><td>Tangibles</td><td>5.5</td><td>5.6</td><td>+0.1</td><td>11%</td><td>+0.01</td></tr>
+<tr><td colspan="5"><strong>Weighted SERVQUAL score</strong></td><td><strong>−1.20</strong></td></tr></table>
+<p>How to read it: tangibles (new trains, clean stations) already beat expectations, but carry the smallest weight. Reliability and responsiveness are furthest below expectation and matter most, so they account for nearly 75% of the shortfall. This fits the slides: tangibles are easiest to buy but the weakest predictor, and reliability is the only dimension SPC can monitor (OTP).</p>
+<div class="note warn"><b>A critique worth knowing</b>Some researchers (e.g. Cronin &amp; Taylor's SERVPERF) argue perception scores alone predict satisfaction just as well, and asking about expectations after the service is prone to bias. In practice many firms use a shorter version, but the gap logic is still useful for pointing to which dimension to fix first.</div>`
       }
     }
   ],
@@ -17415,7 +17605,13 @@ window.addWeek("mk4", {
       "Acceptance sampling: n dan c; α (lot baik ditolak, AQL) vs β (lot buruk diterima, LTPD); kurva OC.",
       "QMS tujuh elemen; loop surveillance → corrective action → change management. Quality 4.0: orang, proses, teknologi.",
       "SERVQUAL: lima gap (pengetahuan, standar, penyampaian, komunikasi, pelanggan). RATER: reliability, assurance, tangibles, empathy, responsiveness.",
-      "KAI Commuter: stabil di 5,25% (in control) tetapi 75% di atas batas kontrak 3% (tidak capable); kapabilitas setelah kontrol."
+      "KAI Commuter: stabil di 5,25% (in control) tetapi 75% di atas batas kontrak 3% (tidak capable); kapabilitas setelah kontrol.",
+      "Cp → ppm (di tengah): 0,83 ≈ 12.400; 1,00 ≈ 2.700; 1,33 ≈ 63; 2,00 ≈ 0,002. Six Sigma 3,4 DPMO mengasumsikan pergeseran 1,5σ. σ̂ = R̄ ÷ d2.",
+      "Taguchi: L = k(x − T)²; setiap penyimpangan dari target adalah kerugian, bukan hanya yang di luar spesifikasi.",
+      "Aturan Western Electric: 1 titik di luar 3σ; 2 dari 3 di zona A; 4 dari 5 di zona B; 8 berturut-turut di satu sisi. ARL₀ (3σ) ≈ 370.",
+      "Chart lain: np (jumlah cacat, n tetap), u (cacat per unit, n berubah), X̄ dengan σ diketahui (x̿ ± zσ/√n), I-MR (satu data per periode).",
+      "Desain sampling: cari n, c terkecil dengan P(terima|AQL) ≥ 1 − α dan P(terima|LTPD) ≤ β (AQL 2%, LTPD 8% → n 98, c 4). AOQ = Pa·p·(N − n)/N; puncaknya AOQL.",
+      "ISO 9001 (PDCA, pendekatan proses, risk-based thinking; edisi 2026) dan tujuh prinsip mutu. SERVQUAL diukur dengan skor gap P − E per dimensi, lalu ditimbang."
     ],
     en: [
       "Common cause = normal variation (don't tamper); assignable cause = an outside source (find and fix it).",
@@ -17429,11 +17625,18 @@ window.addWeek("mk4", {
       "Acceptance sampling: n and c; α (good lot rejected, AQL) vs β (bad lot accepted, LTPD); the OC curve.",
       "Seven QMS elements; the loop surveillance → corrective action → change management. Quality 4.0: people, process, technology.",
       "SERVQUAL: five gaps (knowledge, standards, delivery, communication, customer). RATER: reliability, assurance, tangibles, empathy, responsiveness.",
-      "KAI Commuter: stable at 5.25% (in control) but 75% above the 3% contract ceiling (not capable); capability comes after control."
+      "KAI Commuter: stable at 5.25% (in control) but 75% above the 3% contract ceiling (not capable); capability comes after control.",
+      "Cp → ppm (centred): 0.83 ≈ 12,400; 1.00 ≈ 2,700; 1.33 ≈ 63; 2.00 ≈ 0.002. Six Sigma's 3.4 DPMO assumes a 1.5σ drift. σ̂ = R̄ ÷ d2.",
+      "Taguchi: L = k(x − T)²; any deviation from target is a loss, not only what falls outside spec.",
+      "Western Electric rules: 1 point beyond 3σ; 2 of 3 in zone A; 4 of 5 in zone B; 8 in a row on one side. ARL₀ (3σ) ≈ 370.",
+      "Other charts: np (number defective, fixed n), u (defects per unit, varying n), X̄ with known σ (x̿ ± zσ/√n), I-MR (one value per period).",
+      "Plan design: smallest n, c with P(accept|AQL) ≥ 1 − α and P(accept|LTPD) ≤ β (AQL 2%, LTPD 8% → n 98, c 4). AOQ = Pa·p·(N − n)/N; its peak is the AOQL.",
+      "ISO 9001 (PDCA, process approach, risk-based thinking; 2026 edition) and the seven quality principles. SERVQUAL is measured as P − E gap scores per dimension, then weighted."
     ]
   },
   sources: [
     { id: "P3MD MK4 Week 10 — Statistical Quality Control (OSCM); Jacobs & Chase, Operations and Supply Chain Management, Bab 13", en: "P3MD MK4 Week 10 — Statistical Quality Control (OSCM); Jacobs & Chase, Operations and Supply Chain Management, Ch. 13" },
+    { id: "Tambahan: Western Electric Statistical Quality Control Handbook (1956); NIST/SEMATECH e-Handbook of Statistical Methods (AOQ, sampling plan); Taguchi loss function; ISO 9000/9001 (prinsip mutu, revisi 2026); Cronin & Taylor (SERVPERF)", en: "Added: Western Electric Statistical Quality Control Handbook (1956); NIST/SEMATECH e-Handbook of Statistical Methods (AOQ, sampling plans); Taguchi loss function; ISO 9000/9001 (quality principles, 2026 revision); Cronin & Taylor (SERVPERF)" },
     { id: "Parasuraman, Zeithaml & Berry — SERVQUAL; Scilife — Quality Management System; Quality 4.0 People, Process and Technology Wheel", en: "Parasuraman, Zeithaml & Berry — SERVQUAL; Scilife — Quality Management System; Quality 4.0 People, Process and Technology Wheel" }
   ]
 });
@@ -17441,6 +17644,13 @@ window.addWeek("mk4", {
 window.addPlus("mk4", 10, {
   more: [],
   charts: {
+    aoq: { type: "line", title: { id: "Kurva AOQ: n = 50, c = 2, N = 1.000", en: "AOQ curve: n = 50, c = 2, N = 1,000" },
+      labels: { id: ["1%", "2%", "3%", "4%", "4,5%", "6%", "8%", "10%"], en: ["1%", "2%", "3%", "4%", "4.5%", "6%", "8%", "10%"] },
+      y: { id: "AOQ (% cacat keluar)", en: "AOQ (% outgoing defective)" },
+      series: [
+        { name: { id: "AOQ", en: "AOQ" }, data: [0.94, 1.75, 2.31, 2.57, 2.60, 2.37, 1.72, 1.06], color: "c" }
+      ],
+      cap: { id: "Kualitas keluar paling buruk (AOQL ≈ 2,6%) terjadi saat kualitas masuk ±4,5%. Lebih buruk dari itu, makin banyak lot ditolak dan dibersihkan.", en: "The worst outgoing quality (AOQL ≈ 2.6%) occurs at about 4.5% incoming. Beyond that, more lots are rejected and cleaned." } },
     oc: { type: "line", title: { id: "Kurva OC untuk n = 50, c = 2", en: "OC curve for n = 50, c = 2" },
       labels: { id: ["1%", "2%", "4%", "6%", "8%", "10%", "12%", "15%"], en: ["1%", "2%", "4%", "6%", "8%", "10%", "12%", "15%"] },
       y: { id: "Peluang lot diterima", en: "Probability of acceptance" },
@@ -17518,7 +17728,40 @@ window.addPlus("mk4", 10, {
       e: { id: "σp = √(0,0525 × 0,9475 ÷ 500) = 0,00997; UCL = 5,25% + 2,99% = 8,24%. Dengan z = 1,96: 7,20%.", en: "σp = √(0.0525 × 0.9475 ÷ 500) = 0.00997; UCL = 5.25% + 2.99% = 8.24%. At z = 1.96: 7.20%." } },
     { q: { id: "Cpu dwell time Manggarai 1,95, tetapi hari 13–15 keluar chart. Penjelasan yang benar…", en: "Manggarai dwell-time Cpu is 1.95, yet days 13–15 break the chart. The right explanation…" },
       o: { id: ["Cpu salah hitung", "Indeks kapabilitas mengasumsikan proses stabil; kapabilitas baru bermakna setelah proses terkendali", "Chart-nya salah", "Pakai p-chart saja"], en: ["Cpu was miscalculated", "Capability indices assume stability; capability only means something once in control", "The chart is wrong", "Just use a p-chart"] }, a: 1,
-      e: { id: "Perbaiki dulu, baru ukur kapabilitas.", en: "Fix first, then measure capability." } }
+      e: { id: "Perbaiki dulu, baru ukur kapabilitas.", en: "Fix first, then measure capability." } },
+    { q: { id: "Proses tepat di tengah dengan Cp = 1,33 menghasilkan cacat sekitar…", en: "A centred process with Cp = 1.33 produces about…" },
+      o: { id: ["2.700 ppm", "63 ppm", "3,4 ppm", "0,002 ppm"], en: ["2,700 ppm", "63 ppm", "3.4 ppm", "0.002 ppm"] }, a: 1,
+      e: { id: "Cp 1,33 = spesifikasi di ±4σ → ekor ±63 per sejuta. 2.700 ppm untuk Cp 1,0.", en: "Cp 1.33 = spec at ±4σ → tails of about 63 per million. 2,700 ppm is for Cp 1.0." } },
+    { q: { id: "Kenapa Six Sigma dikaitkan dengan 3,4 DPMO, bukan 0,002 ppm?", en: "Why is Six Sigma linked to 3.4 DPMO, not 0.002 ppm?" },
+      o: { id: ["Salah hitung Motorola", "Diasumsikan rata-rata proses bisa bergeser 1,5σ dalam jangka panjang", "Karena memakai distribusi Poisson", "Karena n = 5"], en: ["Motorola miscalculated", "The mean is assumed to drift 1.5σ over the long run", "Because it uses a Poisson distribution", "Because n = 5"] }, a: 1,
+      e: { id: "6 − 1,5 = 4,5σ ke batas terdekat → ±3,4 per sejuta.", en: "6 − 1.5 = 4.5σ to the nearest limit → about 3.4 per million." } },
+    { q: { id: "Menurut fungsi kerugian Taguchi, komponen yang masih di dalam spesifikasi tetapi jauh dari target…", en: "Under the Taguchi loss function, a part inside spec but far from target…" },
+      o: { id: ["Tidak menimbulkan kerugian", "Tetap menimbulkan kerugian yang naik secara kuadrat", "Harus langsung dibuang", "Dihitung sebagai cacat"], en: ["Causes no loss", "Still causes a loss that grows with the square of the distance", "Must be scrapped", "Counts as a defect"] }, a: 1,
+      e: { id: "L = k(x − T)²; berbeda dengan pandangan goalpost.", en: "L = k(x − T)²; unlike the goalpost view." } },
+    { q: { id: "Delapan titik berturut-turut di bawah garis tengah, semuanya di dalam batas. Menurut aturan Western Electric…", en: "Eight points in a row below the centre line, all inside the limits. Under the Western Electric rules…" },
+      o: { id: ["Proses aman", "Sinyal assignable cause (aturan 4)", "Perlu lebarkan batas", "Hanya sinyal jika ada titik di luar 3σ"], en: ["The process is fine", "An assignable-cause signal (rule 4)", "Widen the limits", "Only a signal if a point is beyond 3σ"] }, a: 1,
+      e: { id: "Run 8 titik di satu sisi menandakan pergeseran kecil yang bertahan.", en: "A run of 8 on one side signals a small sustained shift." } },
+    { q: { id: "Dengan batas 3σ, rata-rata berapa sampel sampai muncul alarm palsu (ARL₀)?", en: "With 3σ limits, how many samples on average until a false alarm (ARL₀)?" },
+      o: { id: ["20", "100", "370", "1.000"], en: ["20", "100", "370", "1,000"] }, a: 2,
+      e: { id: "ARL₀ = 1 ÷ 0,0027 ≈ 370: \"1 dari 370\" di slide.", en: "ARL₀ = 1 ÷ 0.0027 ≈ 370: the slide's \"1 in 370\"." } },
+    { q: { id: "Hanya ada satu pengukuran biaya per bulan. Chart yang cocok…", en: "There's only one cost measurement per month. The right chart is…" },
+      o: { id: ["p-chart", "c-chart", "I-MR (individual–moving range)", "X̄-R dengan n = 5"], en: ["p-chart", "c-chart", "I-MR (individuals–moving range)", "X̄-R with n = 5"] }, a: 2,
+      e: { id: "Tidak ada subgroup, jadi variasi diukur dari selisih titik berurutan.", en: "No subgroups, so variation comes from consecutive differences." } },
+    { q: { id: "Jumlah cacat dihitung, tetapi luas kain yang diperiksa berbeda tiap hari. Chart yang tepat…", en: "Defects are counted, but the fabric area inspected differs each day. The right chart is…" },
+      o: { id: ["c-chart", "u-chart", "np-chart", "R-chart"], en: ["c-chart", "u-chart", "np-chart", "R-chart"] }, a: 1,
+      e: { id: "u = cacat per unit, batasnya berubah mengikuti nᵢ.", en: "u = defects per unit; limits move with nᵢ." } },
+    { q: { id: "AQL 2%, LTPD 8%, α 0,05, β 0,10. Rencana n = 98, c = 4 memberi P(terima | 8%) ≈ 0,099. Artinya…", en: "AQL 2%, LTPD 8%, α 0.05, β 0.10. Plan n = 98, c = 4 gives P(accept | 8%) ≈ 0.099. This means…" },
+      o: { id: ["Melanggar β", "Memenuhi β: lot seburuk LTPD diterima kurang dari 10% kali", "Melanggar α", "Rencana terlalu longgar"], en: ["It violates β", "It meets β: a lot as bad as the LTPD is accepted under 10% of the time", "It violates α", "The plan is too loose"] }, a: 1,
+      e: { id: "Dan P(terima | 2%) = 0,953 ≥ 0,95 memenuhi α.", en: "And P(accept | 2%) = 0.953 ≥ 0.95 meets α." } },
+    { q: { id: "Kenapa kurva AOQ turun lagi saat kualitas masuk sangat buruk?", en: "Why does the AOQ curve fall again when incoming quality is very bad?" },
+      o: { id: ["Sampel jadi lebih kecil", "Hampir semua lot ditolak dan diperiksa 100%, jadi cacatnya dibersihkan", "Pemasok berhenti mengirim", "c dinaikkan otomatis"], en: ["The sample shrinks", "Almost every lot is rejected and 100% screened, so defects are removed", "Suppliers stop shipping", "c rises automatically"] }, a: 1,
+      e: { id: "Puncak kurva = AOQL (±2,6% untuk n = 50, c = 2).", en: "The curve's peak = AOQL (about 2.6% for n = 50, c = 2)." } },
+    { q: { id: "Dalam skor SERVQUAL, gap negatif berarti…", en: "In SERVQUAL, a negative gap score means…" },
+      o: { id: ["Persepsi melebihi harapan", "Persepsi di bawah harapan", "Dimensi tidak penting", "Data salah"], en: ["Perception exceeds expectation", "Perception falls short of expectation", "The dimension doesn't matter", "The data is wrong"] }, a: 1,
+      e: { id: "Gap = P − E.", en: "Gap = P − E." } },
+    { q: { id: "Revisi ISO 9001 yang dijadwalkan terbit September 2026 tetap berpusat pada…", en: "The ISO 9001 revision scheduled for September 2026 remains centred on…" },
+      o: { id: ["Six Sigma dan DMAIC", "PDCA, pendekatan proses, dan risk-based thinking", "Acceptance sampling", "Balanced scorecard"], en: ["Six Sigma and DMAIC", "PDCA, the process approach and risk-based thinking", "Acceptance sampling", "The balanced scorecard"] }, a: 1,
+      e: { id: "Revisinya evolusi dari edisi 2015, bukan perombakan.", en: "It's an evolution of the 2015 edition, not an overhaul." } }
   ]
 });
 
@@ -17546,7 +17789,27 @@ window.addSoal("mk4", 10, [
   { lvl: 1, t: { id: "Kapan inspeksi layak", en: "When inspection pays" },
     q: { id: `<p>Setiap komponen cacat yang lolos ke pelanggan menimbulkan kerugian $10. Tingkat cacat 3%. Biaya inspeksi $0,25 per item. Apakah inspeksi 100% layak? Bagaimana jika tingkat cacat turun ke 1%?</p>`, en: `<p>Each defective part that reaches the customer costs $10. The defect rate is 3%. Inspection costs $0.25 per item. Is 100% inspection worth it? What if the defect rate falls to 1%?</p>` },
     steps: ST({ id: ["Kerugian harapan per item = biaya cacat × tingkat cacat", "3%: 10 × 0,03 = $0,30 > $0,25 → inspeksi layak", "1%: 10 × 0,01 = $0,10 < $0,25 → tidak layak"], en: ["Expected loss per item = cost of a defect × defect rate", "3%: 10 × 0.03 = $0.30 > $0.25 → inspection pays", "1%: 10 × 0.01 = $0.10 < $0.25 → it doesn't"] }),
-    ans: { id: "Pada 3% inspeksi semua (hemat $0,05/item); pada 1% jangan inspeksi. Aturan all-or-nothing.", en: "At 3% inspect all (saves $0.05/item); at 1% don't inspect. The all-or-nothing rule." } }
+    ans: { id: "Pada 3% inspeksi semua (hemat $0,05/item); pada 1% jangan inspeksi. Aturan all-or-nothing.", en: "At 3% inspect all (saves $0.05/item); at 1% don't inspect. The all-or-nothing rule." } },
+  { lvl: 2, t: { id: "Cp ke ppm dan σ dari R̄", en: "Cp to ppm, and σ from R̄" },
+    q: { id: `<p>Data Exhibit 13.9: n = 5, x̿ = 10,21, R̄ = 0,60 (d2 = 2,326). <em>Anggap</em> spesifikasinya 10,00 ± 1,00. Hitung σ̂, Cp, dan Cpk. Berapa ppm cacat jika proses digeser tepat ke tengah?</p>`, en: `<p>Exhibit 13.9 data: n = 5, x̿ = 10.21, R̄ = 0.60 (d2 = 2.326). <em>Assume</em> a spec of 10.00 ± 1.00. Compute σ̂, Cp and Cpk. How many ppm defective if the process were centred?</p>` },
+    steps: ST({ id: ["<div class=\"formula\">σ̂ = R̄ ÷ d2 · Cp = (USL − LSL) ÷ 6σ̂ · Cpk = min(USL − x̿, x̿ − LSL) ÷ 3σ̂</div>", "σ̂ = 0,60 ÷ 2,326 = 0,258", "Cp = 2,00 ÷ (6 × 0,258) = 2,00 ÷ 1,548 = 1,29", "Cpk = min(0,79; 1,21) ÷ 0,774 = 1,02", "Di tengah: batas di ±1,00 ÷ 0,258 = ±3,88σ → 2 × [1 − Φ(3,88)] ≈ 0,0001 = ±100 ppm"], en: ["<div class=\"formula\">σ̂ = R̄ ÷ d2 · Cp = (USL − LSL) ÷ 6σ̂ · Cpk = min(USL − x̿, x̿ − LSL) ÷ 3σ̂</div>", "σ̂ = 0.60 ÷ 2.326 = 0.258", "Cp = 2.00 ÷ (6 × 0.258) = 2.00 ÷ 1.548 = 1.29", "Cpk = min(0.79; 1.21) ÷ 0.774 = 1.02", "Centred: limits at ±1.00 ÷ 0.258 = ±3.88σ → 2 × [1 − Φ(3.88)] ≈ 0.0001 = about 100 ppm"] }),
+    ans: { id: "σ̂ 0,258; Cp 1,29; Cpk 1,02. Menggeser rata-rata ke 10,00 saja menaikkan Cpk ke 1,29 (±100 ppm).", en: "σ̂ 0.258; Cp 1.29; Cpk 1.02. Just centring the mean at 10.00 lifts Cpk to 1.29 (about 100 ppm)." } },
+  { lvl: 1, t: { id: "Fungsi kerugian Taguchi", en: "Taguchi loss function" },
+    q: { id: `<p>Target diameter 50 mm. Jika meleset 2 mm, pelanggan rugi $40. (a) Hitung k. (b) Berapa kerugian untuk komponen 51 mm? (c) Proses punya μ = 50,4 dan σ = 0,5; berapa kerugian rata-rata per unit? (d) Berapa jika rata-ratanya digeser ke 50,0?</p>`, en: `<p>Target diameter 50 mm. A 2 mm miss costs the customer $40. (a) Find k. (b) What's the loss for a 51 mm part? (c) The process has μ = 50.4 and σ = 0.5; what's the average loss per unit? (d) And if the mean moves to 50.0?</p>` },
+    steps: ST({ id: ["<div class=\"formula\">L(x) = k(x − T)² · k = kerugian di batas ÷ toleransi² · rata-rata = k[σ² + (μ − T)²]</div>", "(a) k = 40 ÷ 2² = 10", "(b) L(51) = 10 × 1² = $10", "(c) 10 × (0,5² + 0,4²) = 10 × (0,25 + 0,16) = $4,10", "(d) 10 × (0,25 + 0) = $2,50"], en: ["<div class=\"formula\">L(x) = k(x − T)² · k = loss at the limit ÷ tolerance² · average = k[σ² + (μ − T)²]</div>", "(a) k = 40 ÷ 2² = 10", "(b) L(51) = 10 × 1² = $10", "(c) 10 × (0.5² + 0.4²) = 10 × (0.25 + 0.16) = $4.10", "(d) 10 × (0.25 + 0) = $2.50"] }),
+    ans: { id: "k = 10; $10; $4,10 per unit; turun ke $2,50 hanya dengan memusatkan proses.", en: "k = 10; $10; $4.10 per unit; down to $2.50 just by centring." } },
+  { lvl: 2, t: { id: "ARL untuk pergeseran rata-rata", en: "ARL for a mean shift" },
+    q: { id: `<p>X̄-chart dengan n = 5 dan batas 3σ. (a) Berapa ARL₀? (b) Rata-rata proses bergeser naik 1σ (σ unit tunggal). Berapa peluang satu sampel keluar UCL, dan berapa ARL₁?</p>`, en: `<p>An X̄-chart with n = 5 and 3σ limits. (a) What is ARL₀? (b) The process mean shifts up by 1σ (single-unit σ). What's the chance one sample breaks the UCL, and what is ARL₁?</p>` },
+    steps: ST({ id: ["<div class=\"formula\">ARL = 1 ÷ P(sinyal) · σ<sub>x̄</sub> = σ ÷ √n</div>", "(a) P = 0,0027 → ARL₀ = 370", "(b) Pergeseran dalam σ<sub>x̄</sub> = 1 × √5 = 2,236", "UCL kini 3 − 2,236 = 0,764 σ<sub>x̄</sub> di atas rata-rata baru → P = 1 − Φ(0,764) = 0,222", "ARL₁ = 1 ÷ 0,222 ≈ 4,5 sampel"], en: ["<div class=\"formula\">ARL = 1 ÷ P(signal) · σ<sub>x̄</sub> = σ ÷ √n</div>", "(a) P = 0.0027 → ARL₀ = 370", "(b) The shift in σ<sub>x̄</sub> units = 1 × √5 = 2.236", "The UCL is now 3 − 2.236 = 0.764 σ<sub>x̄</sub> above the new mean → P = 1 − Φ(0.764) = 0.222", "ARL₁ = 1 ÷ 0.222 ≈ 4.5 samples"] }),
+    ans: { id: "ARL₀ ≈ 370; P ≈ 0,22; ARL₁ ≈ 4,5. Sampel lebih besar (n naik) membuat pergeseran terdeteksi lebih cepat.", en: "ARL₀ ≈ 370; P ≈ 0.22; ARL₁ ≈ 4.5. A larger n detects the shift faster." } },
+  { lvl: 2, t: { id: "AOQ dan ATI", en: "AOQ and ATI" },
+    q: { id: `<p>Rencana n = 50, c = 2; lot N = 1.000; lot yang ditolak diperiksa 100% dan cacatnya diganti. Kualitas masuk p = 4%, dan dari kurva OC Pa = 0,677. Hitung AOQ dan ATI.</p>`, en: `<p>Plan n = 50, c = 2; lot size N = 1,000; rejected lots are 100% screened and defects replaced. Incoming quality p = 4%, and the OC curve gives Pa = 0.677. Compute AOQ and ATI.</p>` },
+    steps: ST({ id: ["<div class=\"formula\">AOQ = Pa × p × (N − n) ÷ N · ATI = n + (1 − Pa)(N − n)</div>", "AOQ = 0,677 × 0,04 × 950 ÷ 1.000 = 0,0257 = 2,57%", "ATI = 50 + (1 − 0,677) × 950 = 50 + 307 = 357 unit"], en: ["<div class=\"formula\">AOQ = Pa × p × (N − n) ÷ N · ATI = n + (1 − Pa)(N − n)</div>", "AOQ = 0.677 × 0.04 × 950 ÷ 1,000 = 0.0257 = 2.57%", "ATI = 50 + (1 − 0.677) × 950 = 50 + 307 = 357 units"] }),
+    ans: { id: "AOQ 2,57% (dekat AOQL ±2,6%); rata-rata 357 unit diperiksa per lot.", en: "AOQ 2.57% (near the AOQL of about 2.6%); 357 units inspected per lot on average." } },
+  { lvl: 1, t: { id: "Skor gap SERVQUAL tertimbang", en: "Weighted SERVQUAL gap score" },
+    q: { id: `<p>Harapan (E) dan persepsi (P), skala 1–7, dengan bobot: Reliability 6,5/4,8 (32%); Responsiveness 6,3/4,6 (22%); Assurance 6,0/5,2 (19%); Empathy 5,8/4,9 (16%); Tangibles 5,5/5,6 (11%). Hitung skor tertimbang dan dimensi prioritas.</p>`, en: `<p>Expectation (E) and perception (P), 1–7 scale, with weights: Reliability 6.5/4.8 (32%); Responsiveness 6.3/4.6 (22%); Assurance 6.0/5.2 (19%); Empathy 5.8/4.9 (16%); Tangibles 5.5/5.6 (11%). Compute the weighted score and the priority dimension.</p>` },
+    steps: ST({ id: ["<div class=\"formula\">Gap = P − E · Skor = Σ bobot × gap</div>", "Gap: R −1,7; Resp −1,7; A −0,8; E −0,9; T +0,1", "Tertimbang: −0,544 − 0,374 − 0,152 − 0,144 + 0,011", "Total = −1,20"], en: ["<div class=\"formula\">Gap = P − E · Score = Σ weight × gap</div>", "Gaps: R −1.7; Resp −1.7; A −0.8; E −0.9; T +0.1", "Weighted: −0.544 − 0.374 − 0.152 − 0.144 + 0.011", "Total = −1.20"] }),
+    ans: { id: "−1,20. Reliability (−0,54) dan responsiveness (−0,37) menyumbang ±75% kekurangan → prioritas utama; tangibles sudah melampaui harapan.", en: "−1.20. Reliability (−0.54) and responsiveness (−0.37) make up about 75% of the shortfall → top priority; tangibles already exceed expectations." } }
 ]);
 })();
 
