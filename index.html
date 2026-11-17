@@ -948,6 +948,14 @@ body:not([data-sec="belajar"]) .acctbtn{margin-left:0}
 .lg-ph span{margin-top:auto;font-size:12px;font-weight:800;letter-spacing:.05em;text-transform:uppercase;color:var(--c)}
 @media (max-width:640px){.lg-grid{grid-template-columns:minmax(0,1fr)}}
 @media (prefers-reduced-motion:reduce){*{transition:none !important}}
+
+/* ---- equal-height course/legal cards ---- */
+@supports (grid-template-rows:subgrid){.cgrid>.ccard{display:grid;grid-template-rows:subgrid;grid-row:span 2;row-gap:0}}
+.ccard .top{align-items:flex-start}
+.ccard .top .ico{flex:none}
+.ccard .meta{margin-top:auto}
+.ccard .bar+.meta{margin-top:0}
+.ccard .body>.bar{margin-top:auto}
 </style>
 
 <header class="nav"><div class="nav-in">
