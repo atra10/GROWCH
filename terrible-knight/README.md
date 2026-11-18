@@ -21,7 +21,7 @@ princess guides him through four stages, each guarded by a boss:
 2. Open the Godot editor app, tap **Import**, and pick the `project.godot` file in that folder.
 3. Wait for the first import to finish, then press **Run** (the play button, top right).
 
-The game is landscape. On-screen buttons: `<` `>` move, **JUMP**, **SWORD**.
+The game is landscape. On-screen buttons: left/right arrows move, the blue chevron button jumps, the red sword button attacks.
 Tap anywhere to advance dialogue.
 On a PC: arrows or A/D move, Space jumps, J or X swings the sword.
 

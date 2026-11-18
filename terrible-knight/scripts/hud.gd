@@ -11,7 +11,6 @@ var title_alpha := 0.0
 
 var canvas: Control
 var buttons := {}
-var labels := {}
 
 
 func _ready() -> void:
@@ -93,49 +92,110 @@ func _heart(c: Vector2, col: Color, half := false) -> void:
 
 
 # --------------------------------------------------------------- touch buttons
+# Icons are drawn into textures at 4x resolution and the buttons are scaled down,
+# so they stay sharp on high-resolution phone screens.
 
-func _circle_tex(r: int, col: Color) -> ImageTexture:
-	var img := Image.create(r * 2, r * 2, false, Image.FORMAT_RGBA8)
-	for y in r * 2:
-		for x in r * 2:
-			var d := Vector2(x - r + 0.5, y - r + 0.5).length()
-			if d < r - 0.5:
-				var edge := d > r - 3.0
-				img.set_pixel(x, y, Color(col.r, col.g, col.b, 0.55 if edge else col.a))
+const SS := 4.0
+
+const ARROW := [Vector2(-0.62, -0.18), Vector2(0.02, -0.18), Vector2(0.02, -0.55), Vector2(0.66, 0.0),
+	Vector2(0.02, 0.55), Vector2(0.02, 0.18), Vector2(-0.62, 0.18)]
+const CHEVRON := [Vector2(-0.5, 0.22), Vector2(0.0, -0.28), Vector2(0.5, 0.22), Vector2(0.34, 0.38),
+	Vector2(0.0, 0.04), Vector2(-0.34, 0.38)]
+const BLADE := [Vector2(-0.09, -0.62), Vector2(0.0, -0.78), Vector2(0.09, -0.62), Vector2(0.09, 0.28), Vector2(-0.09, 0.28)]
+const GUARD := [Vector2(-0.34, 0.28), Vector2(0.34, 0.28), Vector2(0.34, 0.4), Vector2(-0.34, 0.4)]
+const GRIP := [Vector2(-0.06, 0.4), Vector2(0.06, 0.4), Vector2(0.06, 0.64), Vector2(-0.06, 0.64)]
+const POMMEL := [Vector2(-0.11, 0.64), Vector2(0.11, 0.64), Vector2(0.11, 0.76), Vector2(-0.11, 0.76)]
+
+
+func _poly(points: Array, offset := Vector2.ZERO, scale := 1.0, angle := 0.0, mirror := false) -> PackedVector2Array:
+	var out := PackedVector2Array()
+	for p in points:
+		var q: Vector2 = p
+		if mirror:
+			q.x = -q.x
+		out.append(q.rotated(angle) * scale + offset)
+	if mirror:
+		out.reverse()
+	return out
+
+
+func _edge_dist(p: Vector2, poly: PackedVector2Array) -> float:
+	var best := INF
+	for i in poly.size():
+		var a := poly[i]
+		var b := poly[(i + 1) % poly.size()]
+		best = minf(best, p.distance_to(Geometry2D.get_closest_point_to_segment(p, a, b)))
+	return best
+
+
+## Rasterises an icon. `shapes` is a list of polygons in -1..1 space.
+func _icon(size: float, shapes: Array, fill: Color, outline: Color, disc: Color, ring: Color, thick := 1.0) -> ImageTexture:
+	var n := int(size * SS)
+	var img := Image.create(n, n, false, Image.FORMAT_RGBA8)
+	var line := 2.2 * thick / size  # outline width (in -1..1 space)
+	for y in n:
+		for x in n:
+			var p := Vector2((x + 0.5) / n * 2.0 - 1.0, (y + 0.5) / n * 2.0 - 1.0)
+			var c := Color(0, 0, 0, 0)
+			var r := p.length()
+			if disc.a > 0.0 and r <= 1.0:
+				c = ring if r > 1.0 - 2.2 * 1.4 / size else disc
+			var inside := false
+			var near := false
+			for poly in shapes:
+				if Geometry2D.is_point_in_polygon(p, poly):
+					inside = true
+					break
+				if _edge_dist(p, poly) < line:
+					near = true
+			if inside:
+				c = fill
+			elif near:
+				c = outline
+			img.set_pixel(x, y, c)
 	return ImageTexture.create_from_image(img)
 
 
 func _make_buttons() -> void:
+	var white := Color(1, 1, 1, 0.82)
+	var white_on := Color(1, 1, 1, 1.0)
+	var dark := Color(0.05, 0.03, 0.08, 0.7)
+	var none := Color(0, 0, 0, 0)
+	var arrow_r := [_poly(ARROW)]
+	var arrow_l := [_poly(ARROW, Vector2.ZERO, 1.0, 0.0, true)]
+	var jump_icon := [_poly(CHEVRON, Vector2(0, -0.14), 0.95), _poly(CHEVRON, Vector2(0, 0.26), 0.7)]
+	var sword_icon := []
+	for part in [BLADE, GUARD, GRIP, POMMEL]:
+		sword_icon.append(_poly(part, Vector2.ZERO, 0.95, PI / 4.0))
+	var blue := Color(0.3, 0.5, 0.9, 0.3)
+	var blue_ring := Color(0.7, 0.85, 1.0, 0.65)
+	var red := Color(0.9, 0.35, 0.25, 0.3)
+	var red_ring := Color(1.0, 0.75, 0.65, 0.65)
 	var spec := {
-		"left": ["<", 22, Color(1, 1, 1, 0.18)],
-		"right": [">", 22, Color(1, 1, 1, 0.18)],
-		"jump": ["JUMP", 24, Color(0.6, 0.8, 1, 0.22)],
-		"attack": ["SWORD", 24, Color(1, 0.6, 0.5, 0.22)],
+		"left": [44.0, arrow_l, none, none],
+		"right": [44.0, arrow_r, none, none],
+		"jump": [46.0, jump_icon, blue, blue_ring],
+		"attack": [46.0, sword_icon, red, red_ring],
 	}
-	var pressed_tex := {}
 	for action in spec:
 		var s: Array = spec[action]
 		var b := TouchScreenButton.new()
-		b.texture_normal = _circle_tex(s[1], s[2])
-		b.texture_pressed = _circle_tex(s[1], Color(s[2].r, s[2].g, s[2].b, 0.45))
+		var disc: Color = s[2]
+		var ring: Color = s[3]
+		var thick := 2.2 if disc.a == 0.0 else 1.6
+		b.texture_normal = _icon(s[0], s[1], white, dark, disc, ring, thick)
+		b.texture_pressed = _icon(s[0], s[1], white_on, dark,
+			Color(disc.r, disc.g, disc.b, disc.a * 2.0), Color(ring.r, ring.g, ring.b, minf(ring.a * 1.4, 1.0)), thick)
+		b.scale = Vector2(1.0 / SS, 1.0 / SS)
 		b.action = action
 		b.passby_press = action in ["left", "right"]
-		var l := Label.new()
-		l.text = s[0]
-		l.add_theme_font_size_override("font_size", 14 if s[0].length() == 1 else 8)
-		l.add_theme_color_override("font_color", Color(1, 1, 1, 0.75))
-		l.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
-		l.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
-		l.size = Vector2(s[1] * 2, s[1] * 2)
-		l.mouse_filter = Control.MOUSE_FILTER_IGNORE
-		b.add_child(l)
 		add_child(b)
 		buttons[action] = b
 
 
 func _layout() -> void:
 	var size := get_viewport().get_visible_rect().size
-	buttons["left"].position = Vector2(8, size.y - 52)
-	buttons["right"].position = Vector2(58, size.y - 52)
-	buttons["attack"].position = Vector2(size.x - 108, size.y - 50)
-	buttons["jump"].position = Vector2(size.x - 56, size.y - 74)
+	buttons["left"].position = Vector2(6, size.y - 50)
+	buttons["right"].position = Vector2(54, size.y - 50)
+	buttons["attack"].position = Vector2(size.x - 104, size.y - 50)
+	buttons["jump"].position = Vector2(size.x - 54, size.y - 72)
