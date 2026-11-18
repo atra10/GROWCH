@@ -48,6 +48,9 @@ strip("knight_hurt", K + "Hurt/*.png")
 W = C + "WereWolf/Sprites/"
 strip("wolf_idle", W + "Idle/*.png")
 strip("wolf_run", W + "run/*.png")
+strip("wolf_jump", W + "jump/*.png")
+strip("wolf_fall", W + "fall/*.png")
+sheet("dagger", C + "Terrible Knight/Projectiles/dagger.png")
 H = C + "Bridge Heroine/Heroine base/Sprites/"
 strip("heroine_idle", H + "idle/*.png")
 strip("heroine_run", H + "run/*.png")
@@ -82,6 +85,8 @@ sheet("ogre_attack", C + "Ogre/Spritesheets/ogre-attack.png")
 strip("fx_death", X + "EnemyDeath/Sprites/*.png")
 strip("fx_hit", C + "Terrible Knight/Projectiles/Hit/Sprites/*.png")
 strip("fx_fireball", X + "Grotto-escape-2-FX/sprites/fire-ball/*.png")
+strip("fx_claw", X + "Grotto-escape-2-FX/sprites/slash-horizontal/*.png")
+strip("fx_transform", X + "Grotto-escape-2-FX/sprites/slash-circular/*.png")
 
 # Backgrounds (parallax layers, far -> near)
 copy("forest_back", E + "HauntedForest/Layers/back.png")

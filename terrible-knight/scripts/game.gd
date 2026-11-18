@@ -12,6 +12,10 @@ const L_PICKUP := 32
 
 const TILE := 16
 const MAX_HP := 8
+const MOON_MAX := 100.0
+const MOON_PER_KILL := 20.0
+const MOON_PER_BOSS_HIT := 5.0
+const KNIGHT_TIME := 30.0
 
 # name: [file, frame width, fps, loop]
 const ANIMS := {
@@ -23,6 +27,11 @@ const ANIMS := {
 	"knight_hurt": ["knight_hurt", 128, 12, false],
 	"wolf_idle": ["wolf_idle", 96, 8, true],
 	"wolf_run": ["wolf_run", 96, 12, true],
+	"wolf_jump": ["wolf_jump", 96, 8, true],
+	"wolf_fall": ["wolf_fall", 96, 8, true],
+	"dagger": ["dagger", 32, 1, true],
+	"fx_claw": ["fx_claw", 65, 24, false],
+	"fx_transform": ["fx_transform", 52, 14, false],
 	"heroine_idle": ["heroine_idle", 128, 6, true],
 	"heroine_run": ["heroine_run", 128, 12, true],
 	"hellbeast_idle": ["hellbeast_idle", 80, 8, true],
@@ -63,7 +72,9 @@ const STAGES := [
 		"boss": "hellbeast", "boss_name": "HELL BEAST",
 		"visions": [
 			[["Princess", "This forest is cursed. Hounds of hell roam between the dead trees."],
-			 ["Princess", "Swing your blade with the sword button. Jump over the pits!"]],
+			 ["Princess", "Strike with your claws. Jump over the pits!"],
+			 ["Princess", "Every creature you slay gathers moonlight. When the moon is full, touch it..."],
+			 ["Princess", "...and for thirty heartbeats you will be the Terrible Knight again."]],
 			[["Princess", "The crows are the demon's eyes. Cut them down."],
 			 ["Princess", "If you are wounded, red hearts will heal you."]],
 			[["Princess", "The Hell Beast guards the forest gate."],
@@ -144,6 +155,7 @@ const INTRO_LINES_2 := [
 	["", "...it became the Terrible Knight."],
 	["Princess", "Knight... can you hear me? It is me, the Princess."],
 	["Princess", "A demon dragged me into the Black Castle. Four guardians stand in your way."],
+	["Princess", "But hear me: the moon's gift is brief. Its light fades fast."],
 	["Princess", "Follow my voice. I will guide you."],
 ]
 const ENDING_LINES := [
@@ -159,6 +171,7 @@ var stage_index := 0
 var checkpoint := -1.0        # x position of the last checkpoint in the current stage (-1 = start)
 var seen := {}                # dialogue keys already shown (skip on retry)
 var deaths := 0
+var moon := 60.0               # moon meter, carried between stages
 var god := false              # debug: player takes no damage
 var play_time := 0.0
 
@@ -181,6 +194,7 @@ func _setup_input() -> void:
 		"right": [KEY_D, KEY_RIGHT],
 		"jump": [KEY_SPACE, KEY_W, KEY_UP, KEY_K],
 		"attack": [KEY_J, KEY_X, KEY_Z, KEY_ENTER],
+		"special": [KEY_L, KEY_C, KEY_SHIFT],
 	}
 	for action in map:
 		if not InputMap.has_action(action):
@@ -190,7 +204,7 @@ func _setup_input() -> void:
 			ev.physical_keycode = key
 			InputMap.action_add_event(action, ev)
 	# gamepad support
-	var pad := {"left": JOY_BUTTON_DPAD_LEFT, "right": JOY_BUTTON_DPAD_RIGHT, "jump": JOY_BUTTON_A, "attack": JOY_BUTTON_X}
+	var pad := {"left": JOY_BUTTON_DPAD_LEFT, "right": JOY_BUTTON_DPAD_RIGHT, "jump": JOY_BUTTON_A, "attack": JOY_BUTTON_X, "special": JOY_BUTTON_Y}
 	for action in pad:
 		var jb := InputEventJoypadButton.new()
 		jb.button_index = pad[action]
@@ -276,6 +290,7 @@ func new_game() -> void:
 	seen.clear()
 	deaths = 0
 	play_time = 0.0
+	moon = 60.0
 	goto("intro")
 
 

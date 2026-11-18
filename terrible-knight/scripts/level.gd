@@ -231,6 +231,7 @@ func _spawn_entities() -> void:
 	player.position = start
 	world.add_child(player)
 	hud.set_hp(player.hp)
+	hud.player = player
 
 	if data["boss"] == "demon":
 		heroine = Game.make_sprite(["heroine_idle"])
@@ -282,6 +283,17 @@ func spawn_fx(anim: String, pos: Vector2) -> void:
 	s.position = pos
 	s.animation_finished.connect(s.queue_free)
 	world.add_child(s)
+
+
+func add_moon(amount: float) -> void:
+	if player and player.form == "wolf":
+		Game.moon = minf(Game.moon + amount, Game.MOON_MAX)
+
+
+func flash(col: Color, t: float) -> void:
+	fade.color = Color(col.r, col.g, col.b, 0.85)
+	var tw := create_tween()
+	tw.tween_property(fade, "color:a", 0.0, t)
 
 
 func shake(amount: float) -> void:

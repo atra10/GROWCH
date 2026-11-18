@@ -433,6 +433,7 @@ func take_hit(dmg: int, _from: Vector2) -> void:
 		return
 	hp -= dmg
 	flash = 0.08
+	level.add_moon(Game.MOON_PER_BOSS_HIT)
 	level.hud.set_boss(hp)
 	if hp <= 0:
 		_die()

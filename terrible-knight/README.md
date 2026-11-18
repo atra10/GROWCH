@@ -3,8 +3,9 @@
 A short (about 15-20 minutes) 2D action platformer for **Godot 4.3+**, made with the free
 *Legacy Collection* pixel art by Luis Zuno (Ansimuz), CC0.
 
-**Story.** A cursed werewolf becomes the Terrible Knight every full moon. A vision of the
-princess guides him through four stages, each guarded by a boss:
+**Story.** A cursed werewolf becomes the Terrible Knight under the full moon, but only for
+a few moments at a time. A vision of the princess guides him through four stages, each
+guarded by a boss:
 
 | Stage | Place | Boss |
 |---|---|---|
@@ -21,9 +22,25 @@ princess guides him through four stages, each guarded by a boss:
 2. Open the Godot editor app, tap **Import**, and pick the `project.godot` file in that folder.
 3. Wait for the first import to finish, then press **Run** (the play button, top right).
 
-The game is landscape. On-screen buttons: left/right arrows move, the blue chevron button jumps, the red sword button attacks.
+The game is landscape. On-screen buttons: left/right arrows move, the blue chevron button jumps,
+the red button attacks, and the moon button (above jump) transforms / throws daggers.
 Tap anywhere to advance dialogue.
-On a PC: arrows or A/D move, Space jumps, J or X swings the sword.
+On a PC: arrows or A/D move, Space jumps, J or X attacks, L or C is the moon button.
+
+## Wolf and Knight
+
+You play as the **werewolf** most of the time:
+faster, jumps higher, attacks with a short lunge + claw slash (1 damage).
+
+Every enemy you kill (and every hit on a boss) fills the **moon meter** under your hearts.
+When it says **FULL MOON!**, tap the moon button to become the **Terrible Knight for 30 seconds**:
+
+- sword slash: 2 damage, longer reach
+- the moon button now throws **daggers**
+- armour: every hit only costs half a heart
+
+When the 30 seconds run out you turn back into the wolf and the meter starts filling again.
+The meter carries over between stages, so you can save a full moon for a boss.
 
 ## Controls and rules
 
@@ -39,7 +56,8 @@ project.godot          settings (384x216 pixel view, stretches to any screen)
 scenes/main.tscn       the only scene; everything else is built in code
 scripts/game.gd        autoload: story text, stage list, animation table, scene flow
 scripts/level.gd       builds a stage from its map, camera, checkpoints, visions, boss arena
-scripts/player.gd      the Terrible Knight
+scripts/player.gd      the hero: werewolf and Terrible Knight forms
+scripts/dagger.gd      the knight's thrown dagger
 scripts/enemy.gd       hound, ogre, crow, flying eye, ghost, fire skull
 scripts/boss.gd        Hell Beast, Nightmare, Dragon, Death, Demon
 scripts/maps.gd        the level layouts (one text row per 16 px)
@@ -56,6 +74,8 @@ tools/                 Python scripts that rebuilt the art and maps (not needed 
   `k` checkpoint, `v` princess vision, `h` hound, `o` ogre, `c` crow, `e` eye, `g` ghost,
   `s` fire skull, `+` heart, `A` boss arena starts here, `X` boss.
   Or edit `tools/build_maps.py` and run `python3 tools/build_maps.py scripts/maps.gd`.
+- **Moon:** `MOON_PER_KILL`, `MOON_PER_BOSS_HIT` and `KNIGHT_TIME` in `game.gd`.
+- **Wolf / knight stats:** `FORMS` at the top of `player.gd`.
 - **Difficulty:** `MAX_HP` in `game.gd`, `max_hp` per boss in `boss.gd`, `hp` per enemy in `enemy.gd`.
 
 There is no sound yet: the art pack doesn't include any.

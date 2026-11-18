@@ -9,6 +9,9 @@ var boss_visible := false
 var title_text := ""
 var title_alpha := 0.0
 
+var player: Node = null
+var t := 0.0
+var special_tex := {}
 var canvas: Control
 var buttons := {}
 
@@ -26,6 +29,8 @@ func _ready() -> void:
 
 
 func _process(delta: float) -> void:
+	t += delta
+	_update_special()
 	if title_alpha > 0.0:
 		title_alpha -= delta * 0.4
 	canvas.queue_redraw()
@@ -67,6 +72,7 @@ func _draw_hud() -> void:
 			_heart(c, Color(0.9, 0.12, 0.2))
 		elif full == 1:
 			_heart(c, Color(0.9, 0.12, 0.2), true)
+	_draw_moon()
 	# boss bar
 	if boss_visible:
 		var w := minf(size.x * 0.6, 260.0)
@@ -78,6 +84,39 @@ func _draw_hud() -> void:
 	if title_alpha > 0.0:
 		var a := clampf(title_alpha, 0.0, 1.0)
 		canvas.draw_string(font, Vector2(0, size.y * 0.33), title_text, HORIZONTAL_ALIGNMENT_CENTER, size.x, 16, Color(1, 0.9, 0.75, a))
+
+
+func _draw_moon() -> void:
+	## Moon meter under the hearts. As a wolf it fills up; as the knight it drains (30 s).
+	var c := Vector2(20, 34)
+	var r := 10.0
+	var font := ThemeDB.fallback_font
+	var frac := Game.moon / Game.MOON_MAX
+	var knight: bool = player != null and player.form == "knight"
+	if knight:
+		frac = player.knight_time / Game.KNIGHT_TIME
+	var ready: bool = not knight and frac >= 1.0
+	if ready or knight:
+		var pulse := 0.5 + 0.5 * sin(t * 6.0)
+		canvas.draw_circle(c, r + 3.0 + pulse * 2.0, Color(1, 0.95, 0.7, 0.18))
+	canvas.draw_circle(c, r + 1.0, Color(0, 0, 0, 0.6))
+	canvas.draw_circle(c, r, Color(0.2, 0.22, 0.32))
+	# the lit part of the moon rises from the bottom
+	var top := c.y + r - 2.0 * r * frac
+	var pts := PackedVector2Array()
+	for i in 33:
+		var a := TAU * i / 32.0
+		var p := c + Vector2(cos(a), sin(a)) * r
+		p.y = maxf(p.y, top)
+		pts.append(p)
+	var lit := Color(1, 0.95, 0.75) if not knight else Color(0.75, 0.85, 1.0)
+	if frac > 0.01:
+		canvas.draw_colored_polygon(pts, lit)
+	if knight:
+		canvas.draw_string(font, Vector2(c.x + r + 5, c.y + 4), "KNIGHT %d" % ceili(player.knight_time), HORIZONTAL_ALIGNMENT_LEFT, -1, 9, Color(0.8, 0.9, 1.0))
+	elif ready:
+		var a2 := 0.6 + 0.4 * sin(t * 6.0)
+		canvas.draw_string(font, Vector2(c.x + r + 5, c.y + 4), "FULL MOON!", HORIZONTAL_ALIGNMENT_LEFT, -1, 9, Color(1, 0.95, 0.6, a2))
 
 
 func _heart(c: Vector2, col: Color, half := false) -> void:
@@ -104,6 +143,8 @@ const CHEVRON := [Vector2(-0.5, 0.22), Vector2(0.0, -0.28), Vector2(0.5, 0.22), 
 const BLADE := [Vector2(-0.09, -0.62), Vector2(0.0, -0.78), Vector2(0.09, -0.62), Vector2(0.09, 0.28), Vector2(-0.09, 0.28)]
 const GUARD := [Vector2(-0.34, 0.28), Vector2(0.34, 0.28), Vector2(0.34, 0.4), Vector2(-0.34, 0.4)]
 const GRIP := [Vector2(-0.06, 0.4), Vector2(0.06, 0.4), Vector2(0.06, 0.64), Vector2(-0.06, 0.64)]
+const MOON_ICON_N := 24
+const CLAW := [Vector2(-0.07, -0.5), Vector2(0.07, -0.5), Vector2(0.03, 0.5), Vector2(-0.03, 0.5)]
 const POMMEL := [Vector2(-0.11, 0.64), Vector2(0.11, 0.64), Vector2(0.11, 0.76), Vector2(-0.11, 0.76)]
 
 
@@ -156,6 +197,65 @@ func _icon(size: float, shapes: Array, fill: Color, outline: Color, disc: Color,
 	return ImageTexture.create_from_image(img)
 
 
+func _circle_poly(radius: float, offset := Vector2.ZERO) -> PackedVector2Array:
+	var out := PackedVector2Array()
+	for i in MOON_ICON_N:
+		var a := TAU * i / MOON_ICON_N
+		out.append(Vector2(cos(a), sin(a)) * radius + offset)
+	return out
+
+
+func _make_special() -> void:
+	var dark := Color(0.05, 0.03, 0.08, 0.7)
+	var moon := [_circle_poly(0.52)]
+	var dagger := []
+	for part in [BLADE, GUARD, GRIP]:
+		dagger.append(_poly(part, Vector2(0.08, 0), 0.8, PI / 2.0))
+	special_tex["dim"] = _icon(40.0, moon, Color(0.7, 0.72, 0.8, 0.35), dark, Color(0.2, 0.2, 0.3, 0.25), Color(0.7, 0.7, 0.8, 0.35), 1.4)
+	special_tex["ready"] = _icon(40.0, moon, Color(1, 0.95, 0.65, 0.95), dark, Color(0.95, 0.8, 0.3, 0.35), Color(1, 0.95, 0.7, 0.9), 1.4)
+	special_tex["ready_on"] = _icon(40.0, moon, Color(1, 1, 0.9, 1.0), dark, Color(0.95, 0.8, 0.3, 0.6), Color(1, 1, 0.9, 1.0), 1.4)
+	special_tex["dagger"] = _icon(40.0, dagger, Color(1, 1, 1, 0.85), dark, Color(0.45, 0.4, 0.8, 0.3), Color(0.8, 0.8, 1.0, 0.65), 1.4)
+	special_tex["dagger_on"] = _icon(40.0, dagger, Color(1, 1, 1, 1.0), dark, Color(0.45, 0.4, 0.8, 0.6), Color(0.85, 0.85, 1.0, 0.9), 1.4)
+	var claws := []
+	for i in 3:
+		claws.append(_poly(CLAW, Vector2(-0.28 + i * 0.28, 0.0), 1.05, 0.45))
+	var red := Color(0.9, 0.35, 0.25, 0.3)
+	var red_ring := Color(1.0, 0.75, 0.65, 0.65)
+	special_tex["claw"] = _icon(46.0, claws, Color(1, 1, 1, 0.82), dark, red, red_ring, 1.6)
+	special_tex["claw_on"] = _icon(46.0, claws, Color(1, 1, 1, 1.0), dark, Color(0.9, 0.35, 0.25, 0.6), Color(1, 0.8, 0.7, 0.9), 1.6)
+	special_tex["sword"] = buttons["attack"].texture_normal
+	special_tex["sword_on"] = buttons["attack"].texture_pressed
+	var b := TouchScreenButton.new()
+	b.texture_normal = special_tex["dim"]
+	b.scale = Vector2(1.0 / SS, 1.0 / SS)
+	b.action = "special"
+	add_child(b)
+	buttons["special"] = b
+
+
+func _update_special() -> void:
+	if not buttons.has("special"):
+		return
+	var atk: TouchScreenButton = buttons["attack"]
+	var atk_state := "sword" if player != null and player.form == "knight" else "claw"
+	if atk.get_meta("state", "") != atk_state:
+		atk.set_meta("state", atk_state)
+		atk.texture_normal = special_tex[atk_state]
+		atk.texture_pressed = special_tex[atk_state + "_on"]
+	var b: TouchScreenButton = buttons["special"]
+	var state := "dim"
+	if player != null:
+		if player.form == "knight":
+			state = "dagger"
+		elif Game.moon >= Game.MOON_MAX:
+			state = "ready"
+	if b.get_meta("state", "") == state:
+		return
+	b.set_meta("state", state)
+	b.texture_normal = special_tex[state]
+	b.texture_pressed = special_tex.get(state + "_on", special_tex[state])
+
+
 func _make_buttons() -> void:
 	var white := Color(1, 1, 1, 0.82)
 	var white_on := Color(1, 1, 1, 1.0)
@@ -191,6 +291,7 @@ func _make_buttons() -> void:
 		b.passby_press = action in ["left", "right"]
 		add_child(b)
 		buttons[action] = b
+	_make_special()
 
 
 func _layout() -> void:
@@ -199,3 +300,4 @@ func _layout() -> void:
 	buttons["right"].position = Vector2(54, size.y - 50)
 	buttons["attack"].position = Vector2(size.x - 104, size.y - 50)
 	buttons["jump"].position = Vector2(size.x - 54, size.y - 72)
+	buttons["special"].position = Vector2(size.x - 50, size.y - 118)

@@ -155,11 +155,22 @@ func _intro() -> void:
 	await dialogue.run(Game.INTRO_LINES_2.slice(1))
 	var tw4 := create_tween()
 	tw4.tween_property(vision, "modulate:a", 0.0, 0.8)
+	tw4.parallel().tween_property(self, "moon_glow", 0.0, 0.8)
 	await tw4.finished
-	knight.sprite_frames = Game.frames(["knight_run"])
-	knight.play("knight_run")
+	# the moonlight fades and the knight becomes a wolf again
+	for i in 3:
+		knight.modulate = Color(3, 3, 3)
+		await _wait(0.12)
+		knight.modulate = Color.WHITE
+		await _wait(0.2)
+	fade.color = Color(1, 1, 1, 1)
+	var wolf2 := Game.make_sprite(["wolf_run"])
+	wolf2.position = Vector2(knight.position.x, ground_y - 38)
+	stage.add_child(wolf2)
+	knight.queue_free()
+	await _fade_to(0.0, 0.8, Color.WHITE)
 	var tw5 := create_tween()
-	tw5.tween_property(knight, "position:x", view.x + 60, 1.6)
+	tw5.tween_property(wolf2, "position:x", view.x + 60, 1.4)
 	await _wait(0.8)
 	await _fade_to(1.0, 0.8)
 	Game.start_stage(0)

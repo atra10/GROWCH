@@ -78,6 +78,10 @@ func _bot(delta: float) -> void:
 		Input.action_press("jump")
 	else:
 		Input.action_release("jump")
+	if fmod(bot_t, 1.5) < 0.05:
+		Input.action_press("special")
+	else:
+		Input.action_release("special")
 	if fmod(bot_t, 0.4) < 0.05:
 		Input.action_press("attack")
 	else:

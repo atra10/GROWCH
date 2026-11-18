@@ -233,6 +233,7 @@ func take_hit(dmg: int, from: Vector2) -> void:
 		state = "stun"
 		state_t = 0.0
 	if hp <= 0:
+		level.add_moon(Game.MOON_PER_KILL)
 		level.spawn_fx("fx_death", global_position + Vector2(0, -12 if not flying else 0))
 		if randf() < 0.25:
 			level.spawn_heart(global_position + Vector2(0, -10))
