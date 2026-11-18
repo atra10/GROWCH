@@ -10,6 +10,7 @@ var args := {}
 var shot_t := 0.0
 var shot_n := 0
 var bot_t := 0.0
+var dlg_t := 0.0
 
 
 func _ready() -> void:
@@ -54,8 +55,10 @@ func _process(delta: float) -> void:
 func _bot(delta: float) -> void:
 	bot_t += delta
 	if get_tree().paused:
-		# advance dialogue
-		if int(bot_t * 10) % 5 == 0:
+		# advance dialogue after giving it time to be read
+		dlg_t += delta
+		if dlg_t > 2.4:
+			dlg_t = 0.0
 			var ev := InputEventAction.new()
 			ev.action = "attack"
 			ev.pressed = true
