@@ -52,7 +52,7 @@ func _draw_ui(c: Control) -> void:
 	c.draw_string(font, Vector2(0, size.y * 0.14), "THE TERRIBLE KNIGHT", HORIZONTAL_ALIGNMENT_CENTER, size.x, 22, Color(0.95, 0.3, 0.25))
 	var a := 0.5 + 0.5 * sin(t * 4.0)
 	c.draw_string(font, Vector2(0, size.y * 0.86), "Tap to begin", HORIZONTAL_ALIGNMENT_CENTER, size.x, 11, Color(1, 1, 1, a))
-	c.draw_string(font, Vector2(0, size.y * 0.95), "Keyboard: arrows/A-D move, Space jump, J/X attack, L/C moon", HORIZONTAL_ALIGNMENT_CENTER, size.x, 7, Color(1, 1, 1, 0.4))
+	c.draw_string(font, Vector2(0, size.y * 0.95), "Keyboard: arrows/A-D move, Space jump, J/X attack, L/C moon, Esc pause", HORIZONTAL_ALIGNMENT_CENTER, size.x, 7, Color(1, 1, 1, 0.4))
 
 
 func _input(event: InputEvent) -> void:

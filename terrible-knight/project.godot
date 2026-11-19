@@ -8,6 +8,7 @@ config_version=5
 config/name="The Terrible Knight"
 config/description="A cursed werewolf becomes the Terrible Knight every full moon to rescue the princess."
 run/main_scene="res://scenes/main.tscn"
+config/quit_on_go_back=false
 config/features=PackedStringArray("4.3", "GL Compatibility")
 
 [autoload]

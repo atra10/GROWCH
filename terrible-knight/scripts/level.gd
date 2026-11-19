@@ -27,6 +27,7 @@ var boss: Node2D
 var heroine: AnimatedSprite2D
 var arena_started := false
 var finished := false
+var pause_menu: CanvasLayer
 var shake_amount := 0.0
 var fade: ColorRect
 
@@ -46,6 +47,9 @@ func _ready() -> void:
 	add_child(hud)
 	dialogue = DialogueScript.new()
 	add_child(dialogue)
+	pause_menu = preload("res://scripts/pause_menu.gd").new()
+	pause_menu.level = self
+	add_child(pause_menu)
 
 	_spawn_entities()
 
@@ -69,7 +73,7 @@ func _ready() -> void:
 	fl.add_child(fade)
 	add_child(fl)
 	fade.size = Vector2(2000, 2000)
-	var tw := create_tween()
+	var tw := create_tween().set_pause_mode(Tween.TWEEN_PAUSE_PROCESS)
 	tw.tween_property(fade, "color:a", 0.0, 0.6)
 	hud.show_title(data["title"])
 
@@ -294,7 +298,7 @@ func add_moon(amount: float) -> void:
 
 func flash(col: Color, t: float) -> void:
 	fade.color = Color(col.r, col.g, col.b, 0.85)
-	var tw := create_tween()
+	var tw := create_tween().set_pause_mode(Tween.TWEEN_PAUSE_PROCESS)
 	tw.tween_property(fade, "color:a", 0.0, t)
 
 
@@ -395,7 +399,7 @@ func _transform_heroine() -> void:
 	shake(8.0)
 	heroine.queue_free()
 	_create_boss(boss_pos)
-	var tw2 := create_tween()
+	var tw2 := create_tween().set_pause_mode(Tween.TWEEN_PAUSE_PROCESS)
 	tw2.tween_property(fade, "color:a", 0.0, 0.8)
 	await tw2.finished
 	var key := "%d-demon" % Game.stage_index
@@ -422,7 +426,7 @@ func _on_boss_defeated() -> void:
 
 func _fade_out(t: float) -> void:
 	fade.color = Color(0, 0, 0, 0)
-	var tw := create_tween()
+	var tw := create_tween().set_pause_mode(Tween.TWEEN_PAUSE_PROCESS)
 	tw.tween_property(fade, "color:a", 1.0, t)
 	await tw.finished
 

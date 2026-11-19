@@ -195,6 +195,7 @@ func _setup_input() -> void:
 		"jump": [KEY_SPACE, KEY_W, KEY_UP, KEY_K],
 		"attack": [KEY_J, KEY_X, KEY_Z, KEY_ENTER],
 		"special": [KEY_L, KEY_C, KEY_SHIFT],
+		"pause": [KEY_ESCAPE, KEY_P],
 	}
 	for action in map:
 		if not InputMap.has_action(action):
@@ -204,7 +205,7 @@ func _setup_input() -> void:
 			ev.physical_keycode = key
 			InputMap.action_add_event(action, ev)
 	# gamepad support
-	var pad := {"left": JOY_BUTTON_DPAD_LEFT, "right": JOY_BUTTON_DPAD_RIGHT, "jump": JOY_BUTTON_A, "attack": JOY_BUTTON_X, "special": JOY_BUTTON_Y}
+	var pad := {"left": JOY_BUTTON_DPAD_LEFT, "right": JOY_BUTTON_DPAD_RIGHT, "jump": JOY_BUTTON_A, "attack": JOY_BUTTON_X, "special": JOY_BUTTON_Y, "pause": JOY_BUTTON_START}
 	for action in pad:
 		var jb := InputEventJoypadButton.new()
 		jb.button_index = pad[action]

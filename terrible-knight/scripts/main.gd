@@ -48,6 +48,11 @@ func _process(delta: float) -> void:
 			img.save_png("%s/shot_%03d.png" % [args["shots"], shot_n])
 	if args.has("quit") and Time.get_ticks_msec() / 1000.0 > float(args["quit"]):
 		get_tree().quit()
+	if args.has("pauseat") and not get_meta("paused_once", false) and Time.get_ticks_msec() / 1000.0 > float(args["pauseat"]):
+		var lvl := get_tree().get_first_node_in_group("level")
+		if lvl and lvl.pause_menu:
+			set_meta("paused_once", true)
+			lvl.pause_menu.toggle()
 	if args.has("autoplay"):
 		_bot(delta)
 	if args.has("trace"):

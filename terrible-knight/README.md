@@ -25,7 +25,8 @@ guarded by a boss:
 The game is landscape. On-screen buttons: left/right arrows move, the blue chevron button jumps,
 the red button attacks, and the moon button (above jump) transforms / throws daggers.
 Tap anywhere to advance dialogue.
-On a PC: arrows or A/D move, Space jumps, J or X attacks, L or C is the moon button.
+On a PC: arrows or A/D move, Space jumps, J or X attacks, L or C is the moon button, Esc or P pauses.
+The pause button (top-right) or the Android Back button opens the pause menu: Resume, Restart from checkpoint, Quit to title. The game also pauses when you switch apps.
 
 ## Wolf and Knight
 
