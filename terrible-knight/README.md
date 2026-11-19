@@ -28,6 +28,11 @@ Tap anywhere to advance dialogue.
 On a PC: arrows or A/D move, Space jumps, J or X attacks, L or C is the moon button, Esc or P pauses.
 The pause button (top-right) or the Android Back button opens the pause menu: Resume, Restart from checkpoint, Quit to title. The game also pauses when you switch apps.
 
+**Saving.** The game saves automatically at the start of every stage and at every checkpoint.
+You can also tap **Save game** in the pause menu. On the title screen, **Continue** picks up
+from your last save (stage, checkpoint, moon meter, story progress); **New Game** starts over.
+Health is full again when you continue. The save is removed when you finish the game.
+
 ## Wolf and Knight
 
 You play as the **werewolf** most of the time:

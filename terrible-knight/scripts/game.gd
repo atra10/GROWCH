@@ -306,8 +306,82 @@ func start_stage(i: int) -> void:
 func next_stage() -> void:
 	if stage_index + 1 < STAGES.size():
 		start_stage(stage_index + 1)
+		save_game()
 	else:
+		delete_save()
 		goto("ending")
+
+
+## A menu button in the game's style (used by the title screen and pause menu).
+func menu_button(text: String, cb: Callable) -> Button:
+	var b := Button.new()
+	b.text = text
+	b.focus_mode = Control.FOCUS_NONE
+	b.custom_minimum_size = Vector2(160, 26)
+	b.add_theme_font_size_override("font_size", 11)
+	var normal := StyleBoxFlat.new()
+	normal.bg_color = Color(0.15, 0.1, 0.18, 0.95)
+	normal.border_color = Color(0.8, 0.6, 0.4, 0.8)
+	normal.set_border_width_all(1)
+	normal.set_corner_radius_all(4)
+	var pressed := normal.duplicate()
+	pressed.bg_color = Color(0.35, 0.2, 0.25, 1.0)
+	b.add_theme_stylebox_override("normal", normal)
+	b.add_theme_stylebox_override("hover", normal)
+	b.add_theme_stylebox_override("pressed", pressed)
+	b.pressed.connect(cb)
+	return b
+
+
+# ---------------------------------------------------------------- save / load
+
+const SAVE_PATH := "user://save.json"
+
+
+func has_save() -> bool:
+	return FileAccess.file_exists(SAVE_PATH)
+
+
+## Saves the current stage, checkpoint, moon meter and story progress.
+func save_game() -> bool:
+	var data := {
+		"version": 1,
+		"stage": stage_index,
+		"checkpoint": checkpoint,
+		"moon": moon,
+		"seen": seen.keys(),
+		"deaths": deaths,
+		"play_time": play_time,
+	}
+	var f := FileAccess.open(SAVE_PATH, FileAccess.WRITE)
+	if f == null:
+		push_warning("Could not save: %s" % FileAccess.get_open_error())
+		return false
+	f.store_string(JSON.stringify(data))
+	return true
+
+
+## Loads the save and jumps to the saved stage / checkpoint.
+func continue_game() -> void:
+	var f := FileAccess.open(SAVE_PATH, FileAccess.READ)
+	var data: Variant = JSON.parse_string(f.get_as_text()) if f else null
+	if typeof(data) != TYPE_DICTIONARY:
+		new_game()
+		return
+	stage_index = clampi(int(data.get("stage", 0)), 0, STAGES.size() - 1)
+	checkpoint = float(data.get("checkpoint", -1.0))
+	moon = float(data.get("moon", 60.0))
+	deaths = int(data.get("deaths", 0))
+	play_time = float(data.get("play_time", 0.0))
+	seen.clear()
+	for k in data.get("seen", []):
+		seen[str(k)] = true
+	goto("level")
+
+
+func delete_save() -> void:
+	if has_save():
+		DirAccess.remove_absolute(ProjectSettings.globalize_path(SAVE_PATH))
 
 
 func retry_stage() -> void:

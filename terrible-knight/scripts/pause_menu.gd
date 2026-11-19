@@ -7,6 +7,7 @@ var open := false
 var button: Button
 var overlay: Control
 var menu: VBoxContainer
+var save_button: Button
 
 
 func _ready() -> void:
@@ -38,6 +39,7 @@ func _ready() -> void:
 	title.add_theme_color_override("font_color", Color(0.95, 0.75, 0.5))
 	menu.add_child(title)
 	_menu_button("Resume", resume)
+	save_button = _menu_button("Save game", _save)
 	_menu_button("Restart from checkpoint", _restart)
 	_menu_button("Quit to title", _quit)
 
@@ -45,24 +47,18 @@ func _ready() -> void:
 	_layout()
 
 
-func _menu_button(text: String, cb: Callable) -> void:
-	var b := Button.new()
-	b.text = text
-	b.focus_mode = Control.FOCUS_NONE
-	b.custom_minimum_size = Vector2(160, 26)
-	b.add_theme_font_size_override("font_size", 11)
-	var normal := StyleBoxFlat.new()
-	normal.bg_color = Color(0.15, 0.1, 0.18, 0.95)
-	normal.border_color = Color(0.8, 0.6, 0.4, 0.8)
-	normal.set_border_width_all(1)
-	normal.set_corner_radius_all(4)
-	var pressed := normal.duplicate()
-	pressed.bg_color = Color(0.35, 0.2, 0.25, 1.0)
-	b.add_theme_stylebox_override("normal", normal)
-	b.add_theme_stylebox_override("hover", normal)
-	b.add_theme_stylebox_override("pressed", pressed)
-	b.pressed.connect(cb)
+func _menu_button(text: String, cb: Callable) -> Button:
+	var b := Game.menu_button(text, cb)
 	menu.add_child(b)
+	return b
+
+
+func _save() -> void:
+	var ok := Game.save_game()
+	save_button.text = "Saved!" if ok else "Could not save"
+	await get_tree().create_timer(1.2, true).timeout
+	if is_instance_valid(save_button):
+		save_button.text = "Save game"
 
 
 func _layout() -> void:

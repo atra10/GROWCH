@@ -328,6 +328,7 @@ func _physics_process(_delta: float) -> void:
 	for cp in checkpoints:
 		if px > cp.x and Game.checkpoint < cp.x:
 			Game.checkpoint = cp.x
+			Game.save_game()
 	for v in visions:
 		if not v[2] and px > v[0] - 40.0:
 			v[2] = true
@@ -367,6 +368,7 @@ func _vision(i: int, pos: Vector2) -> void:
 func _start_arena() -> void:
 	arena_started = true
 	Game.checkpoint = maxf(Game.checkpoint, arena_x - 32.0)
+	Game.save_game()
 	camera.limit_left = int(arena_x)
 	# a wall closes the arena behind the knight
 	var wall := StaticBody2D.new()

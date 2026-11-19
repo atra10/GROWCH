@@ -20,7 +20,9 @@ func _ready() -> void:
 		var kv: PackedStringArray = a.trim_prefix("--").split("=")
 		args[kv[0]] = kv[1] if kv.size() > 1 else "1"
 	Game.god = args.has("god")
-	if args.has("stage"):
+	if args.has("continue"):
+		Game.continue_game()
+	elif args.has("stage"):
 		var s := int(args["stage"])
 		if s < 0:
 			Game.new_game()
