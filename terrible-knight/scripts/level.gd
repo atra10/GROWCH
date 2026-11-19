@@ -227,9 +227,11 @@ func _spawn_entities() -> void:
 	player = PlayerScript.new()
 	player.level = self
 	if Game.checkpoint >= 0.0:
-		start = _ground_at(Game.checkpoint)
+		start = _safe_ground(Game.checkpoint)
 	player.position = start
 	world.add_child(player)
+	if Game.main and Game.main.args.has("hp"):   # debug: --hp=N
+		player.hp = int(Game.main.args["hp"])
 	hud.set_hp(player.hp)
 	hud.player = player
 
@@ -426,11 +428,41 @@ func _fade_out(t: float) -> void:
 
 
 func player_fell() -> void:
+	## Put the player back on solid ground and always charge for the fall,
+	## even while invincible (otherwise falling could loop forever).
+	var spot := _safe_ground(player.safe_pos.x)
+	player.position = spot
+	player.safe_pos = spot
 	player.velocity = Vector2.ZERO
-	player.position = player.safe_pos
-	player.take_damage(2, player.global_position)
-	player.velocity = Vector2.ZERO
-	player.invuln = 1.2
+	player.take_damage(2, spot, true)
+	if not player.dead:
+		player.velocity = Vector2.ZERO
+		player.hurt_time = 0.0
+		player.invuln = 1.2
+
+
+## Nearest flat, solid ground (3 tiles wide) at or behind x, so a respawn never lands over a pit.
+func _safe_ground(x: float) -> Vector2:
+	var T := Game.TILE
+	var min_col := int(arena_x / T) + 2 if arena_started else 1
+	var col := clampi(int(x / T), min_col, rows[0].length() - 2)
+	for c in range(col, min_col - 1, -1):
+		var top := _top_row(c)
+		if top >= 0 and _top_row(c - 1) == top and _top_row(c + 1) == top:
+			return Vector2(c * T + T / 2.0, top * T)
+	for c in range(col, rows[0].length() - 1):
+		var top := _top_row(c)
+		if top >= 0 and _top_row(c - 1) == top and _top_row(c + 1) == top:
+			return Vector2(c * T + T / 2.0, top * T)
+	return Vector2(48, 176)
+
+
+## First solid row in a column, or -1 if the column is a pit.
+func _top_row(c: int) -> int:
+	for r in rows.size():
+		if _solid(c, r):
+			return r
+	return -1
 
 
 func player_died() -> void:

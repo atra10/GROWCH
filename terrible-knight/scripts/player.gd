@@ -191,7 +191,7 @@ func _physics_process(delta: float) -> void:
 	# remember last safe ground for pit respawns
 	if is_on_floor():
 		safe_time += delta
-		if safe_time > 0.25:
+		if safe_time > 0.1:
 			safe_pos = position
 	else:
 		safe_time = 0.0
@@ -274,10 +274,13 @@ func _check_hurt() -> void:
 			return
 
 
-func take_damage(amount: int, from: Vector2) -> void:
-	if dead or invuln > 0.0 or Game.god:
+func take_damage(amount: int, from: Vector2, force := false) -> void:
+	## force: ignore invincibility and armour (used for falling into pits).
+	if dead or Game.god:
 		return
-	if form == "knight":
+	if invuln > 0.0 and not force:
+		return
+	if form == "knight" and not force:
 		amount = 1   # armour
 	hp -= amount
 	level.hud.set_hp(hp)

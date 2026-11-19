@@ -281,6 +281,8 @@ func goto(screen: String) -> void:
 			node.kind = "ending"
 		"level":
 			node = load("res://scripts/level.gd").new()
+	# main runs while paused (for debug tools); screens must still pause for dialogue
+	node.process_mode = Node.PROCESS_MODE_PAUSABLE
 	main.add_child(node)
 
 

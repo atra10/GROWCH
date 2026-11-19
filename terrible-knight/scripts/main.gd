@@ -50,6 +50,11 @@ func _process(delta: float) -> void:
 		get_tree().quit()
 	if args.has("autoplay"):
 		_bot(delta)
+	if args.has("trace"):
+		var lvl := get_tree().get_first_node_in_group("level")
+		if lvl and lvl.player and Engine.get_process_frames() % 6 == 0:
+			var p: CharacterBody2D = lvl.player
+			print("t=%.2f pos=%s vel=%s floor=%s hp=%d dead=%s inv=%.2f form=%s axis=%.1f tt=%.2f hurt=%.2f atk=%s paused=%s" % [Time.get_ticks_msec() / 1000.0, p.position, p.velocity, p.is_on_floor(), p.hp, p.dead, p.invuln, p.form, Input.get_axis("left", "right"), p.transform_time, p.hurt_time, p.attacking, get_tree().paused])
 
 
 func _bot(delta: float) -> void:
