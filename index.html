@@ -587,7 +587,7 @@ body[data-sec="akun"] .acctbtn{box-shadow:inset 0 0 0 2px var(--primary)}
 .fin-accrow{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,150px) auto 32px;align-items:center;gap:10px;padding-bottom:10px;border-bottom:1px solid var(--line)}
 .fin-accrow label{display:flex;flex-direction:column;gap:4px;font-size:12px;font-weight:700;color:var(--muted)}
 .fin-accrow input,.fin-accadd input,.fin-imp textarea{border:1.5px solid var(--line);background:var(--surface);color:var(--ink);border-radius:10px;padding:8px 10px;font:inherit;font-size:14px;min-width:0;width:100%}
-.fin-accbal{font-size:13px;color:var(--muted);white-space:nowrap}.fin-accbal b{color:var(--head);font-variant-numeric:tabular-nums}
+.fin-accbal{font-size:13px;color:var(--muted);white-space:nowrap}.fin-accbal b.neg{color:var(--bad)}.fin-accbal b{color:var(--head);font-variant-numeric:tabular-nums}
 .fin-accadd{display:flex;gap:8px}.fin-accadd .btn{flex:none}
 .fin-imp{padding:16px 18px;display:flex;flex-direction:column;gap:10px}.fin-imp h3{margin:0;font-size:18px}
 .fin-imp textarea{font-family:ui-monospace,Menlo,Consolas,monospace;font-size:13px;resize:vertical}
@@ -2939,6 +2939,7 @@ function accId(o,name,make){name=String(name||"").trim().slice(0,30);if(!name)re
   if(!make)return"";var id="a"+uid();o.acc.push({id:id,n:name});return id}
 function accBal(o){var b={};o.acc.forEach(function(a){b[a.id]=+o.ob[a.id]||0});
   o.tx.forEach(function(t){if(t.t==="tf"){if(t.w in b)b[t.w]-=t.a;if(t.to in b)b[t.to]+=t.a}else if(t.w in b)b[t.w]+=TY[t.t].sg*t.a});return b}
+function looseBal(o){var ids={},c=o.open;o.acc.forEach(function(a){ids[a.id]=1});o.tx.forEach(function(t){if(t.t!=="tf"&&!ids[t.w])c+=TY[t.t].sg*t.a});return c}
 function accOpts(o,sel,none){return(none?'<option value="">'+none+'</option>':'')+o.acc.map(function(a){return'<option value="'+a.id+'"'+(a.id===sel?" selected":"")+'>'+esc(a.n)+'</option>'}).join("")}
 /* overlap finder: money that left one of your accounts and landed in another is a transfer, not spending + income */
 function dayGap(a,b){return Math.abs((Date.parse(a)-Date.parse(b))/864e5)}
@@ -2972,8 +2973,8 @@ function mergePair(oid,iid){var o=fin(),x=null,y=null;o.tx.forEach(function(t){i
 function hintToTf(tid,aid){var o=fin();o.tx.forEach(function(t){if(t.id!==tid)return;var from=t.t==="out"?t.w:aid,to=t.t==="out"?aid:t.w;t.t="tf";t.c="tf";t.w=from;t.to=to});saveFin(o)}
 function sums(tx){var s={in:0,out:0,inv:0,debt:0,pay:0,tf:0,sell:0};tx.forEach(function(t){s[t.t]+=t.a});return s}
 function balances(o,upto){ /* balances at end of a date (inclusive), at cost */
-  var cash=o.open,inv=0,debt=0;o.acc.forEach(function(a){cash+=+o.ob[a.id]||0});o.tx.forEach(function(t){if(upto&&t.d>upto)return;cash+=TY[t.t].sg*t.a;if(t.t==="inv")inv+=t.a;if(t.t==="sell")inv-=t.a;if(t.t==="debt")debt+=t.a;if(t.t==="pay")debt-=t.a});
-  inv=Math.max(0,inv);return{cash:cash,inv:inv,debt:Math.max(0,debt),net:cash+inv-Math.max(0,debt)};
+  var cash=o.open,inv=+o.invAdj||0,debt=0;o.acc.forEach(function(a){cash+=+o.ob[a.id]||0});o.tx.forEach(function(t){if(upto&&t.d>upto)return;cash+=TY[t.t].sg*t.a;if(t.t==="inv")inv+=t.a;if(t.t==="sell")inv-=t.a;if(t.t==="debt")debt+=t.a;if(t.t==="pay")debt-=t.a});
+  var invRaw=inv;inv=Math.max(0,inv);return{invRaw:invRaw,cash:cash,inv:inv,debt:Math.max(0,debt),net:cash+inv-Math.max(0,debt)};
 }
 function monthTx(o,ym){return o.tx.filter(function(t){return t.d.slice(0,7)===ym})}
 function monthNav(){return'<div class="fin-month"><button type="button" class="cal-nav" data-fm="-1" aria-label="'+E("Bulan sebelumnya","Previous month")+'">‹</button><b>'+monthLabel(finYM)+'</b><button type="button" class="cal-nav" data-fm="1" aria-label="'+E("Bulan berikutnya","Next month")+'">›</button></div>'}
@@ -3018,7 +3019,11 @@ function vCatat(o){
   h+=monthNav()+'<div class="bk-head"><h3>'+E("Transaksi","Transactions")+'</h3><span>'+tx.length+'</span></div>';
   h+=tx.length?'<ul class="td-list fin-list">'+tx.map(function(t){return txRow(o,t,true)}).join("")+'</ul>':'<p class="td-empty">'+E("Belum ada transaksi di bulan ini.","No transactions this month.")+'</p>';
   h+=vAcc(o);
-  h+='<form class="bk-card fin-open" id="fopen"><label>'+(o.acc.length?E("Saldo awal di luar akun (misalnya uang tunai di dompet)","Opening balance outside your accounts (e.g. cash in your wallet)"):E("Saldo awal (uang yang sudah kamu punya sebelum mulai mencatat)","Opening balance (money you had before you started tracking)"))+'<input id="fo" inputmode="numeric" value="'+(o.open?Math.round(o.open).toLocaleString("id-ID"):"")+'" placeholder="0"></label><button class="btn ghost" type="submit">'+E("Simpan saldo awal","Save opening balance")+'</button></form>';
+  var lb=looseBal(o),iv=balances(o).inv;
+  h+='<form class="bk-card fin-open" id="fopen"><p class="fin-note">'+E("Isi dengan angka yang benar hari ini. Growch menghitung sendiri saldo awalnya, jadi kekayaan bersihmu sesuai kenyataan.","Fill in today\'s real amounts. Growch works out the starting balance so your net worth matches reality.")+'</p>'+
+    '<label>'+(o.acc.length?E("Uang tunai sekarang (di luar akun di atas)","Cash now (outside the accounts above)"):E("Uang yang kamu punya sekarang","Money you have now"))+'<input id="fo" inputmode="numeric" value="'+(lb>0?Math.round(lb).toLocaleString("id-ID"):"")+'" placeholder="0"></label>'+
+    '<label>'+E("Nilai investasi sekarang (Pluang, reksa dana, dll.)","Investments now (Pluang, funds, etc.)")+'<input id="fiv" inputmode="numeric" value="'+(iv>0?Math.round(iv).toLocaleString("id-ID"):"")+'" placeholder="0"></label>'+
+    '<button class="btn ghost" type="submit">'+E("Simpan","Save")+'</button></form>';
   return h;
 }
 function txRow(o,t,del){
@@ -3027,7 +3032,7 @@ function txRow(o,t,del){
     '<b class="fin-amt '+(tf?"tf":TY[t.t].sg>0?"pos":"")+'">'+(tf?"":TY[t.t].sg>0?"+":"−")+rp(t.a)+'</b>'+(del?'<button class="td-del" type="button" aria-label="'+E("Hapus","Delete")+'">'+X+'</button>':'')+'</li>'}
 function vAcc(o){
   var b=accBal(o),h='<div class="bk-head"><h3>'+E("Akun & dompet","Accounts & wallets")+'</h3><span>'+o.acc.length+'</span></div><div class="bk-card fin-acc">';
-  h+=o.acc.length?o.acc.map(function(a){return'<div class="fin-accrow" data-acc="'+a.id+'"><b>'+esc(a.n)+'</b><label>'+E("Saldo awal","Opening")+'<input class="fob" inputmode="numeric" value="'+(o.ob[a.id]?Math.round(o.ob[a.id]).toLocaleString("id-ID"):"")+'" placeholder="0"></label><span class="fin-accbal">'+E("Sekarang ","Now ")+'<b>'+rp(b[a.id])+'</b></span><button class="td-del" type="button" aria-label="'+E("Hapus akun","Delete account")+'">'+X+'</button></div>'}).join("")
+  h+=o.acc.length?o.acc.map(function(a){return'<div class="fin-accrow" data-acc="'+a.id+'"><b>'+esc(a.n)+'</b><label>'+E("Saldo sekarang di aplikasinya","Balance now in the app")+'<input class="fob" inputmode="numeric" value="'+(b[a.id]>0?Math.round(b[a.id]).toLocaleString("id-ID"):"")+'" placeholder="'+E("ketik saldo hari ini","type today\'s balance")+'"></label><span class="fin-accbal">'+E("Tercatat ","Recorded ")+'<b'+(b[a.id]<0?' class="neg"':'')+'>'+rp(b[a.id])+'</b></span><button class="td-del" type="button" aria-label="'+E("Hapus akun","Delete account")+'">'+X+'</button></div>'}).join("")
     :'<p class="fin-note">'+E("Tambahkan rekening dan e-wallet yang kamu pakai. Dengan begitu, pindah saldo antar akunmu (misalnya SeaBank → GoPay) tercatat sebagai transfer, bukan pengeluaran.","Add the bank accounts and e-wallets you use, so moving money between them (e.g. SeaBank → GoPay) counts as a transfer, not spending.")+'</p>';
   return h+'<form class="fin-accadd" id="faccf"><input id="facn" type="text" maxlength="30" autocomplete="off" placeholder="SeaBank, GoPay, BCA…" aria-label="'+E("Nama akun","Account name")+'"><button class="btn ghost" type="submit">'+E("Tambah akun","Add account")+'</button></form></div>';
 }
@@ -3171,7 +3176,7 @@ function uang(v,hs){
   var fac=v.querySelector("#faccf");if(fac)fac.onsubmit=function(e){e.preventDefault();var n=v.querySelector("#facn").value.trim();if(!n)return;var x=fin();accId(x,n,true);saveFin(x);re()};
   v.querySelectorAll(".fin-accrow").forEach(function(r){var id=r.dataset.acc,inp=r.querySelector(".fob");
     inp.oninput=function(){var n=money(inp.value);inp.value=n?n.toLocaleString("id-ID"):""};
-    inp.onchange=function(){var x=fin();x.ob[id]=money(inp.value);saveFin(x);re()};
+    inp.onchange=function(){var x=fin(),now=accBal(x)[id]||0;x.ob[id]=(+x.ob[id]||0)+money(inp.value)-now;saveFin(x);inp.onchange=null;setTimeout(re,0)};
     r.querySelector(".td-del").onclick=function(){var x=fin();x.acc=x.acc.filter(function(a){return a.id!==id});delete x.ob[id];saveFin(x);re()}});
   var ig=v.querySelector("#fimpgo");if(ig)ig.onclick=function(){fimp=doImport(v.querySelector("#fimp").value);re()};
   var iu=v.querySelector("#fimpundo");if(iu)iu.onclick=function(){var x=fin(),b=x.lastImp;x.tx=x.tx.filter(function(t){return t.b!==b});x.lastImp="";saveFin(x);fimp=null;re()};
@@ -3185,7 +3190,9 @@ function uang(v,hs){
       if(b.dataset.mg==="1")mergePair(c.dataset.o,c.dataset.i);else{var x=fin();x.nm.push(c.dataset.o+"|"+c.dataset.i);saveFin(x)}re()}});
     c.querySelectorAll("[data-hn]").forEach(function(b){b.onclick=function(){
       if(b.dataset.hn==="1")hintToTf(c.dataset.h,c.dataset.a);else{var x=fin();x.nm.push(c.dataset.h);saveFin(x)}re()}})});
-  var fp=v.querySelector("#fopen");if(fp)fp.onsubmit=function(e){e.preventDefault();var x=fin();x.open=money(fo.value);saveFin(x);re()};
+  var fiv=v.querySelector("#fiv");if(fiv)fiv.oninput=function(){var n=money(fiv.value);fiv.value=n?n.toLocaleString("id-ID"):""};
+  var fp=v.querySelector("#fopen");if(fp)fp.onsubmit=function(e){e.preventDefault();var x=fin();x.open+=money(fo.value)-looseBal(x);
+    var cur=balances(x).invRaw;x.invAdj=(+x.invAdj||0)+money(fiv.value)-cur;saveFin(x);re()};
   v.querySelectorAll(".fin-list .td-it").forEach(function(li){var dl=li.querySelector(".td-del");if(dl)dl.onclick=function(){var x=fin();x.tx=x.tx.filter(function(t){return t.id!==li.dataset.id});saveFin(x);re()}});
 }
 
