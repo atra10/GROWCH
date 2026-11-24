@@ -596,6 +596,7 @@ body[data-sec="akun"] .acctbtn{box-shadow:inset 0 0 0 2px var(--primary)}
 .fin-pair{padding:12px 14px;display:flex;flex-direction:column;gap:8px;margin-bottom:10px}
 .fin-pair .td-list{margin:0}
 a.fin-ovl{display:block;text-decoration:none;color:inherit}
+.fin-lbl{margin:0;font-size:12px;font-weight:800;letter-spacing:.05em;text-transform:uppercase;color:var(--muted)}
 .fin-amt{flex:none;font-variant-numeric:tabular-nums;font-size:14px}.fin-amt.pos{color:var(--good)}
 .fs{padding:16px 20px}
 .fs h3{margin:4px 0 2px;font-size:18px}
@@ -2949,6 +2950,18 @@ function overlaps(o){
     var hit=o.acc.filter(function(a){return a.id!==t.w&&n.indexOf(a.n.toLowerCase())>=0})[0];if(hit)hints.push({t:t,a:hit})});
   return{p:pairs,h:hints};
 }
+/* same money recorded twice: once by hand, once from an import (names and categories may differ) */
+function flowDir(t){return t.t==="in"||t.t==="debt"?1:-1}
+function doubles(o){
+  var no={};o.nm.forEach(function(k){no[k]=1});var c=[],used={},res=[],tx=o.tx.filter(function(t){return t.a>=1000});
+  for(var i=0;i<tx.length;i++)for(var j=i+1;j<tx.length;j++){var x=tx[i],y=tx[j];
+    if((x.b||"")===(y.b||"")||x.a!==y.a||flowDir(x)!==flowDir(y))continue;var g=dayGap(x.d,y.d);if(g>3)continue;
+    var k="d|"+[x.id,y.id].sort().join("|");if(no[k])continue;
+    var nw=x.b&&(!y.b||x.b>y.b)?x:y,old=nw===x?y:x;c.push([nw,old,g,k])}
+  c.sort(function(p,q){return p[2]-q[2]}).forEach(function(p){if(used[p[0].id]||used[p[1].id])return;used[p[0].id]=used[p[1].id]=1;res.push({n:p[0],o:p[1],k:p[3]})});
+  return res;
+}
+function finExport(o){return JSON.stringify(o.tx.slice().sort(function(a,b){return a.d<b.d?1:-1}).map(function(t){var r={d:t.d,t:t.t,a:t.a,c:t.c,n:t.n||"",w:accName(o,t.w)};if(t.t==="tf")r.to=accName(o,t.to);if(t.b)r.imp=1;return r}))}
 function mergePair(oid,iid){var o=fin(),x=null,y=null;o.tx.forEach(function(t){if(t.id===oid)x=t;if(t.id===iid)y=t});if(!x||!y)return;
   o.tx=o.tx.filter(function(t){return t!==x&&t!==y});
   o.tx.push({id:uid(),d:x.d,t:"tf",c:"tf",a:y.a,w:x.w,to:y.w,n:x.n||y.n||"",b:x.b||y.b,ho:{a:x.a,n:x.n||""},hi:{a:y.a,n:y.n||""}});
@@ -2970,7 +2983,8 @@ function vRingkas(o){
   if(o.acc.length){var ab=accBal(o);h+='<div class="bk-head"><h3>'+E("Saldo per akun","Balance by account")+'</h3><span>'+E("saat ini","now")+'</span></div><div class="bk-card fin-bars">'+
     o.acc.map(function(a){return'<div class="fin-bar fin-ab"><span>'+esc(a.n)+'</span><b'+(ab[a.id]<0?' class="neg"':'')+'>'+rp(ab[a.id])+'</b></div>'}).join("")+'</div>'}
   var ov=overlaps(o),nov=ov.p.length+ov.h.length;
-  if(nov)h+='<a class="bk-tip warn fin-ovl" href="#uang-impor"><b>'+E(nov+" kemungkinan transfer antar akun",nov+" possible transfers between your accounts")+'</b>'+E("Uang yang cuma pindah akun (misalnya SeaBank → GoPay) jangan dihitung sebagai pengeluaran. Ketuk untuk cek.","Money that only moved between accounts (e.g. SeaBank → GoPay) shouldn't count as spending. Tap to review.")+'</a>';
+  nov+=doubles(o).length;
+  if(nov)h+='<a class="bk-tip warn fin-ovl" href="#uang-impor"><b>'+E(nov+" transaksi perlu dicek (dobel / transfer antar akun)",nov+" transactions to check (doubles / transfers between accounts)")+'</b>'+E("Uang yang cuma pindah akun (misalnya SeaBank → GoPay) jangan dihitung sebagai pengeluaran. Ketuk untuk cek.","Money that only moved between accounts (e.g. SeaBank → GoPay) shouldn't count as spending. Tap to review.")+'</a>';
   // spending by category
   var by={};tx.forEach(function(t){if(t.t==="out")by[t.c]=(by[t.c]||0)+t.a});var keys=Object.keys(by).sort(function(a,c){return by[c]-by[a]}),mx=keys.length?by[keys[0]]:1;
   h+='<div class="bk-head"><h3>'+E("Ke mana uangmu pergi","Where your money went")+'</h3><span>'+E("pengeluaran bulan ini","this month's spending")+'</span></div>';
@@ -3048,6 +3062,10 @@ function vImpor(o){
     '<div class="fin-impact"><button class="btn" type="button" id="fimpgo">'+E("Impor","Import")+'</button>'+(o.lastImp&&o.tx.some(function(t){return t.b===o.lastImp})?'<button class="btn ghost" type="button" id="fimpundo">'+E("Batalkan impor terakhir","Undo last import")+'</button>':'')+'</div>';
   if(fimp)h+='<p class="fin-impmsg'+(fimp.err?" bad":"")+'">'+(fimp.err||E(fimp.add+" transaksi masuk","Added "+fimp.add+" transactions")+(fimp.dup?E(", "+fimp.dup+" dilewati karena sudah ada",", skipped "+fimp.dup+" already recorded"):"")+(fimp.bad?E(", "+fimp.bad+" baris tidak terbaca",", "+fimp.bad+" unreadable rows"):"")+".")+'</p>';
   h+='</section>';
+  var db=doubles(o);
+  if(db.length){h+='<div class="bk-head"><h3>'+E("Mungkin tercatat dua kali","Possibly recorded twice")+'</h3><span>'+db.length+'</span></div><p class="fin-note">'+E("Jumlahnya sama persis dan tanggalnya berdekatan (maks. 3 hari), tapi satu dari impor dan satu lagi catatan lama. Nama dan kategorinya bisa beda, misalnya kamu dulu menulis \"beli PSP\" sedangkan bank menulis nama penerima transfernya.","Same exact amount within 3 days, one from an import and one recorded earlier. Names and categories may differ, e.g. you wrote \"bought PSP\" while the bank shows the transfer recipient.")+'</p>';
+    db.forEach(function(p){h+='<div class="bk-card fin-pair" data-dn="'+p.n.id+'" data-do="'+p.o.id+'" data-dk="'+p.k+'"><p class="fin-lbl">'+E("Lama","Earlier")+'</p><ul class="td-list fin-list">'+txRow(o,p.o,false)+'</ul><p class="fin-lbl">'+E("Dari impor","From import")+'</p><ul class="td-list fin-list">'+txRow(o,p.n,false)+'</ul><div class="fin-impact"><button class="btn" type="button" data-dd="old">'+E("Hapus yang lama","Delete earlier")+'</button><button class="btn ghost" type="button" data-dd="new">'+E("Hapus yang impor","Delete imported")+'</button><button class="btn ghost" type="button" data-dd="no">'+E("Bukan dobel","Not a double")+'</button></div></div>'})}
+  h+='<section class="bk-card fin-imp"><h3>'+E("Minta Claude mengecek","Ask Claude to check")+'</h3><p class="fin-note">'+E("Salin semua catatan keuanganmu, lalu tempel di chat Claude supaya bisa dicek dobel, salah kategori, atau transfer yang terlewat.","Copy all your money records and paste them into your Claude chat to check for doubles, wrong categories or missed transfers.")+'</p><div class="fin-impact"><button class="btn ghost" type="button" id="fexp">'+E("Salin data keuangan","Copy money data")+'</button></div><textarea id="fexpt" rows="3" readonly hidden></textarea><p class="fin-impmsg" id="fexpm"></p></section>';
   var ov=overlaps(o);
   h+='<div class="bk-head"><h3>'+E("Kemungkinan transfer ganda","Possible double-counted transfers")+'</h3><span>'+(ov.p.length+ov.h.length)+'</span></div>';
   if(!ov.p.length&&!ov.h.length)return h+'<p class="td-empty">'+E("Tidak ada yang tumpang tindih. Pengeluaran dan pemasukanmu tidak terhitung dua kali.","Nothing overlaps. Your spending and income aren't counted twice.")+'</p>';
@@ -3155,6 +3173,12 @@ function uang(v,hs){
     r.querySelector(".td-del").onclick=function(){var x=fin();x.acc=x.acc.filter(function(a){return a.id!==id});delete x.ob[id];saveFin(x);re()}});
   var ig=v.querySelector("#fimpgo");if(ig)ig.onclick=function(){fimp=doImport(v.querySelector("#fimp").value);re()};
   var iu=v.querySelector("#fimpundo");if(iu)iu.onclick=function(){var x=fin(),b=x.lastImp;x.tx=x.tx.filter(function(t){return t.b!==b});x.lastImp="";saveFin(x);fimp=null;re()};
+  v.querySelectorAll("[data-dd]").forEach(function(b){b.onclick=function(){var c=b.closest(".fin-pair"),x=fin(),k=b.dataset.dd;
+    if(k==="no")x.nm.push(c.dataset.dk);else{var id=k==="old"?c.dataset.do:c.dataset.dn;x.tx=x.tx.filter(function(t){return t.id!==id})}saveFin(x);re()}});
+  var fx=v.querySelector("#fexp");if(fx)fx.onclick=function(){var txt=finExport(fin()),m=v.querySelector("#fexpm"),ta=v.querySelector("#fexpt");
+    var done=function(){m.textContent=E("Tersalin. Tempel di chat Claude.","Copied. Paste it into your Claude chat.")};
+    var manual=function(){ta.hidden=false;ta.value=txt;ta.focus();ta.select();m.textContent=E("Tekan lama teks di atas, pilih Salin semua.","Long-press the text above and copy all.")};
+    try{navigator.clipboard.writeText(txt).then(done,manual)}catch(e){manual()}};
   v.querySelectorAll(".fin-pair").forEach(function(c){c.querySelectorAll("[data-mg]").forEach(function(b){b.onclick=function(){
       if(b.dataset.mg==="1")mergePair(c.dataset.o,c.dataset.i);else{var x=fin();x.nm.push(c.dataset.o+"|"+c.dataset.i);saveFin(x)}re()}});
     c.querySelectorAll("[data-hn]").forEach(function(b){b.onclick=function(){
