@@ -3044,7 +3044,8 @@ function doImport(txt){
   var s=String(txt||"").trim().replace(/^```(?:json)?/i,"").replace(/```$/,"").trim(),j;
   try{j=JSON.parse(s)}catch(e){return{err:E("Kodenya tidak terbaca. Salin ulang seluruh kode dari Claude, mulai dari [ sampai ].","Couldn't read that code. Copy the whole code from Claude again, from [ to ].")}}
   var arr=Array.isArray(j)?j:(j&&Array.isArray(j.tx)?j.tx:null);if(!arr)return{err:E("Format tidak dikenali.","Unrecognised format.")};
-  var o=fin(),bid="i"+uid(),add=0,dup=0,bad=0;
+  var o=fin(),bid="i"+uid(),add=0,dup=0,bad=0,repl=j&&!Array.isArray(j)&&j.replace===true;
+  if(repl){o.prevTx=o.tx;o.tx=[];o.nm=[];o.lastRep=bid}
   if(j&&!Array.isArray(j)&&Array.isArray(j.akun))j.akun.forEach(function(n){accId(o,n,true)});
   arr.forEach(function(r){if(!r||typeof r!=="object"){bad++;return}
     var t=String(r.t||r.type||"out").toLowerCase().replace(/[\s_-]/g,"");t=TALIAS[t]||t;if(!TY[t]){bad++;return}
@@ -3060,14 +3061,14 @@ function doImport(txt){
     o.tx.push({id:uid(),d:d,t:t,c:c,a:a,n:n,w:w,to:to||undefined,b:bid});add++;
     var fee=amt(r.fee);if(t==="tf"&&fee)o.tx.push({id:uid(),d:d,t:"out",c:"admin",a:fee,w:w,n:"",b:bid});
   });
-  if(add)o.lastImp=bid;saveFin(o);if(add){var last=arr.map(function(r){return r&&String(r.d||r.date||"").slice(0,7)}).filter(Boolean).sort().pop();if(last)finYM=last}
-  return{add:add,dup:dup,bad:bad};
+  if(add)o.lastImp=bid;else if(repl){o.tx=o.prevTx;delete o.prevTx;delete o.lastRep}saveFin(o);if(add){var last=arr.map(function(r){return r&&String(r.d||r.date||"").slice(0,7)}).filter(Boolean).sort().pop();if(last)finYM=last}
+  return{add:add,dup:dup,bad:bad,repl:repl&&add>0};
 }
 function vImpor(o){
   var h='<section class="bk-card fin-imp"><h3>'+E("Impor dari screenshot","Import from screenshots")+'</h3><ol class="fin-steps"><li>'+E("Kirim screenshot riwayat transaksi (SeaBank, GoPay, BCA, dll.) ke Claude.","Send screenshots of your transaction history (SeaBank, GoPay, BCA, etc.) to Claude.")+'</li><li>'+E("Minta <b>kode impor Growch</b>. Claude akan menggabungkan transaksi yang sama dan menandai pindah saldo antar akunmu sebagai transfer.","Ask for a <b>Growch import code</b>. Claude merges duplicates and marks moves between your accounts as transfers.")+'</li><li>'+E("Salin kodenya, tempel di bawah, lalu ketuk Impor.","Copy the code, paste it below, then tap Import.")+'</li></ol>'+
     '<textarea id="fimp" rows="5" spellcheck="false" placeholder=\'[{"d":"2026-11-20","t":"tf","a":100000,"w":"SeaBank","to":"GoPay"}]\' aria-label="'+E("Kode impor","Import code")+'"></textarea>'+
     '<div class="fin-impact"><button class="btn" type="button" id="fimpgo">'+E("Impor","Import")+'</button>'+(o.lastImp&&o.tx.some(function(t){return t.b===o.lastImp})?'<button class="btn ghost" type="button" id="fimpundo">'+E("Batalkan impor terakhir","Undo last import")+'</button>':'')+'</div>';
-  if(fimp)h+='<p class="fin-impmsg'+(fimp.err?" bad":"")+'">'+(fimp.err||E(fimp.add+" transaksi masuk","Added "+fimp.add+" transactions")+(fimp.dup?E(", "+fimp.dup+" dilewati karena sudah ada",", skipped "+fimp.dup+" already recorded"):"")+(fimp.bad?E(", "+fimp.bad+" baris tidak terbaca",", "+fimp.bad+" unreadable rows"):"")+".")+'</p>';
+  if(fimp)h+='<p class="fin-impmsg'+(fimp.err?" bad":"")+'">'+(fimp.err||(fimp.repl?E("Semua catatan diganti dengan versi yang sudah dirapikan: "+fimp.add+" transaksi","All records replaced with the cleaned version: "+fimp.add+" transactions"):E(fimp.add+" transaksi masuk","Added "+fimp.add+" transactions"))+(fimp.dup?E(", "+fimp.dup+" dilewati karena sudah ada",", skipped "+fimp.dup+" already recorded"):"")+(fimp.bad?E(", "+fimp.bad+" baris tidak terbaca",", "+fimp.bad+" unreadable rows"):"")+".")+'</p>';
   h+='</section>';
   var db=doubles(o);
   if(db.length){h+='<div class="bk-head"><h3>'+E("Mungkin tercatat dua kali","Possibly recorded twice")+'</h3><span>'+db.length+'</span></div><p class="fin-note">'+E("Jumlahnya sama persis dan tanggalnya berdekatan (maks. 3 hari), tapi satu dari impor dan satu lagi catatan lama. Nama dan kategorinya bisa beda, misalnya kamu dulu menulis \"beli PSP\" sedangkan bank menulis nama penerima transfernya.","Same exact amount within 3 days, one from an import and one recorded earlier. Names and categories may differ, e.g. you wrote \"bought PSP\" while the bank shows the transfer recipient.")+'</p>';
@@ -3179,7 +3180,8 @@ function uang(v,hs){
     inp.onchange=function(){var x=fin(),now=accBal(x)[id]||0;x.ob[id]=(+x.ob[id]||0)+money(inp.value)-now;saveFin(x);inp.onchange=null;setTimeout(re,0)};
     r.querySelector(".td-del").onclick=function(){var x=fin();x.acc=x.acc.filter(function(a){return a.id!==id});delete x.ob[id];saveFin(x);re()}});
   var ig=v.querySelector("#fimpgo");if(ig)ig.onclick=function(){fimp=doImport(v.querySelector("#fimp").value);re()};
-  var iu=v.querySelector("#fimpundo");if(iu)iu.onclick=function(){var x=fin(),b=x.lastImp;x.tx=x.tx.filter(function(t){return t.b!==b});x.lastImp="";saveFin(x);fimp=null;re()};
+  var iu=v.querySelector("#fimpundo");if(iu)iu.onclick=function(){var x=fin(),b=x.lastImp;
+    if(x.lastRep&&x.lastRep===b&&x.prevTx){x.tx=x.prevTx;delete x.prevTx;delete x.lastRep}else x.tx=x.tx.filter(function(t){return t.b!==b});x.lastImp="";saveFin(x);fimp=null;re()};
   v.querySelectorAll("[data-dd]").forEach(function(b){b.onclick=function(){var c=b.closest(".fin-pair"),x=fin(),k=b.dataset.dd;
     if(k==="no")x.nm.push(c.dataset.dk);else{var id=k==="old"?c.dataset.do:c.dataset.dn;x.tx=x.tx.filter(function(t){return t.id!==id})}saveFin(x);re()}});
   var fx=v.querySelector("#fexp");if(fx)fx.onclick=function(){var txt=finExport(fin()),m=v.querySelector("#fexpm"),ta=v.querySelector("#fexpt");
