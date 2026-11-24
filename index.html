@@ -564,7 +564,7 @@ body[data-sec="akun"] .acctbtn{box-shadow:inset 0 0 0 2px var(--primary)}
 .fin-532 b.ok{color:var(--good)}
 .fin-note{margin:2px 0 6px;font-size:13px;color:var(--muted);line-height:1.55}
 .fin-form{padding:16px;display:flex;flex-direction:column;gap:12px}
-.fin-types{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:6px}
+.fin-types{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:6px}
 .fin-types button{border:1.5px solid var(--line);background:var(--surface);color:var(--muted);border-radius:12px;padding:9px 4px;font-size:13px;font-weight:700;cursor:pointer;line-height:1.25}
 .fin-types button[aria-pressed="true"]{border-color:var(--c);background:color-mix(in srgb,var(--c) 12%,var(--surface));color:var(--head)}
 .fin-fields{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}
@@ -577,6 +577,25 @@ body[data-sec="akun"] .acctbtn{box-shadow:inset 0 0 0 2px var(--primary)}
 .fin-ty.t-out{background:color-mix(in srgb,var(--bad) 12%,var(--surface));color:var(--bad)}
 .fin-ty.t-inv{background:color-mix(in srgb,var(--mk5) 15%,var(--surface));color:var(--mk5)}
 .fin-n{color:var(--muted)}
+.fin-ty.t-tf{background:color-mix(in srgb,var(--accent) 14%,var(--surface));color:var(--head)}
+.fin-amt.tf{color:var(--muted)}
+.fin-w{font-style:normal;font-size:12px;font-weight:700;color:var(--muted);background:var(--soft);border-radius:6px;padding:1px 6px}
+.fin-note.wide{grid-column:1/-1;margin:0}
+.fin-ab{grid-template-columns:minmax(0,1fr) auto}
+.fin-acc{padding:14px 16px;display:flex;flex-direction:column;gap:10px}
+.fin-accrow{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,150px) auto 32px;align-items:center;gap:10px;padding-bottom:10px;border-bottom:1px solid var(--line)}
+.fin-accrow label{display:flex;flex-direction:column;gap:4px;font-size:12px;font-weight:700;color:var(--muted)}
+.fin-accrow input,.fin-accadd input,.fin-imp textarea{border:1.5px solid var(--line);background:var(--surface);color:var(--ink);border-radius:10px;padding:8px 10px;font:inherit;font-size:14px;min-width:0;width:100%}
+.fin-accbal{font-size:13px;color:var(--muted);white-space:nowrap}.fin-accbal b{color:var(--head);font-variant-numeric:tabular-nums}
+.fin-accadd{display:flex;gap:8px}.fin-accadd .btn{flex:none}
+.fin-imp{padding:16px 18px;display:flex;flex-direction:column;gap:10px}.fin-imp h3{margin:0;font-size:18px}
+.fin-imp textarea{font-family:ui-monospace,Menlo,Consolas,monospace;font-size:13px;resize:vertical}
+.fin-steps{margin:0;padding-left:20px;display:flex;flex-direction:column;gap:4px;line-height:1.55;font-size:14px}
+.fin-impact{display:flex;gap:8px;flex-wrap:wrap}
+.fin-impmsg{margin:0;font-size:14px;font-weight:700;color:var(--good)}.fin-impmsg.bad{color:var(--bad)}
+.fin-pair{padding:12px 14px;display:flex;flex-direction:column;gap:8px;margin-bottom:10px}
+.fin-pair .td-list{margin:0}
+a.fin-ovl{display:block;text-decoration:none;color:inherit}
 .fin-amt{flex:none;font-variant-numeric:tabular-nums;font-size:14px}.fin-amt.pos{color:var(--good)}
 .fs{padding:16px 20px}
 .fs h3{margin:4px 0 2px;font-size:18px}
@@ -586,7 +605,7 @@ body[data-sec="akun"] .acctbtn{box-shadow:inset 0 0 0 2px var(--primary)}
 .fs-row.tot b,.fs-row.tot span{font-weight:800}
 .fs-row.grand{border-top:2px solid var(--head);font-size:16px}.fs-row.grand b,.fs-row.grand span{font-weight:800;color:var(--head)}
 .fs-row.neg b{color:var(--bad)}
-@media (max-width:640px){.bk-tiles.four{grid-template-columns:repeat(2,minmax(0,1fr))}.fin-types{grid-template-columns:repeat(3,minmax(0,1fr))}.fin-fields{grid-template-columns:minmax(0,1fr) minmax(0,1fr)}.fin-bar{grid-template-columns:minmax(0,96px) minmax(0,1fr) auto;gap:8px}.fin-ty{min-width:0}}
+@media (max-width:640px){.bk-tiles.four{grid-template-columns:repeat(2,minmax(0,1fr))}.fin-types{grid-template-columns:repeat(3,minmax(0,1fr))}.fin-fields{grid-template-columns:minmax(0,1fr) minmax(0,1fr)}.fin-bar{grid-template-columns:minmax(0,96px) minmax(0,1fr) auto;gap:8px}.fin-ty{min-width:0}.fin-ab{grid-template-columns:minmax(0,1fr) auto}.fin-accrow{grid-template-columns:minmax(0,1fr) 32px}.fin-accrow label,.fin-accbal{grid-column:1/2}.fin-accrow .td-del{grid-column:2;grid-row:1}}
 /* gym editor */
 .ga-days{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:6px;padding:14px 16px}
 .ga-days label{display:flex;flex-direction:column;gap:4px;font-size:12px;font-weight:800;color:var(--muted);text-align:center;min-width:0}
@@ -2895,22 +2914,50 @@ function todo(v,hs){
 }
 
 /* ---------- KEUANGAN ---------- */
-function fin(){var o=lget("fin_v1",null);if(!o||typeof o!=="object")o={};if(!Array.isArray(o.tx))o.tx=[];o.open=+o.open||0;return o}
+function fin(){var o=lget("fin_v1",null);if(!o||typeof o!=="object")o={};if(!Array.isArray(o.tx))o.tx=[];o.open=+o.open||0;
+  if(!Array.isArray(o.acc))o.acc=[];if(!o.ob||typeof o.ob!=="object")o.ob={};if(!Array.isArray(o.nm))o.nm=[];return o}
 function saveFin(o){lset("fin_v1",o)}
 function rp(n){var s=Math.round(Math.abs(n)).toLocaleString("id-ID");return(n<0?"−":"")+"Rp"+s}
-var TY={in:{id:"Pemasukan",en:"Income",sg:1},out:{id:"Pengeluaran",en:"Expense",sg:-1},inv:{id:"Investasi",en:"Investment",sg:-1},debt:{id:"Pinjam / utang",en:"Borrow",sg:1},pay:{id:"Bayar utang",en:"Repay debt",sg:-1}};
+var TY={in:{id:"Pemasukan",en:"Income",sg:1},out:{id:"Pengeluaran",en:"Expense",sg:-1},inv:{id:"Investasi",en:"Investment",sg:-1},debt:{id:"Pinjam / utang",en:"Borrow",sg:1},pay:{id:"Bayar utang",en:"Repay debt",sg:-1},tf:{id:"Transfer",en:"Transfer",sg:0}};
 var CAT={
  in:[["gaji","Gaji / uang saku","Salary / allowance"],["bonus","Bonus","Bonus"],["usaha","Usaha / freelance","Business / freelance"],["hadiah","Hadiah","Gift"],["lain","Lainnya","Other"]],
- out:[["makan","Makan & minum","Food & drink","n"],["transport","Transportasi","Transport","n"],["tinggal","Kos / tempat tinggal","Rent / housing","n"],["tagihan","Tagihan & pulsa","Bills & phone","n"],["sehat","Kesehatan","Health","n"],["belajar","Pendidikan","Education","n"],["belanja","Belanja","Shopping","w"],["hiburan","Hiburan & langganan","Fun & subscriptions","w"],["nongkrong","Nongkrong","Hanging out","w"],["lainout","Lainnya","Other","w"]],
+ out:[["makan","Makan & minum","Food & drink","n"],["transport","Transportasi","Transport","n"],["tinggal","Kos / tempat tinggal","Rent / housing","n"],["tagihan","Tagihan & pulsa","Bills & phone","n"],["sehat","Kesehatan","Health","n"],["belajar","Pendidikan","Education","n"],["belanja","Belanja","Shopping","w"],["hiburan","Hiburan & langganan","Fun & subscriptions","w"],["admin","Biaya admin & transfer","Fees & transfer charges","n"],["nongkrong","Nongkrong","Hanging out","w"],["lainout","Lainnya","Other","w"]],
  inv:[["reksadana","Reksa dana","Mutual fund"],["saham","Saham","Stocks"],["emas","Emas","Gold"],["deposito","Deposito / tabungan","Deposit / savings"],["laininv","Lainnya","Other"]],
  debt:[["pinjaman","Pinjaman","Loan"],["paylater","Paylater","Paylater"],["kk","Kartu kredit","Credit card"]],
- pay:[["pinjaman","Pinjaman","Loan"],["paylater","Paylater","Paylater"],["kk","Kartu kredit","Credit card"]]};
+ pay:[["pinjaman","Pinjaman","Loan"],["paylater","Paylater","Paylater"],["kk","Kartu kredit","Credit card"]],
+ tf:[["tf","Pindah saldo","Move money"]]};
 function catName(t,c){var l=CAT[t]||[];for(var i=0;i<l.length;i++)if(l[i][0]===c)return en()?l[i][2]:l[i][1];return c}
 function catKind(c){var l=CAT.out;for(var i=0;i<l.length;i++)if(l[i][0]===c)return l[i][3];return"w"}
-var finYM=null,ftype="out";
-function sums(tx){var s={in:0,out:0,inv:0,debt:0,pay:0};tx.forEach(function(t){s[t.t]+=t.a});return s}
+var finYM=null,ftype="out",facc="",fimp=null;
+/* accounts (SeaBank, GoPay, BCA, ...) */
+function accName(o,id){for(var i=0;i<o.acc.length;i++)if(o.acc[i].id===id)return o.acc[i].n;return""}
+function accId(o,name,make){name=String(name||"").trim().slice(0,30);if(!name)return"";var k=name.toLowerCase();
+  for(var i=0;i<o.acc.length;i++)if(o.acc[i].n.toLowerCase()===k)return o.acc[i].id;
+  if(!make)return"";var id="a"+uid();o.acc.push({id:id,n:name});return id}
+function accBal(o){var b={};o.acc.forEach(function(a){b[a.id]=+o.ob[a.id]||0});
+  o.tx.forEach(function(t){if(t.t==="tf"){if(t.w in b)b[t.w]-=t.a;if(t.to in b)b[t.to]+=t.a}else if(t.w in b)b[t.w]+=TY[t.t].sg*t.a});return b}
+function accOpts(o,sel,none){return(none?'<option value="">'+none+'</option>':'')+o.acc.map(function(a){return'<option value="'+a.id+'"'+(a.id===sel?" selected":"")+'>'+esc(a.n)+'</option>'}).join("")}
+/* overlap finder: money that left one of your accounts and landed in another is a transfer, not spending + income */
+function dayGap(a,b){return Math.abs((Date.parse(a)-Date.parse(b))/864e5)}
+var FEEMAX=10000;
+function overlaps(o){
+  var no={};o.nm.forEach(function(k){no[k]=1});
+  var outs=o.tx.filter(function(t){return t.t==="out"&&t.w}),ins=o.tx.filter(function(t){return t.t==="in"&&t.w}),c=[],used={},pairs=[],hints=[];
+  outs.forEach(function(x){ins.forEach(function(y){if(x.w===y.w||no[x.id+"|"+y.id])return;var f=x.a-y.a,g=dayGap(x.d,y.d);if(f<0||f>FEEMAX||g>1)return;c.push([x,y,f/FEEMAX+g])})});
+  c.sort(function(p,q){return p[2]-q[2]}).forEach(function(p){if(used[p[0].id]||used[p[1].id])return;used[p[0].id]=used[p[1].id]=1;pairs.push({o:p[0],i:p[1]})});
+  o.tx.forEach(function(t){if(used[t.id]||no[t.id]||(t.t!=="out"&&t.t!=="in")||!t.n)return;var n=t.n.toLowerCase();
+    var hit=o.acc.filter(function(a){return a.id!==t.w&&n.indexOf(a.n.toLowerCase())>=0})[0];if(hit)hints.push({t:t,a:hit})});
+  return{p:pairs,h:hints};
+}
+function mergePair(oid,iid){var o=fin(),x=null,y=null;o.tx.forEach(function(t){if(t.id===oid)x=t;if(t.id===iid)y=t});if(!x||!y)return;
+  o.tx=o.tx.filter(function(t){return t!==x&&t!==y});
+  o.tx.push({id:uid(),d:x.d,t:"tf",c:"tf",a:y.a,w:x.w,to:y.w,n:x.n||y.n||"",b:x.b||y.b});
+  if(x.a>y.a)o.tx.push({id:uid(),d:x.d,t:"out",c:"admin",a:x.a-y.a,w:x.w,n:"",b:x.b});
+  saveFin(o)}
+function hintToTf(tid,aid){var o=fin();o.tx.forEach(function(t){if(t.id!==tid)return;var from=t.t==="out"?t.w:aid,to=t.t==="out"?aid:t.w;t.t="tf";t.c="tf";t.w=from;t.to=to});saveFin(o)}
+function sums(tx){var s={in:0,out:0,inv:0,debt:0,pay:0,tf:0};tx.forEach(function(t){s[t.t]+=t.a});return s}
 function balances(o,upto){ /* balances at end of a date (inclusive), at cost */
-  var cash=o.open,inv=0,debt=0;o.tx.forEach(function(t){if(upto&&t.d>upto)return;cash+=TY[t.t].sg*t.a;if(t.t==="inv")inv+=t.a;if(t.t==="debt")debt+=t.a;if(t.t==="pay")debt-=t.a});
+  var cash=o.open,inv=0,debt=0;o.acc.forEach(function(a){cash+=+o.ob[a.id]||0});o.tx.forEach(function(t){if(upto&&t.d>upto)return;cash+=TY[t.t].sg*t.a;if(t.t==="inv")inv+=t.a;if(t.t==="debt")debt+=t.a;if(t.t==="pay")debt-=t.a});
   return{cash:cash,inv:inv,debt:Math.max(0,debt),net:cash+inv-Math.max(0,debt)};
 }
 function monthTx(o,ym){return o.tx.filter(function(t){return t.d.slice(0,7)===ym})}
@@ -2920,6 +2967,10 @@ function vRingkas(o){
   var tx=monthTx(o,finYM),s=sums(tx),sur=s.in-s.out,sr=s.in>0?Math.round((sur)/s.in*100):null,end=finYM+"-31",b=balances(o,end);
   var h=monthNav()+'<div class="bk-tiles">'+tile(E("Pemasukan","Income"),rp(s.in),"")+tile(E("Pengeluaran","Expenses"),rp(s.out),"")+tile(E("Sisa (surplus)","Surplus"),rp(sur),sr!=null?E("Rasio tabungan ","Savings rate ")+sr+"%":"",sur<0?"neg":"")+'</div>';
   h+='<div class="bk-tiles four">'+tile(E("Uang tunai & rekening","Cash & bank"),rp(b.cash),"")+tile(E("Investasi","Investments"),rp(b.inv),E("harga beli","at cost"))+tile(E("Utang","Debt"),rp(b.debt),"",b.debt?"neg":"")+tile(E("Kekayaan bersih","Net worth"),rp(b.net),E("aset − utang","assets − debt"))+'</div>';
+  if(o.acc.length){var ab=accBal(o);h+='<div class="bk-head"><h3>'+E("Saldo per akun","Balance by account")+'</h3><span>'+E("saat ini","now")+'</span></div><div class="bk-card fin-bars">'+
+    o.acc.map(function(a){return'<div class="fin-bar fin-ab"><span>'+esc(a.n)+'</span><b'+(ab[a.id]<0?' class="neg"':'')+'>'+rp(ab[a.id])+'</b></div>'}).join("")+'</div>'}
+  var ov=overlaps(o),nov=ov.p.length+ov.h.length;
+  if(nov)h+='<a class="bk-tip warn fin-ovl" href="#uang-impor"><b>'+E(nov+" kemungkinan transfer antar akun",nov+" possible transfers between your accounts")+'</b>'+E("Uang yang cuma pindah akun (misalnya SeaBank → GoPay) jangan dihitung sebagai pengeluaran. Ketuk untuk cek.","Money that only moved between accounts (e.g. SeaBank → GoPay) shouldn't count as spending. Tap to review.")+'</a>';
   // spending by category
   var by={};tx.forEach(function(t){if(t.t==="out")by[t.c]=(by[t.c]||0)+t.a});var keys=Object.keys(by).sort(function(a,c){return by[c]-by[a]}),mx=keys.length?by[keys[0]]:1;
   h+='<div class="bk-head"><h3>'+E("Ke mana uangmu pergi","Where your money went")+'</h3><span>'+E("pengeluaran bulan ini","this month's spending")+'</span></div>';
@@ -2937,16 +2988,73 @@ function vRingkas(o){
   return h;
 }
 function vCatat(o){
-  var types=["out","in","inv","debt","pay"],tx=monthTx(o,finYM).slice().sort(function(a,b){return a.d<b.d?1:a.d>b.d?-1:0});
+  var types=["out","in","tf","inv","debt","pay"],tx=monthTx(o,finYM).slice().sort(function(a,b){return a.d<b.d?1:a.d>b.d?-1:0});
   var h='<form class="bk-card fin-form" id="finf"><div class="fin-types" role="group" aria-label="'+E("Jenis","Type")+'">'+types.map(function(t){return'<button type="button" data-ty="'+t+'" aria-pressed="'+(ftype===t)+'">'+L(TY[t])+'</button>'}).join("")+'</div>'+
     '<div class="fin-fields"><label>'+E("Jumlah (Rp)","Amount (Rp)")+'<input id="fa" inputmode="numeric" autocomplete="off" placeholder="50.000"></label>'+
-    '<label>'+E("Kategori","Category")+'<select id="fc">'+CAT[ftype].map(function(c){return'<option value="'+c[0]+'">'+(en()?c[2]:c[1])+'</option>'}).join("")+'</select></label>'+
+    (ftype==="tf"?(o.acc.length<2?'<p class="fin-note wide">'+E("Tambahkan minimal 2 akun dulu (di bagian Akun & dompet di bawah), misalnya SeaBank dan GoPay.","Add at least 2 accounts first (in Accounts & wallets below), e.g. SeaBank and GoPay.")+'</p>':'')+
+      '<label>'+E("Dari akun","From")+'<select id="fw">'+accOpts(o,facc)+'</select></label><label>'+E("Ke akun","To")+'<select id="ft">'+accOpts(o,"")+'</select></label>'+
+      '<label>'+E("Biaya admin (opsional)","Fee (optional)")+'<input id="ffee" inputmode="numeric" autocomplete="off" placeholder="0"></label>'
+    :'<label>'+E("Kategori","Category")+'<select id="fc">'+CAT[ftype].map(function(c){return'<option value="'+c[0]+'">'+(en()?c[2]:c[1])+'</option>'}).join("")+'</select></label>'+
+      (o.acc.length?'<label>'+E("Akun","Account")+'<select id="fw">'+accOpts(o,facc,"—")+'</select></label>':''))+
     '<label>'+E("Tanggal","Date")+'<input id="fd" type="date" value="'+(today().slice(0,7)===finYM?today():finYM+"-01")+'"></label>'+
     '<label class="wide">'+E("Catatan (opsional)","Note (optional)")+'<input id="fn" type="text" maxlength="120" placeholder="'+E("misalnya: makan siang kampus","e.g. campus lunch")+'"></label></div>'+
     '<p class="bk-err" id="ferr"></p><button class="btn" type="submit">'+E("Simpan","Save")+'</button></form>';
   h+=monthNav()+'<div class="bk-head"><h3>'+E("Transaksi","Transactions")+'</h3><span>'+tx.length+'</span></div>';
-  h+=tx.length?'<ul class="td-list fin-list">'+tx.map(function(t){return'<li class="td-it" data-id="'+t.id+'"><span class="fin-ty t-'+t.t+'">'+L(TY[t.t]).split(" ")[0]+'</span><div class="td-tx"><span class="td-t">'+esc(catName(t.t,t.c))+(t.n?' · <span class="fin-n">'+esc(t.n)+'</span>':'')+'</span><span class="td-meta"><i class="td-dt">'+fdate(t.d)+'</i></span></div><b class="fin-amt '+(TY[t.t].sg>0?"pos":"")+'">'+(TY[t.t].sg>0?"+":"−")+rp(t.a)+'</b><button class="td-del" type="button" aria-label="'+E("Hapus","Delete")+'">'+X+'</button></li>'}).join("")+'</ul>':'<p class="td-empty">'+E("Belum ada transaksi di bulan ini.","No transactions this month.")+'</p>';
-  h+='<form class="bk-card fin-open" id="fopen"><label>'+E("Saldo awal (uang yang sudah kamu punya sebelum mulai mencatat)","Opening balance (money you had before you started tracking)")+'<input id="fo" inputmode="numeric" value="'+(o.open?Math.round(o.open).toLocaleString("id-ID"):"")+'" placeholder="0"></label><button class="btn ghost" type="submit">'+E("Simpan saldo awal","Save opening balance")+'</button></form>';
+  h+=tx.length?'<ul class="td-list fin-list">'+tx.map(function(t){return txRow(o,t,true)}).join("")+'</ul>':'<p class="td-empty">'+E("Belum ada transaksi di bulan ini.","No transactions this month.")+'</p>';
+  h+=vAcc(o);
+  h+='<form class="bk-card fin-open" id="fopen"><label>'+(o.acc.length?E("Saldo awal di luar akun (misalnya uang tunai di dompet)","Opening balance outside your accounts (e.g. cash in your wallet)"):E("Saldo awal (uang yang sudah kamu punya sebelum mulai mencatat)","Opening balance (money you had before you started tracking)"))+'<input id="fo" inputmode="numeric" value="'+(o.open?Math.round(o.open).toLocaleString("id-ID"):"")+'" placeholder="0"></label><button class="btn ghost" type="submit">'+E("Simpan saldo awal","Save opening balance")+'</button></form>';
+  return h;
+}
+function txRow(o,t,del){
+  var tf=t.t==="tf",an=t.w?accName(o,t.w):"",title=tf?esc(accName(o,t.w)||"?")+' → '+esc(accName(o,t.to)||"?"):esc(catName(t.t,t.c));
+  return'<li class="td-it" data-id="'+t.id+'"><span class="fin-ty t-'+t.t+'">'+L(TY[t.t]).split(" ")[0]+'</span><div class="td-tx"><span class="td-t">'+title+(t.n?' · <span class="fin-n">'+esc(t.n)+'</span>':'')+'</span><span class="td-meta"><i class="td-dt">'+fdate(t.d)+'</i>'+(!tf&&an?'<i class="fin-w">'+esc(an)+'</i>':'')+'</span></div>'+
+    '<b class="fin-amt '+(tf?"tf":TY[t.t].sg>0?"pos":"")+'">'+(tf?"":TY[t.t].sg>0?"+":"−")+rp(t.a)+'</b>'+(del?'<button class="td-del" type="button" aria-label="'+E("Hapus","Delete")+'">'+X+'</button>':'')+'</li>'}
+function vAcc(o){
+  var b=accBal(o),h='<div class="bk-head"><h3>'+E("Akun & dompet","Accounts & wallets")+'</h3><span>'+o.acc.length+'</span></div><div class="bk-card fin-acc">';
+  h+=o.acc.length?o.acc.map(function(a){return'<div class="fin-accrow" data-acc="'+a.id+'"><b>'+esc(a.n)+'</b><label>'+E("Saldo awal","Opening")+'<input class="fob" inputmode="numeric" value="'+(o.ob[a.id]?Math.round(o.ob[a.id]).toLocaleString("id-ID"):"")+'" placeholder="0"></label><span class="fin-accbal">'+E("Sekarang ","Now ")+'<b>'+rp(b[a.id])+'</b></span><button class="td-del" type="button" aria-label="'+E("Hapus akun","Delete account")+'">'+X+'</button></div>'}).join("")
+    :'<p class="fin-note">'+E("Tambahkan rekening dan e-wallet yang kamu pakai. Dengan begitu, pindah saldo antar akunmu (misalnya SeaBank → GoPay) tercatat sebagai transfer, bukan pengeluaran.","Add the bank accounts and e-wallets you use, so moving money between them (e.g. SeaBank → GoPay) counts as a transfer, not spending.")+'</p>';
+  return h+'<form class="fin-accadd" id="faccf"><input id="facn" type="text" maxlength="30" autocomplete="off" placeholder="SeaBank, GoPay, BCA…" aria-label="'+E("Nama akun","Account name")+'"><button class="btn ghost" type="submit">'+E("Tambah akun","Add account")+'</button></form></div>';
+}
+/* ===== import (from screenshots read by Claude) ===== */
+var TALIAS={keluar:"out",pengeluaran:"out",expense:"out",masuk:"in",pemasukan:"in",income:"in",transfer:"tf",pindah:"tf",investasi:"inv",investment:"inv",utang:"debt",pinjam:"debt",borrow:"debt",bayarutang:"pay",repay:"pay"};
+var CDEF={in:"lain",out:"lainout",inv:"laininv",debt:"pinjaman",pay:"pinjaman",tf:"tf"};
+function amt(v){if(typeof v==="number")return Math.round(Math.abs(v));var s=String(v==null?"":v).replace(/[.,]00$/,"");return+(s.replace(/[^\d]/g,""))||0}
+function doImport(txt){
+  var s=String(txt||"").trim().replace(/^```(?:json)?/i,"").replace(/```$/,"").trim(),j;
+  try{j=JSON.parse(s)}catch(e){return{err:E("Kodenya tidak terbaca. Salin ulang seluruh kode dari Claude, mulai dari [ sampai ].","Couldn't read that code. Copy the whole code from Claude again, from [ to ].")}}
+  var arr=Array.isArray(j)?j:(j&&Array.isArray(j.tx)?j.tx:null);if(!arr)return{err:E("Format tidak dikenali.","Unrecognised format.")};
+  var o=fin(),bid="i"+uid(),add=0,dup=0,bad=0;
+  if(j&&!Array.isArray(j)&&Array.isArray(j.akun))j.akun.forEach(function(n){accId(o,n,true)});
+  arr.forEach(function(r){if(!r||typeof r!=="object"){bad++;return}
+    var t=String(r.t||r.type||"out").toLowerCase().replace(/[\s_-]/g,"");t=TALIAS[t]||t;if(!TY[t]){bad++;return}
+    var a=amt(r.a!=null?r.a:r.amount),d=String(r.d||r.date||"").slice(0,10);if(!a||!/^\d{4}-\d{2}-\d{2}$/.test(d)){bad++;return}
+    var w=accId(o,r.w||r.akun||r.from,true),to=t==="tf"?accId(o,r.to||r.ke,true):"";if(t==="tf"&&(!w||!to||w===to)){bad++;return}
+    var c=String(r.c||"");if(!(CAT[t]||[]).some(function(x){return x[0]===c}))c=CDEF[t];
+    if(o.tx.some(function(x){if(x.t===t&&x.a===a&&x.d===d&&(x.w||"")===w&&(t!=="tf"||x.to===to))return true;
+      /* half of a transfer that was already merged */
+      if(x.t!=="tf"||!w||dayGap(x.d,d)>1)return false;
+      if(t==="out")return x.w===w&&a>=x.a&&a-x.a<=FEEMAX;
+      if(t==="in")return x.to===w&&a===x.a;return false})){dup++;return}
+    var n=String(r.n||r.note||"").slice(0,120);o.tx.push({id:uid(),d:d,t:t,c:c,a:a,n:n,w:w,to:to||undefined,b:bid});add++;
+    var fee=amt(r.fee);if(t==="tf"&&fee)o.tx.push({id:uid(),d:d,t:"out",c:"admin",a:fee,w:w,n:"",b:bid});
+  });
+  if(add)o.lastImp=bid;saveFin(o);if(add){var last=arr.map(function(r){return r&&String(r.d||r.date||"").slice(0,7)}).filter(Boolean).sort().pop();if(last)finYM=last}
+  return{add:add,dup:dup,bad:bad};
+}
+function vImpor(o){
+  var h='<section class="bk-card fin-imp"><h3>'+E("Impor dari screenshot","Import from screenshots")+'</h3><ol class="fin-steps"><li>'+E("Kirim screenshot riwayat transaksi (SeaBank, GoPay, BCA, dll.) ke Claude.","Send screenshots of your transaction history (SeaBank, GoPay, BCA, etc.) to Claude.")+'</li><li>'+E("Minta <b>kode impor Growch</b>. Claude akan menggabungkan transaksi yang sama dan menandai pindah saldo antar akunmu sebagai transfer.","Ask for a <b>Growch import code</b>. Claude merges duplicates and marks moves between your accounts as transfers.")+'</li><li>'+E("Salin kodenya, tempel di bawah, lalu ketuk Impor.","Copy the code, paste it below, then tap Import.")+'</li></ol>'+
+    '<textarea id="fimp" rows="5" spellcheck="false" placeholder=\'[{"d":"2026-11-20","t":"tf","a":100000,"w":"SeaBank","to":"GoPay"}]\' aria-label="'+E("Kode impor","Import code")+'"></textarea>'+
+    '<div class="fin-impact"><button class="btn" type="button" id="fimpgo">'+E("Impor","Import")+'</button>'+(o.lastImp&&o.tx.some(function(t){return t.b===o.lastImp})?'<button class="btn ghost" type="button" id="fimpundo">'+E("Batalkan impor terakhir","Undo last import")+'</button>':'')+'</div>';
+  if(fimp)h+='<p class="fin-impmsg'+(fimp.err?" bad":"")+'">'+(fimp.err||E(fimp.add+" transaksi masuk","Added "+fimp.add+" transactions")+(fimp.dup?E(", "+fimp.dup+" dilewati karena sudah ada",", skipped "+fimp.dup+" already recorded"):"")+(fimp.bad?E(", "+fimp.bad+" baris tidak terbaca",", "+fimp.bad+" unreadable rows"):"")+".")+'</p>';
+  h+='</section>';
+  var ov=overlaps(o);
+  h+='<div class="bk-head"><h3>'+E("Kemungkinan transfer ganda","Possible double-counted transfers")+'</h3><span>'+(ov.p.length+ov.h.length)+'</span></div>';
+  if(!ov.p.length&&!ov.h.length)return h+'<p class="td-empty">'+E("Tidak ada yang tumpang tindih. Pengeluaran dan pemasukanmu tidak terhitung dua kali.","Nothing overlaps. Your spending and income aren't counted twice.")+'</p>';
+  h+='<p class="fin-note">'+E("Uang keluar dari satu akunmu dan masuk ke akunmu yang lain di hari yang sama atau berdekatan, dengan jumlah yang sama (selisih maks. Rp10.000 dianggap biaya admin). Gabungkan supaya tidak terhitung sebagai pengeluaran dan pemasukan.","Money left one of your accounts and arrived in another within a day, same amount (a gap up to Rp10,000 is treated as a fee). Merge so it isn't counted as both spending and income.")+'</p>';
+  ov.p.forEach(function(p){var fee=p.o.a-p.i.a;
+    h+='<div class="bk-card fin-pair" data-o="'+p.o.id+'" data-i="'+p.i.id+'"><ul class="td-list fin-list">'+txRow(o,p.o,false)+txRow(o,p.i,false)+'</ul><p class="fin-note">'+E("Jadi: transfer ","Becomes: transfer ")+'<b>'+esc(accName(o,p.o.w))+' → '+esc(accName(o,p.i.w))+' '+rp(p.i.a)+'</b>'+(fee?E(" + biaya admin "," + fee ")+rp(fee):"")+'</p><div class="fin-impact"><button class="btn" type="button" data-mg="1">'+E("Gabung jadi transfer","Merge into transfer")+'</button><button class="btn ghost" type="button" data-mg="0">'+E("Bukan, biarkan","No, keep both")+'</button></div></div>'});
+  ov.h.forEach(function(x){var t=x.t,out=t.t==="out";
+    h+='<div class="bk-card fin-pair" data-h="'+t.id+'" data-a="'+x.a.id+'"><ul class="td-list fin-list">'+txRow(o,t,false)+'</ul><p class="fin-note">'+E("Catatannya menyebut ","The note mentions ")+'<b>'+esc(x.a.n)+'</b>'+E(", tapi pasangannya belum tercatat. Mungkin ini transfer "+(out?"ke ":"dari ")+esc(x.a.n)+".",", but its other half isn't recorded. This may be a transfer "+(out?"to ":"from ")+esc(x.a.n)+".")+'</p><div class="fin-impact"><button class="btn" type="button" data-hn="1">'+E("Ubah jadi transfer","Make it a transfer")+'</button><button class="btn ghost" type="button" data-hn="0">'+E("Bukan","No")+'</button></div></div>'});
   return h;
 }
 function row(l,v,cls){return'<div class="fs-row'+(cls?" "+cls:"")+'"><span>'+l+'</span><b>'+v+'</b></div>'}
@@ -3022,8 +3130,8 @@ function uang(v,hs){
   var b=balances(o);
   v.innerHTML='<div class="app fin"><div class="banner"><span class="ico">'+ICO_FIN+'</span><div><h1>'+E("Keuangan","Money")+'</h1><p>'+E("Catat pemasukan, pengeluaran, investasi, dan utang. Laporan keuangannya disusun otomatis dengan bahasa sederhana.","Track income, spending, investments and debt. Financial reports are built for you in plain language.")+'</p>'+
     '<div class="app-stats"><span>'+E("Kekayaan bersih","Net worth")+' <b>'+rp(b.net)+'</b></span><span>'+E("Kas","Cash")+' <b>'+rp(b.cash)+'</b></span></div></div></div>'+
-    tabs([["",E("Ringkasan","Overview")],["catat",E("Catat","Record")],["mingguan",E("Mingguan","Weekly")],["laporan",E("Laporan bulanan","Monthly reports")]],sub,"uang")+
-    (sub==="catat"?vCatat(o):sub==="mingguan"?vMingguan(o):sub==="laporan"?vLaporan(o):vRingkas(o))+'<p class="bk-note">'+E("Data keuangan tersimpan di browser ini, atau di akunmu kalau kamu masuk.","Your money data is saved in this browser, or in your account when signed in.")+'</p></div>';
+    tabs([["",E("Ringkasan","Overview")],["catat",E("Catat","Record")],["mingguan",E("Mingguan","Weekly")],["laporan",E("Laporan bulanan","Monthly reports")],["impor",E("Impor","Import")]],sub,"uang")+
+    (sub==="impor"?vImpor(o):sub==="catat"?vCatat(o):sub==="mingguan"?vMingguan(o):sub==="laporan"?vLaporan(o):vRingkas(o))+'<p class="bk-note">'+E("Data keuangan tersimpan di browser ini, atau di akunmu kalau kamu masuk.","Your money data is saved in this browser, or in your account when signed in.")+'</p></div>';
   bindTabs(v);var re=function(){uang(v,hs)};
   v.querySelectorAll("[data-fw]").forEach(function(x){x.onclick=function(){fwOff=Math.min(0,fwOff+(+x.dataset.fw));re()}});
   v.querySelectorAll("[data-fm]").forEach(function(x){x.onclick=function(){finYM=shiftMonth(finYM,+x.dataset.fm);re()}});
@@ -3031,9 +3139,25 @@ function uang(v,hs){
   function money(s){return+(String(s).replace(/[^\d]/g,""))||0}
   var fa=v.querySelector("#fa");if(fa)fa.oninput=function(){var n=money(fa.value);fa.value=n?n.toLocaleString("id-ID"):""};
   var fo=v.querySelector("#fo");if(fo)fo.oninput=function(){var n=money(fo.value);fo.value=n?n.toLocaleString("id-ID"):""};
+  var fee=v.querySelector("#ffee");if(fee)fee.oninput=function(){var n=money(fee.value);fee.value=n?n.toLocaleString("id-ID"):""};
   var ff=v.querySelector("#finf");if(ff)ff.onsubmit=function(e){e.preventDefault();var a=money(fa.value),er=v.querySelector("#ferr");
     if(!a){er.textContent=E("Isi jumlahnya dulu, misalnya 50.000.","Enter an amount first, e.g. 50,000.");fa.focus();return}
-    var d=v.querySelector("#fd").value||today(),x=fin();x.tx.push({id:uid(),d:d,t:ftype,c:v.querySelector("#fc").value,a:a,n:v.querySelector("#fn").value.trim()});saveFin(x);finYM=d.slice(0,7);re();var z=v.querySelector("#fa");if(z)z.focus()};
+    var d=v.querySelector("#fd").value||today(),x=fin(),fw=v.querySelector("#fw"),w=fw?fw.value:"",n=v.querySelector("#fn").value.trim();
+    if(ftype==="tf"){var to=v.querySelector("#ft").value;if(!w||!to||w===to){er.textContent=E("Pilih dua akun yang berbeda.","Pick two different accounts.");return}
+      x.tx.push({id:uid(),d:d,t:"tf",c:"tf",a:a,w:w,to:to,n:n});var fe=money(fee.value);if(fe)x.tx.push({id:uid(),d:d,t:"out",c:"admin",a:fe,w:w,n:""})}
+    else x.tx.push({id:uid(),d:d,t:ftype,c:v.querySelector("#fc").value,a:a,w:w,n:n});
+    facc=w;saveFin(x);finYM=d.slice(0,7);re();var z=v.querySelector("#fa");if(z)z.focus()};
+  var fac=v.querySelector("#faccf");if(fac)fac.onsubmit=function(e){e.preventDefault();var n=v.querySelector("#facn").value.trim();if(!n)return;var x=fin();accId(x,n,true);saveFin(x);re()};
+  v.querySelectorAll(".fin-accrow").forEach(function(r){var id=r.dataset.acc,inp=r.querySelector(".fob");
+    inp.oninput=function(){var n=money(inp.value);inp.value=n?n.toLocaleString("id-ID"):""};
+    inp.onchange=function(){var x=fin();x.ob[id]=money(inp.value);saveFin(x);re()};
+    r.querySelector(".td-del").onclick=function(){var x=fin();x.acc=x.acc.filter(function(a){return a.id!==id});delete x.ob[id];saveFin(x);re()}});
+  var ig=v.querySelector("#fimpgo");if(ig)ig.onclick=function(){fimp=doImport(v.querySelector("#fimp").value);re()};
+  var iu=v.querySelector("#fimpundo");if(iu)iu.onclick=function(){var x=fin(),b=x.lastImp;x.tx=x.tx.filter(function(t){return t.b!==b});x.lastImp="";saveFin(x);fimp=null;re()};
+  v.querySelectorAll(".fin-pair").forEach(function(c){c.querySelectorAll("[data-mg]").forEach(function(b){b.onclick=function(){
+      if(b.dataset.mg==="1")mergePair(c.dataset.o,c.dataset.i);else{var x=fin();x.nm.push(c.dataset.o+"|"+c.dataset.i);saveFin(x)}re()}});
+    c.querySelectorAll("[data-hn]").forEach(function(b){b.onclick=function(){
+      if(b.dataset.hn==="1")hintToTf(c.dataset.h,c.dataset.a);else{var x=fin();x.nm.push(c.dataset.h);saveFin(x)}re()}})});
   var fp=v.querySelector("#fopen");if(fp)fp.onsubmit=function(e){e.preventDefault();var x=fin();x.open=money(fo.value);saveFin(x);re()};
   v.querySelectorAll(".fin-list .td-it").forEach(function(li){var dl=li.querySelector(".td-del");if(dl)dl.onclick=function(){var x=fin();x.tx=x.tx.filter(function(t){return t.id!==li.dataset.id});saveFin(x);re()}});
 }
