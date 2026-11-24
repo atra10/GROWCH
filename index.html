@@ -564,7 +564,7 @@ body[data-sec="akun"] .acctbtn{box-shadow:inset 0 0 0 2px var(--primary)}
 .fin-532 b.ok{color:var(--good)}
 .fin-note{margin:2px 0 6px;font-size:13px;color:var(--muted);line-height:1.55}
 .fin-form{padding:16px;display:flex;flex-direction:column;gap:12px}
-.fin-types{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:6px}
+.fin-types{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:6px}
 .fin-types button{border:1.5px solid var(--line);background:var(--surface);color:var(--muted);border-radius:12px;padding:9px 4px;font-size:13px;font-weight:700;cursor:pointer;line-height:1.25}
 .fin-types button[aria-pressed="true"]{border-color:var(--c);background:color-mix(in srgb,var(--c) 12%,var(--surface));color:var(--head)}
 .fin-fields{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}
@@ -577,6 +577,7 @@ body[data-sec="akun"] .acctbtn{box-shadow:inset 0 0 0 2px var(--primary)}
 .fin-ty.t-out{background:color-mix(in srgb,var(--bad) 12%,var(--surface));color:var(--bad)}
 .fin-ty.t-inv{background:color-mix(in srgb,var(--mk5) 15%,var(--surface));color:var(--mk5)}
 .fin-n{color:var(--muted)}
+.fin-ty.t-sell{background:color-mix(in srgb,var(--mk5) 15%,var(--surface));color:var(--mk5)}
 .fin-ty.t-tf{background:color-mix(in srgb,var(--accent) 14%,var(--surface));color:var(--head)}
 .fin-amt.tf{color:var(--muted)}
 .fin-w{font-style:normal;font-size:12px;font-weight:700;color:var(--muted);background:var(--soft);border-radius:6px;padding:1px 6px}
@@ -2919,7 +2920,7 @@ function fin(){var o=lget("fin_v1",null);if(!o||typeof o!=="object")o={};if(!Arr
   if(!Array.isArray(o.acc))o.acc=[];if(!o.ob||typeof o.ob!=="object")o.ob={};if(!Array.isArray(o.nm))o.nm=[];return o}
 function saveFin(o){lset("fin_v1",o)}
 function rp(n){var s=Math.round(Math.abs(n)).toLocaleString("id-ID");return(n<0?"−":"")+"Rp"+s}
-var TY={in:{id:"Pemasukan",en:"Income",sg:1},out:{id:"Pengeluaran",en:"Expense",sg:-1},inv:{id:"Investasi",en:"Investment",sg:-1},debt:{id:"Pinjam / utang",en:"Borrow",sg:1},pay:{id:"Bayar utang",en:"Repay debt",sg:-1},tf:{id:"Transfer",en:"Transfer",sg:0}};
+var TY={in:{id:"Pemasukan",en:"Income",sg:1},out:{id:"Pengeluaran",en:"Expense",sg:-1},inv:{id:"Investasi",en:"Investment",sg:-1},debt:{id:"Pinjam / utang",en:"Borrow",sg:1},pay:{id:"Bayar utang",en:"Repay debt",sg:-1},tf:{id:"Transfer",en:"Transfer",sg:0},sell:{id:"Jual investasi",en:"Sell investment",sg:1}};
 var CAT={
  in:[["gaji","Gaji / uang saku","Salary / allowance"],["bonus","Bonus","Bonus"],["usaha","Usaha / freelance","Business / freelance"],["hadiah","Hadiah","Gift"],["lain","Lainnya","Other"]],
  out:[["makan","Makan & minum","Food & drink","n"],["transport","Transportasi","Transport","n"],["tinggal","Kos / tempat tinggal","Rent / housing","n"],["tagihan","Tagihan & pulsa","Bills & phone","n"],["sehat","Kesehatan","Health","n"],["belajar","Pendidikan","Education","n"],["belanja","Belanja","Shopping","w"],["hiburan","Hiburan & langganan","Fun & subscriptions","w"],["admin","Biaya admin & transfer","Fees & transfer charges","n"],["nongkrong","Nongkrong","Hanging out","w"],["lainout","Lainnya","Other","w"]],
@@ -2927,6 +2928,7 @@ var CAT={
  debt:[["pinjaman","Pinjaman","Loan"],["paylater","Paylater","Paylater"],["kk","Kartu kredit","Credit card"]],
  pay:[["pinjaman","Pinjaman","Loan"],["paylater","Paylater","Paylater"],["kk","Kartu kredit","Credit card"]],
  tf:[["tf","Pindah saldo","Move money"]]};
+CAT.sell=CAT.inv;
 function catName(t,c){var l=CAT[t]||[];for(var i=0;i<l.length;i++)if(l[i][0]===c)return en()?l[i][2]:l[i][1];return c}
 function catKind(c){var l=CAT.out;for(var i=0;i<l.length;i++)if(l[i][0]===c)return l[i][3];return"w"}
 var finYM=null,ftype="out",facc="",fimp=null;
@@ -2951,7 +2953,7 @@ function overlaps(o){
   return{p:pairs,h:hints};
 }
 /* same money recorded twice: once by hand, once from an import (names and categories may differ) */
-function flowDir(t){return t.t==="in"||t.t==="debt"?1:-1}
+function flowDir(t){return t.t==="in"||t.t==="debt"||t.t==="sell"?1:-1}
 function doubles(o){
   var no={};o.nm.forEach(function(k){no[k]=1});var c=[],used={},res=[],tx=o.tx.filter(function(t){return t.a>=1000});
   for(var i=0;i<tx.length;i++)for(var j=i+1;j<tx.length;j++){var x=tx[i],y=tx[j];
@@ -2968,10 +2970,10 @@ function mergePair(oid,iid){var o=fin(),x=null,y=null;o.tx.forEach(function(t){i
   if(x.a>y.a)o.tx.push({id:uid(),d:x.d,t:"out",c:"admin",a:x.a-y.a,w:x.w,n:"",b:x.b});
   saveFin(o)}
 function hintToTf(tid,aid){var o=fin();o.tx.forEach(function(t){if(t.id!==tid)return;var from=t.t==="out"?t.w:aid,to=t.t==="out"?aid:t.w;t.t="tf";t.c="tf";t.w=from;t.to=to});saveFin(o)}
-function sums(tx){var s={in:0,out:0,inv:0,debt:0,pay:0,tf:0};tx.forEach(function(t){s[t.t]+=t.a});return s}
+function sums(tx){var s={in:0,out:0,inv:0,debt:0,pay:0,tf:0,sell:0};tx.forEach(function(t){s[t.t]+=t.a});return s}
 function balances(o,upto){ /* balances at end of a date (inclusive), at cost */
-  var cash=o.open,inv=0,debt=0;o.acc.forEach(function(a){cash+=+o.ob[a.id]||0});o.tx.forEach(function(t){if(upto&&t.d>upto)return;cash+=TY[t.t].sg*t.a;if(t.t==="inv")inv+=t.a;if(t.t==="debt")debt+=t.a;if(t.t==="pay")debt-=t.a});
-  return{cash:cash,inv:inv,debt:Math.max(0,debt),net:cash+inv-Math.max(0,debt)};
+  var cash=o.open,inv=0,debt=0;o.acc.forEach(function(a){cash+=+o.ob[a.id]||0});o.tx.forEach(function(t){if(upto&&t.d>upto)return;cash+=TY[t.t].sg*t.a;if(t.t==="inv")inv+=t.a;if(t.t==="sell")inv-=t.a;if(t.t==="debt")debt+=t.a;if(t.t==="pay")debt-=t.a});
+  inv=Math.max(0,inv);return{cash:cash,inv:inv,debt:Math.max(0,debt),net:cash+inv-Math.max(0,debt)};
 }
 function monthTx(o,ym){return o.tx.filter(function(t){return t.d.slice(0,7)===ym})}
 function monthNav(){return'<div class="fin-month"><button type="button" class="cal-nav" data-fm="-1" aria-label="'+E("Bulan sebelumnya","Previous month")+'">‹</button><b>'+monthLabel(finYM)+'</b><button type="button" class="cal-nav" data-fm="1" aria-label="'+E("Bulan berikutnya","Next month")+'">›</button></div>'}
@@ -3002,7 +3004,7 @@ function vRingkas(o){
   return h;
 }
 function vCatat(o){
-  var types=["out","in","tf","inv","debt","pay"],tx=monthTx(o,finYM).slice().sort(function(a,b){return a.d<b.d?1:a.d>b.d?-1:0});
+  var types=["out","in","tf","inv","sell","debt","pay"],tx=monthTx(o,finYM).slice().sort(function(a,b){return a.d<b.d?1:a.d>b.d?-1:0});
   var h='<form class="bk-card fin-form" id="finf"><div class="fin-types" role="group" aria-label="'+E("Jenis","Type")+'">'+types.map(function(t){return'<button type="button" data-ty="'+t+'" aria-pressed="'+(ftype===t)+'">'+L(TY[t])+'</button>'}).join("")+'</div>'+
     '<div class="fin-fields"><label>'+E("Jumlah (Rp)","Amount (Rp)")+'<input id="fa" inputmode="numeric" autocomplete="off" placeholder="50.000"></label>'+
     (ftype==="tf"?(o.acc.length<2?'<p class="fin-note wide">'+E("Tambahkan minimal 2 akun dulu (di bagian Akun & dompet di bawah), misalnya SeaBank dan GoPay.","Add at least 2 accounts first (in Accounts & wallets below), e.g. SeaBank and GoPay.")+'</p>':'')+
@@ -3030,8 +3032,8 @@ function vAcc(o){
   return h+'<form class="fin-accadd" id="faccf"><input id="facn" type="text" maxlength="30" autocomplete="off" placeholder="SeaBank, GoPay, BCA…" aria-label="'+E("Nama akun","Account name")+'"><button class="btn ghost" type="submit">'+E("Tambah akun","Add account")+'</button></form></div>';
 }
 /* ===== import (from screenshots read by Claude) ===== */
-var TALIAS={keluar:"out",pengeluaran:"out",expense:"out",masuk:"in",pemasukan:"in",income:"in",transfer:"tf",pindah:"tf",investasi:"inv",investment:"inv",utang:"debt",pinjam:"debt",borrow:"debt",bayarutang:"pay",repay:"pay"};
-var CDEF={in:"lain",out:"lainout",inv:"laininv",debt:"pinjaman",pay:"pinjaman",tf:"tf"};
+var TALIAS={keluar:"out",pengeluaran:"out",expense:"out",masuk:"in",pemasukan:"in",income:"in",transfer:"tf",pindah:"tf",investasi:"inv",investment:"inv",jual:"sell",jualinvestasi:"sell",sell:"sell",utang:"debt",pinjam:"debt",borrow:"debt",bayarutang:"pay",repay:"pay"};
+var CDEF={in:"lain",out:"lainout",inv:"laininv",sell:"laininv",debt:"pinjaman",pay:"pinjaman",tf:"tf"};
 function amt(v){if(typeof v==="number")return Math.round(Math.abs(v));var s=String(v==null?"":v).replace(/[.,]00$/,"");return+(s.replace(/[^\d]/g,""))||0}
 function doImport(txt){
   var s=String(txt||"").trim().replace(/^```(?:json)?/i,"").replace(/```$/,"").trim(),j;
@@ -3085,9 +3087,9 @@ function vLaporan(o){
     '<div class="fs-sub">'+E("Pendapatan","Revenue")+'</div>'+(Object.keys(gi).map(function(k){return row(esc(catName("in",k)),rp(gi[k]))}).join("")||row("—",rp(0)))+row(E("Total pendapatan","Total revenue"),rp(s.in),"tot")+
     '<div class="fs-sub">'+E("Beban","Expenses")+'</div>'+(Object.keys(ge).map(function(k){return row(esc(catName("out",k)),"("+rp(ge[k])+")")}).join("")||row("—",rp(0)))+row(E("Total beban","Total expenses"),"("+rp(s.out)+")","tot")+
     row(s.in-s.out>=0?E("Surplus bulan ini","Surplus this month"):E("Defisit bulan ini","Deficit this month"),rp(s.in-s.out),"grand "+(s.in-s.out<0?"neg":""))+'</section>';
-  var op=s.in-s.out,iv=-s.inv,fn=s.debt-s.pay;
+  var op=s.in-s.out,iv=s.sell-s.inv,fn=s.debt-s.pay;
   h+='<section class="bk-card fs"><h3>2. '+E("Laporan arus kas","Cash flow statement")+'</h3><p class="fin-note">'+E("Melacak uang tunai yang benar-benar masuk dan keluar, dibagi tiga kegiatan seperti di perusahaan.","Tracks the cash that actually moved, split into the same three activities companies use.")+'</p>'+
-    row(E("Kas awal bulan","Cash at start of month"),rp(start.cash))+row(E("Operasi (pemasukan − pengeluaran)","Operating (income − expenses)"),rp(op))+row(E("Investasi (beli aset investasi)","Investing (buying investments)"),rp(iv))+row(E("Pendanaan (pinjam − bayar utang)","Financing (borrowing − repayments)"),rp(fn))+
+    row(E("Kas awal bulan","Cash at start of month"),rp(start.cash))+row(E("Operasi (pemasukan − pengeluaran)","Operating (income − expenses)"),rp(op))+row(E("Investasi (jual − beli investasi)","Investing (sales − purchases)"),rp(iv))+row(E("Pendanaan (pinjam − bayar utang)","Financing (borrowing − repayments)"),rp(fn))+
     row(E("Perubahan kas","Change in cash"),rp(op+iv+fn),"tot")+row(E("Kas akhir bulan","Cash at end of month"),rp(end.cash),"grand")+'</section>';
   h+='<section class="bk-card fs"><h3>3. '+E("Neraca pribadi","Personal balance sheet")+'</h3><p class="fin-note">'+E("Foto kondisi keuanganmu di akhir bulan. Rumusnya sama: Aset = Utang + Ekuitas. Ekuitas pribadi = kekayaan bersih.","A snapshot at month end. Same formula: Assets = Liabilities + Equity. Your equity is your net worth.")+'</p>'+
     '<div class="fs-sub">'+E("Aset","Assets")+'</div>'+row(E("Kas & rekening","Cash & bank"),rp(end.cash))+row(E("Investasi (harga beli)","Investments (at cost)"),rp(end.inv))+row(E("Total aset","Total assets"),rp(end.cash+end.inv),"tot")+
