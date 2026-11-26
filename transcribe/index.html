@@ -1,0 +1,497 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Transcribe</title>
+<meta name="description" content="Turn audio into text on your own device. Works offline after a one-time model download.">
+<meta name="theme-color" content="#1F4D3A">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" href="/icons/favicon-48.png">
+<link rel="apple-touch-icon" href="/icons/apple-touch-icon.png">
+<style>
+:root{
+  --bg:#F6F4EF; --card:#FFFFFF; --ink:#1D2320; --muted:#5F6B65; --line:#E3DFD6;
+  --accent:#1F4D3A; --accent-ink:#FFFFFF; --soft:#E7F0EA; --warn:#9A3B1E; --warn-soft:#FBEDE7; --ok:#2C7A4B;
+  --mono:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#121614; --card:#1B201D; --ink:#E8ECE9; --muted:#9BA7A0; --line:#2C3430;
+    --accent:#7CC39A; --accent-ink:#0E1611; --soft:#203027; --warn:#F0A184; --warn-soft:#3A241C; --ok:#7CC39A;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#121614; --card:#1B201D; --ink:#E8ECE9; --muted:#9BA7A0; --line:#2C3430;
+  --accent:#7CC39A; --accent-ink:#0E1611; --soft:#203027; --warn:#F0A184; --warn-soft:#3A241C; --ok:#7CC39A;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.5 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;-webkit-text-size-adjust:100%}
+main{max-width:760px;margin:0 auto;padding:20px 16px 64px}
+header{display:flex;align-items:center;gap:12px;margin-bottom:18px}
+header h1{font-size:1.35rem;margin:0;letter-spacing:-.01em}
+header p{margin:0;color:var(--muted);font-size:.9rem}
+.logo{width:40px;height:40px;border-radius:12px;background:var(--accent);display:grid;place-items:center;flex:none}
+.logo svg{width:22px;height:22px;stroke:var(--accent-ink)}
+.card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:16px;margin-bottom:14px}
+.card h2{font-size:.8rem;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);margin:0 0 10px;font-weight:600}
+.row{display:flex;flex-wrap:wrap;gap:10px;align-items:center}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:10px}
+label.f{display:flex;flex-direction:column;gap:4px;font-size:.85rem;color:var(--muted)}
+select,button{font:inherit;color:inherit}
+select{background:var(--bg);border:1px solid var(--line);border-radius:10px;padding:9px 10px;width:100%}
+button{border:1px solid var(--line);background:var(--bg);border-radius:10px;padding:9px 14px;cursor:pointer;display:inline-flex;gap:8px;align-items:center}
+button:hover{border-color:var(--accent)}
+button.primary{background:var(--accent);color:var(--accent-ink);border-color:var(--accent);font-weight:600}
+button:disabled{opacity:.5;cursor:not-allowed}
+button svg{width:18px;height:18px;flex:none}
+.check{display:flex;gap:8px;align-items:center;font-size:.9rem;color:var(--muted);margin-top:10px}
+.badge{display:inline-flex;align-items:center;gap:6px;font-size:.8rem;padding:3px 9px;border-radius:99px;background:var(--soft);color:var(--ok)}
+.badge.no{background:var(--warn-soft);color:var(--warn)}
+.drop{border:2px dashed var(--line);border-radius:14px;padding:22px 14px;text-align:center;color:var(--muted);cursor:pointer;transition:border-color .15s,background .15s}
+.drop.over,.drop:hover{border-color:var(--accent);background:var(--soft)}
+.drop strong{color:var(--ink)}
+.file{margin-top:10px;font-size:.9rem;color:var(--muted);word-break:break-all}
+audio{width:100%;margin-top:10px}
+.rec{color:var(--warn)}
+.dot{width:10px;height:10px;border-radius:50%;background:var(--warn);animation:pulse 1s infinite}
+@keyframes pulse{50%{opacity:.3}}
+.bar{height:8px;background:var(--bg);border:1px solid var(--line);border-radius:99px;overflow:hidden;margin-top:8px}
+.bar>i{display:block;height:100%;width:0;background:var(--accent);transition:width .2s}
+.status{font-size:.9rem;color:var(--muted);margin-top:8px;min-height:1.4em}
+.err{color:var(--warn)}
+.tabs{display:flex;gap:6px;margin-bottom:10px}
+.tabs button{padding:6px 12px;font-size:.85rem}
+.tabs button[aria-selected="true"]{background:var(--soft);border-color:var(--accent)}
+#out{white-space:pre-wrap;min-height:120px;max-height:55vh;overflow:auto;background:var(--bg);border:1px solid var(--line);border-radius:12px;padding:12px;outline:none}
+#out .ts{font-family:var(--mono);font-size:.8rem;color:var(--muted);margin-right:8px}
+#out:empty::before{content:"The text will appear here.";color:var(--muted)}
+#out.live{color:var(--muted)}
+.models{font-size:.85rem;color:var(--muted)}
+.models li{display:flex;justify-content:space-between;align-items:center;gap:8px;padding:6px 0;border-top:1px solid var(--line)}
+.models ul{list-style:none;margin:8px 0 0;padding:0}
+.models button{padding:4px 10px;font-size:.8rem}
+.hidden{display:none!important}
+footer{color:var(--muted);font-size:.8rem;text-align:center;margin-top:20px}
+</style>
+</head>
+<body>
+<main>
+  <header>
+    <div class="logo"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3Z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><line x1="12" y1="19" x2="12" y2="22"/></svg></div>
+    <div>
+      <h1>Transcribe</h1>
+      <p>Audio to text, right on your device. Nothing is uploaded.</p>
+    </div>
+    <span id="net" class="badge" style="margin-left:auto"></span>
+  </header>
+
+  <section class="card">
+    <h2>1 · Speech model</h2>
+    <div class="grid">
+      <label class="f">Model
+        <select id="model">
+          <option value="onnx-community/whisper-tiny" data-size="~45 MB">Tiny — fastest (~45 MB)</option>
+          <option value="onnx-community/whisper-base" data-size="~80 MB" selected>Base — balanced (~80 MB)</option>
+          <option value="onnx-community/whisper-small" data-size="~250 MB">Small — most accurate (~250 MB)</option>
+        </select>
+      </label>
+      <label class="f">Language
+        <select id="lang">
+          <option value="">Detect automatically</option>
+          <option value="english">English</option>
+          <option value="indonesian">Indonesian</option>
+          <option value="malay">Malay</option>
+          <option value="javanese">Javanese</option>
+          <option value="sundanese">Sundanese</option>
+          <option value="chinese">Chinese</option>
+          <option value="japanese">Japanese</option>
+          <option value="korean">Korean</option>
+          <option value="arabic">Arabic</option>
+          <option value="hindi">Hindi</option>
+          <option value="thai">Thai</option>
+          <option value="vietnamese">Vietnamese</option>
+          <option value="tagalog">Tagalog</option>
+          <option value="spanish">Spanish</option>
+          <option value="french">French</option>
+          <option value="german">German</option>
+          <option value="portuguese">Portuguese</option>
+          <option value="italian">Italian</option>
+          <option value="dutch">Dutch</option>
+          <option value="russian">Russian</option>
+          <option value="turkish">Turkish</option>
+        </select>
+      </label>
+      <label class="f">Output
+        <select id="task">
+          <option value="transcribe">Text in the spoken language</option>
+          <option value="translate">Translate to English</option>
+        </select>
+      </label>
+    </div>
+    <label class="check"><input type="checkbox" id="gpu" checked> Use graphics acceleration (WebGPU) when available</label>
+    <div class="row" style="margin-top:12px">
+      <button id="dl">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12"/><path d="m7 10 5 5 5-5"/><path d="M5 21h14"/></svg>
+        Download for offline use
+      </button>
+      <span id="mstate" class="badge"></span>
+    </div>
+    <div id="lbarw" class="bar hidden"><i id="lbar"></i></div>
+    <div id="lstatus" class="status"></div>
+  </section>
+
+  <section class="card">
+    <h2>2 · Audio</h2>
+    <div id="drop" class="drop" tabindex="0" role="button" aria-label="Choose an audio file">
+      <strong>Drop an audio or video file</strong> or tap to choose<br>
+      <small>MP3, WAV, M4A, OGG, WEBM, MP4…</small>
+    </div>
+    <input id="file" type="file" accept="audio/*,video/*" class="hidden">
+    <div class="row" style="margin-top:10px">
+      <button id="rec">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3Z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/></svg>
+        <span>Record with microphone</span>
+      </button>
+      <span id="recinfo" class="row rec hidden"><span class="dot"></span><span id="rectime">0:00</span></span>
+    </div>
+    <div id="fname" class="file"></div>
+    <audio id="player" controls class="hidden"></audio>
+  </section>
+
+  <section class="card">
+    <h2>3 · Transcript</h2>
+    <div class="row">
+      <button id="go" class="primary" disabled>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 6h16M4 12h10M4 18h7"/></svg>
+        Transcribe
+      </button>
+    </div>
+    <div id="tbarw" class="bar hidden"><i id="tbar"></i></div>
+    <div id="tstatus" class="status"></div>
+    <div class="tabs" role="tablist" style="margin-top:8px">
+      <button role="tab" aria-selected="true" data-view="plain">Text</button>
+      <button role="tab" aria-selected="false" data-view="times">With timestamps</button>
+    </div>
+    <div id="out" contenteditable="true" spellcheck="false" aria-label="Transcript"></div>
+    <div class="row" style="margin-top:10px">
+      <button id="copy" disabled>Copy</button>
+      <button id="txt" disabled>Save .txt</button>
+      <button id="srt" disabled>Save .srt subtitles</button>
+    </div>
+  </section>
+
+  <section class="card models">
+    <h2>Saved on this device</h2>
+    <div id="storage"></div>
+    <ul id="mlist"></ul>
+  </section>
+
+  <footer>Runs OpenAI Whisper in your browser. After a model is downloaded once, you can transcribe with no internet.</footer>
+</main>
+
+<script>
+const $ = id => document.getElementById(id);
+const SR = 16000;
+let audioData = null, audioName = "transcript", result = null, view = "plain", busy = false;
+let worker = null;
+
+/* ---------- offline support ---------- */
+if ("serviceWorker" in navigator) navigator.serviceWorker.register("sw.js", { scope: "./" }).catch(() => {});
+function netBadge() {
+  const on = navigator.onLine;
+  $("net").textContent = on ? "Online" : "Offline";
+  $("net").className = "badge" + (on ? "" : " no");
+}
+addEventListener("online", netBadge); addEventListener("offline", netBadge); netBadge();
+
+/* ---------- preferences ---------- */
+const PREF = "transcribe-prefs";
+try {
+  const p = JSON.parse(localStorage.getItem(PREF) || "{}");
+  for (const k of ["model", "lang", "task"]) if (p[k] != null && [...$(k).options].some(o => o.value === p[k])) $(k).value = p[k];
+  if (p.gpu != null) $("gpu").checked = p.gpu;
+} catch {}
+function savePrefs() {
+  try { localStorage.setItem(PREF, JSON.stringify({ model: $("model").value, lang: $("lang").value, task: $("task").value, gpu: $("gpu").checked })); } catch {}
+}
+for (const k of ["model", "lang", "task", "gpu"]) $(k).addEventListener("change", () => { savePrefs(); refreshModels(); });
+
+/* ---------- model cache ---------- */
+async function cachedModels() {
+  const found = {};
+  try {
+    const c = await caches.open("transformers-cache");
+    for (const req of await c.keys()) {
+      const m = req.url.match(/huggingface\.co\/([^/]+\/[^/]+)\/resolve\//);
+      if (m) (found[m[1]] ||= []).push(req.url);
+    }
+  } catch {}
+  return found;
+}
+function isComplete(urls, gpu) {
+  // needs the encoder + decoder weights for the chosen engine
+  const want = gpu ? ["encoder_model.onnx", "decoder_model_merged_q4.onnx"] : ["encoder_model_quantized.onnx", "decoder_model_merged_quantized.onnx"];
+  return !!urls && want.every(w => urls.some(u => u.includes("/onnx/" + w)));
+}
+let gpuOK = null;
+async function gpuAvailable() {
+  if (gpuOK !== null) return gpuOK;
+  try { gpuOK = !!(navigator.gpu && await navigator.gpu.requestAdapter()); } catch { gpuOK = false; }
+  return gpuOK;
+}
+async function refreshModels() {
+  const found = await cachedModels();
+  const gpu = $("gpu").checked && await gpuAvailable();
+  const ready = isComplete(found[$("model").value], gpu);
+  $("mstate").textContent = ready ? "✓ Ready offline" : "Not downloaded yet";
+  $("mstate").className = "badge" + (ready ? "" : " no");
+  $("dl").classList.toggle("hidden", ready);
+  const list = $("mlist"); list.innerHTML = "";
+  const names = Object.keys(found);
+  if (!names.length) list.innerHTML = "<li>No models saved yet.</li>";
+  for (const name of names) {
+    const li = document.createElement("li");
+    const label = $("model").querySelector(`option[value="${name}"]`)?.textContent.split(" —")[0] || name;
+    li.innerHTML = `<span>${label} <small>(${name})</small></span>`;
+    const b = document.createElement("button"); b.textContent = "Delete";
+    b.onclick = async () => {
+      if (!confirm(`Delete the ${label} model from this device? You'll need internet to download it again.`)) return;
+      const c = await caches.open("transformers-cache");
+      await Promise.all(found[name].map(u => c.delete(u)));
+      if (worker) { worker.terminate(); worker = null; }
+      refreshModels();
+    };
+    li.appendChild(b); list.appendChild(li);
+  }
+  try {
+    const est = await navigator.storage.estimate();
+    $("storage").textContent = `Using ${(est.usage / 1e6).toFixed(0)} MB of browser storage.`;
+  } catch {}
+  ready && navigator.storage?.persist?.().catch(() => {});
+}
+refreshModels();
+
+/* ---------- worker ---------- */
+const files = {};
+function getWorker() {
+  if (worker) return worker;
+  worker = new Worker("worker.js", { type: "module" });
+  worker.onmessage = ({ data: m }) => handlers[m.type]?.(m);
+  worker.onerror = e => fail("The speech engine could not start. " + (navigator.onLine ? "" : "Open this page once with internet so it can be saved for offline use.") + (e.message ? ` (${e.message})` : ""));
+  return worker;
+}
+let pending = null;
+const handlers = {
+  "load-progress": ({ data: p }) => {
+    if (p.status === "progress" && p.total) {
+      files[p.file] = [p.loaded, p.total];
+      let a = 0, b = 0; for (const [x, y] of Object.values(files)) { a += x; b += y; }
+      $("lbarw").classList.remove("hidden");
+      $("lbar").style.width = (100 * a / b).toFixed(1) + "%";
+      $("lstatus").textContent = `Loading model… ${(a / 1e6).toFixed(1)} / ${(b / 1e6).toFixed(1)} MB`;
+    } else if (p.status === "initiate") {
+      $("lstatus").textContent = "Loading model…";
+    }
+  },
+  note: m => { $("lstatus").textContent = m.text; },
+  loaded: m => {
+    $("lbarw").classList.add("hidden");
+    $("lstatus").textContent = `Model ready (${m.device === "webgpu" ? "graphics acceleration" : "CPU"}).`;
+    refreshModels();
+    if (pending === "load") done();
+  },
+  partial: m => {
+    if (!$("out").classList.contains("live")) { $("out").textContent = ""; $("out").classList.add("live"); }
+    $("out").textContent += m.text;
+    $("out").scrollTop = $("out").scrollHeight;
+  },
+  progress: m => {
+    $("tbarw").classList.remove("hidden");
+    $("tbar").style.width = (100 * m.done / m.total).toFixed(1) + "%";
+    const el = (performance.now() - t0) / 1000;
+    const left = m.done ? el / m.done * (m.total - m.done) : 0;
+    $("tstatus").textContent = `Transcribing… part ${Math.min(m.done + 1, m.total)} of ${m.total}` + (m.done && m.done < m.total ? ` · about ${fmtDur(left)} left` : "");
+  },
+  result: m => {
+    result = m; $("out").classList.remove("live");
+    $("tbar").style.width = "100%";
+    $("tstatus").textContent = `Done in ${fmtDur((performance.now() - t0) / 1000)}. You can edit the text before saving.`;
+    render(); done();
+  },
+  error: m => fail(m.text),
+};
+function fail(text) {
+  $("tstatus").innerHTML = ""; $("lstatus").innerHTML = "";
+  const target = pending === "load" ? $("lstatus") : $("tstatus");
+  target.innerHTML = `<span class="err"></span>`; target.firstChild.textContent = text;
+  $("out").classList.remove("live");
+  $("lbarw").classList.add("hidden"); $("tbarw").classList.add("hidden");
+  if (/fetch|network|download/i.test(text)) target.firstChild.textContent = navigator.onLine
+    ? "Couldn't download the speech model. Check your connection and try again (internet is only needed the first time)."
+    : "This model isn't saved on this device yet. Connect to the internet once and tap “Download for offline use”.";
+  done();
+}
+let wakeLock = null;
+function start(kind) {
+  busy = true; pending = kind;
+  for (const id of ["go", "dl", "model", "gpu", "rec"]) $(id).disabled = true;
+  try { navigator.wakeLock?.request("screen").then(l => wakeLock = l).catch(() => {}); } catch {}
+}
+function done() {
+  busy = false; pending = null;
+  for (const id of ["dl", "model", "gpu", "rec"]) $(id).disabled = false;
+  $("go").disabled = !audioData;
+  try { wakeLock?.release(); } catch {} wakeLock = null;
+}
+
+$("dl").onclick = () => {
+  for (const k in files) delete files[k];
+  start("load");
+  $("lstatus").textContent = "Starting…";
+  getWorker().postMessage({ type: "load", model: $("model").value, gpu: $("gpu").checked });
+};
+
+let t0 = 0;
+$("go").onclick = () => {
+  if (!audioData) return;
+  for (const k in files) delete files[k];
+  start("run"); result = null; t0 = performance.now();
+  $("out").textContent = ""; $("tstatus").textContent = "Preparing…";
+  $("tbarw").classList.remove("hidden"); $("tbar").style.width = "0";
+  for (const id of ["copy", "txt", "srt"]) $(id).disabled = true;
+  getWorker().postMessage({ type: "run", model: $("model").value, gpu: $("gpu").checked, language: $("lang").value || null, task: $("task").value, audio: audioData });
+};
+
+/* ---------- audio input ---------- */
+async function loadAudio(blob, name) {
+  $("fname").textContent = "Reading audio…";
+  try {
+    const buf = await blob.arrayBuffer();
+    const Ctx = window.AudioContext || window.webkitAudioContext;
+    let decoded;
+    try {
+      const ctx = new Ctx({ sampleRate: SR });
+      decoded = await ctx.decodeAudioData(buf.slice(0));
+      ctx.close();
+    } catch {
+      // some browsers can't decode at 16 kHz directly: decode natively, then resample
+      const ctx = new Ctx(); const native = await ctx.decodeAudioData(buf.slice(0)); ctx.close();
+      const off = new OfflineAudioContext(1, Math.ceil(native.duration * SR), SR);
+      const src = off.createBufferSource(); src.buffer = native; src.connect(off.destination); src.start();
+      decoded = await off.startRendering();
+    }
+    let mono;
+    if (decoded.numberOfChannels > 1) {
+      mono = new Float32Array(decoded.length);
+      for (let c = 0; c < decoded.numberOfChannels; c++) { const d = decoded.getChannelData(c); for (let i = 0; i < d.length; i++) mono[i] += d[i] / decoded.numberOfChannels; }
+    } else mono = decoded.getChannelData(0);
+    audioData = mono;
+    audioName = (name || "recording").replace(/\.[^.]+$/, "");
+    $("fname").textContent = `${name} · ${fmtDur(mono.length / SR)}`;
+    const p = $("player"); if (p.src) URL.revokeObjectURL(p.src);
+    p.src = URL.createObjectURL(blob); p.classList.remove("hidden");
+    $("go").disabled = busy;
+  } catch (e) {
+    audioData = null; $("go").disabled = true;
+    $("fname").innerHTML = '<span class="err">This file could not be read. Try a different format (MP3, WAV or M4A).</span>';
+  }
+}
+const drop = $("drop");
+drop.onclick = () => $("file").click();
+drop.onkeydown = e => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); $("file").click(); } };
+$("file").onchange = e => { const f = e.target.files[0]; if (f) loadAudio(f, f.name); e.target.value = ""; };
+drop.ondragover = e => { e.preventDefault(); drop.classList.add("over"); };
+drop.ondragleave = () => drop.classList.remove("over");
+drop.ondrop = e => { e.preventDefault(); drop.classList.remove("over"); const f = e.dataTransfer.files[0]; if (f) loadAudio(f, f.name); };
+
+let rec = null, recTimer = null;
+$("rec").onclick = async () => {
+  if (rec) { rec.stop(); return; }
+  let stream;
+  try { stream = await navigator.mediaDevices.getUserMedia({ audio: true }); }
+  catch { $("fname").innerHTML = '<span class="err">Microphone access was blocked. Allow it in your browser settings and try again.</span>'; return; }
+  const chunks = [];
+  rec = new MediaRecorder(stream);
+  rec.ondataavailable = e => e.data.size && chunks.push(e.data);
+  rec.onstop = () => {
+    stream.getTracks().forEach(t => t.stop());
+    clearInterval(recTimer); $("recinfo").classList.add("hidden");
+    $("rec").querySelector("span").textContent = "Record with microphone";
+    const blob = new Blob(chunks, { type: rec.mimeType || "audio/webm" }); rec = null;
+    const stamp = new Date().toISOString().slice(0, 16).replace("T", " ").replace(":", ".");
+    loadAudio(blob, `Recording ${stamp}`);
+  };
+  rec.start(1000);
+  const s0 = Date.now();
+  $("recinfo").classList.remove("hidden"); $("rectime").textContent = "0:00";
+  recTimer = setInterval(() => $("rectime").textContent = fmtClock((Date.now() - s0) / 1000), 500);
+  $("rec").querySelector("span").textContent = "Stop recording";
+};
+
+/* ---------- output ---------- */
+function fmtDur(s) {
+  s = Math.round(s); if (s < 60) return s + " s";
+  const m = Math.floor(s / 60); if (m < 60) return `${m} min ${s % 60} s`;
+  return `${Math.floor(m / 60)} h ${m % 60} min`;
+}
+function fmtClock(s) {
+  s = Math.floor(s); const h = Math.floor(s / 3600), m = Math.floor(s % 3600 / 60), x = String(s % 60).padStart(2, "0");
+  return h ? `${h}:${String(m).padStart(2, "0")}:${x}` : `${m}:${x}`;
+}
+function srtTime(s) {
+  const ms = Math.round(s * 1000), h = Math.floor(ms / 3600000), m = Math.floor(ms % 3600000 / 60000), sec = Math.floor(ms % 60000 / 1000);
+  return `${String(h).padStart(2, "0")}:${String(m).padStart(2, "0")}:${String(sec).padStart(2, "0")},${String(ms % 1000).padStart(3, "0")}`;
+}
+function segments() {
+  const dur = audioData ? audioData.length / SR : 0;
+  return (result?.chunks || []).map(c => ({ start: c.timestamp[0] ?? 0, end: c.timestamp[1] ?? dur, text: c.text.trim() })).filter(c => c.text);
+}
+function plainText() { return (result?.text || "").trim(); }
+function render() {
+  const out = $("out"); out.innerHTML = "";
+  if (!result) return;
+  if (view === "plain") out.textContent = plainText();
+  else for (const s of segments()) {
+    const line = document.createElement("div");
+    const ts = document.createElement("span"); ts.className = "ts"; ts.textContent = `[${fmtClock(s.start)}]`; ts.contentEditable = "false";
+    line.append(ts, document.createTextNode(s.text)); out.appendChild(line);
+  }
+  for (const id of ["copy", "txt", "srt"]) $(id).disabled = false;
+}
+// keep edits: plain view edits replace the text; timestamp view edits replace segment texts
+$("out").addEventListener("input", () => {
+  if (!result) return;
+  if (view === "plain") result.text = $("out").innerText;
+  else {
+    const lines = [...$("out").children];
+    const segs = segments();
+    if (lines.length === segs.length) {
+      result.chunks = segs.map((s, i) => ({ timestamp: [s.start, s.end], text: " " + [...lines[i].childNodes].filter(n => !(n.classList && n.classList.contains("ts"))).map(n => n.textContent).join("").trim() }));
+    }
+  }
+});
+document.querySelectorAll("[data-view]").forEach(b => b.onclick = () => {
+  view = b.dataset.view;
+  document.querySelectorAll("[data-view]").forEach(x => x.setAttribute("aria-selected", x === b));
+  render();
+});
+function download(text, ext, type) {
+  const a = document.createElement("a");
+  a.href = URL.createObjectURL(new Blob([text], { type }));
+  a.download = `${audioName}.${ext}`; a.click();
+  setTimeout(() => URL.revokeObjectURL(a.href), 1000);
+}
+function currentText() {
+  return view === "plain" ? plainText() : segments().map(s => `[${fmtClock(s.start)}] ${s.text}`).join("\n");
+}
+$("copy").onclick = async () => {
+  try { await navigator.clipboard.writeText(currentText()); $("copy").textContent = "Copied ✓"; }
+  catch { $("copy").textContent = "Copy failed"; }
+  setTimeout(() => $("copy").textContent = "Copy", 1500);
+};
+$("txt").onclick = () => download(currentText() + "\n", "txt", "text/plain");
+$("srt").onclick = () => download(segments().map((s, i) => `${i + 1}\n${srtTime(s.start)} --> ${srtTime(s.end)}\n${s.text}\n`).join("\n"), "srt", "application/x-subrip");
+</script>
+</body>
+</html>

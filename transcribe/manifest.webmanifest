@@ -1,0 +1,16 @@
+{
+ "name": "Transcribe (offline)",
+ "short_name": "Transcribe",
+ "description": "Turn audio into text on your own device, no internet needed.",
+ "id": "/transcribe/",
+ "start_url": "/transcribe/",
+ "scope": "/transcribe/",
+ "display": "standalone",
+ "background_color": "#F6F4EF",
+ "theme_color": "#1F4D3A",
+ "icons": [
+  { "src": "/icons/icon-192.png", "sizes": "192x192", "type": "image/png" },
+  { "src": "/icons/icon-512.png", "sizes": "512x512", "type": "image/png" },
+  { "src": "/icons/maskable-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+ ]
+}

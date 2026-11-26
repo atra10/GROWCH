@@ -14,6 +14,7 @@ self.addEventListener("fetch", e => {
   const url = new URL(req.url);
   if (url.hostname.endsWith("supabase.co")) return; // account data: always live, never cached
   if (url.pathname.startsWith("/api/")) return; // AI and other live endpoints: never cached
+  if (url.origin === location.origin && url.pathname.startsWith("/transcribe/")) return; // has its own service worker
   // pages: network first, fall back to the saved copy when offline
   if (req.mode === "navigate") {
     e.respondWith(fetch(req).then(r => { const c = r.clone(); caches.open(VER).then(x => x.put("/index.html", c)); return r; })
