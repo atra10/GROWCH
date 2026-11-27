@@ -101,6 +101,39 @@ def is_downloaded(model_name: str) -> bool:
         return False
 
 
+def load_audio(path: str, sr: int = 16000):
+    """Decode any audio/video file to 16 kHz mono float32 with PyAV.
+    (faster-whisper's own reader passes an option that newer PyAV versions removed.)"""
+    import av
+    import numpy as np
+
+    try:
+        container = av.open(str(path))
+    except Exception as e:
+        raise RuntimeError(f"This file couldn't be opened as audio. Try MP3, M4A or WAV.\n\nDetails: {e}") from e
+    with container:
+        if not container.streams.audio:
+            raise RuntimeError("This file has no audio track.")
+        stream = container.streams.audio[0]
+        resampler = av.AudioResampler(format="s16", layout="mono", rate=sr)
+        chunks = []
+        frames = container.decode(stream)
+        while True:
+            try:
+                frame = next(frames)
+            except StopIteration:
+                break
+            except av.error.InvalidDataError:  # skip a damaged bit instead of failing the whole file
+                continue
+            for f in resampler.resample(frame):
+                chunks.append(f.to_ndarray().reshape(-1))
+        for f in resampler.resample(None):
+            chunks.append(f.to_ndarray().reshape(-1))
+    if not chunks:
+        raise RuntimeError("No sound could be read from this file.")
+    return np.concatenate(chunks).astype(np.float32) / 32768.0
+
+
 _cache: dict[tuple, object] = {}
 
 
@@ -183,7 +216,8 @@ def transcribe(path: str, model_name: str = "large-v3-turbo", language: str = ne
         initial_prompt=MIXED_PROMPT if per_segment or code is None else None,
         hotwords=hotwords.strip() or None,
     )
-    segments, info = model.transcribe(path, **opts)
+    audio = load_audio(path)
+    segments, info = model.transcribe(audio, **opts)
     res = Result(language=info.language, duration=info.duration, device=device)
     lang = "mixed, detected per segment" if per_segment else LANG_NAMES.get(info.language, info.language)
     on_status(f"Transcribing ({lang})…")

@@ -326,6 +326,7 @@ class App(tk.Tk):
             self.status.configure(text="Cancelled. The partial text is shown but wasn't saved.")
         elif kind == "error":
             self._mark(m[1], "!")
+            self.progress.configure(value=0)
             self.status.configure(text=self._prefix + "Failed.")
             messagebox.showerror("Couldn't transcribe", f"{Path(m[1]).name}\n\n{m[2]}")
         elif kind == "finished":
@@ -430,10 +431,26 @@ def selftest() -> int:
     import ctranslate2
     from faster_whisper.vad import VadOptions, get_speech_timestamps
 
-    sr = 16000
+    import av
+
+    # write a short MP3 (stereo, 44.1 kHz) and read it back the same way real recordings are read
+    sr = 44100
     t = np.arange(sr * 3) / sr
-    audio = np.concatenate([np.zeros(sr), 0.5 * np.sin(2 * np.pi * 220 * t) * np.sin(2 * np.pi * 3 * t), np.zeros(sr)])
-    get_speech_timestamps(audio.astype(np.float32), VadOptions())
+    tone = (0.5 * np.sin(2 * np.pi * 220 * t) * np.sin(2 * np.pi * 3 * t)).astype(np.float32)
+    test = T.APP_DIR / "selftest.mp3"
+    with av.open(str(test), "w") as out:
+        st = out.add_stream("mp3", rate=sr, layout="stereo")
+        frame = av.AudioFrame.from_ndarray(np.stack([tone, tone]), format="fltp", layout="stereo")
+        frame.sample_rate = sr
+        for pkt in st.encode(frame):
+            out.mux(pkt)
+        for pkt in st.encode(None):
+            out.mux(pkt)
+    audio = T.load_audio(str(test))
+    test.unlink()
+    if not 2.5 * 16000 < len(audio) < 3.5 * 16000:
+        raise RuntimeError(f"decoded audio has wrong length: {len(audio)} samples")
+    get_speech_timestamps(audio, VadOptions())
     msg = f"selftest ok: ctranslate2 {ctranslate2.__version__}, cuda devices {ctranslate2.get_cuda_device_count()}, models dir {T.MODELS_DIR}"
     (T.APP_DIR / "selftest.txt").write_text(msg + "\n", encoding="utf-8")
     print(msg)
