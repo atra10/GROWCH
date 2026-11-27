@@ -102,7 +102,8 @@ def is_downloaded(model_name: str) -> bool:
 
 
 def load_audio(path: str, sr: int = 16000):
-    """Decode any audio/video file to 16 kHz mono float32 with PyAV.
+    """Decode any audio/video file to 16 kHz mono 16-bit samples with PyAV.
+    Kept as int16 (half the memory of float32): 1 hour is ~110 MB. Use to_float() on one piece at a time.
     (faster-whisper's own reader passes an option that newer PyAV versions removed.)"""
     import av
     import numpy as np
@@ -116,7 +117,21 @@ def load_audio(path: str, sr: int = 16000):
             raise RuntimeError("This file has no audio track.")
         stream = container.streams.audio[0]
         resampler = av.AudioResampler(format="s16", layout="mono", rate=sr)
-        chunks = []
+        # fill one pre-sized buffer (from the file's stated length) instead of joining many pieces at the end
+        est = int(container.duration / 1_000_000 * sr * 1.02) + sr if container.duration else sr * 600
+        buf = np.empty(est, dtype=np.int16)
+        n = 0
+
+        def add(x):
+            nonlocal buf, n
+            x = x.reshape(-1)
+            if n + len(x) > len(buf):
+                bigger = np.empty(max(len(buf) * 3 // 2, n + len(x)), dtype=np.int16)
+                bigger[:n] = buf[:n]
+                buf = bigger
+            buf[n:n + len(x)] = x
+            n += len(x)
+
         frames = container.decode(stream)
         while True:
             try:
@@ -126,12 +141,19 @@ def load_audio(path: str, sr: int = 16000):
             except av.error.InvalidDataError:  # skip a damaged bit instead of failing the whole file
                 continue
             for f in resampler.resample(frame):
-                chunks.append(f.to_ndarray().reshape(-1))
+                add(f.to_ndarray())
         for f in resampler.resample(None):
-            chunks.append(f.to_ndarray().reshape(-1))
-    if not chunks:
+            add(f.to_ndarray())
+    if n == 0:
         raise RuntimeError("No sound could be read from this file.")
-    return np.concatenate(chunks).astype(np.float32) / 32768.0
+    return buf[:n]
+
+
+def to_float(samples):
+    """int16 samples -> float32 in [-1, 1], the format Whisper expects."""
+    import numpy as np
+
+    return samples.astype(np.float32) / 32768.0
 
 
 SR = 16000
@@ -146,7 +168,7 @@ def split_points(audio, piece: int = PIECE_SECONDS * SR, search: int = SEARCH_SE
     cuts, pos, n, frame = [0], 0, len(audio), SR // 20
     while n - pos > piece + search:
         end = pos + piece
-        win = audio[end - search:end]
+        win = to_float(audio[end - search:end])
         m = len(win) // frame
         energy = (win[:m * frame].reshape(m, frame) ** 2).mean(axis=1)
         cut = end - search + int(np.argmin(energy)) * frame + frame // 2
@@ -247,7 +269,7 @@ def transcribe(path: str, model_name: str = "large-v3-turbo", language: str = ne
             break
         # Whisper prepares features for its whole input at once, so long recordings are fed in
         # ~3-minute pieces (cut in a quiet moment) to keep memory use small on any laptop.
-        segments, info = model.transcribe(audio[a:b], **opts)
+        segments, info = model.transcribe(to_float(audio[a:b]), **opts)
         offset = a / SR
         if i == 0:
             res.language = info.language

@@ -268,7 +268,11 @@ class App(tk.Tk):
                 import traceback
                 print(f"--- error on {path} (build {BUILD})", file=sys.stderr)
                 traceback.print_exc()
-                put(("error", path, f"{e}\n\n(build {BUILD} · full details in transcribe.log)"))
+                msg = str(e)
+                if isinstance(e, MemoryError) or "Unable to allocate" in msg:
+                    msg = ("Your laptop ran out of free memory.\n\nClose other apps (especially browsers), then try again. "
+                           "If it still happens, choose the “small” model, which needs much less memory.\n\nDetails: " + msg)
+                put(("error", path, f"{msg}\n\n(build {BUILD} · full details in transcribe.log)"))
                 continue
             if self.cancel.is_set():
                 put(("cancelled", path, r))
@@ -457,7 +461,7 @@ def selftest() -> int:
     test.unlink()
     if not 2.5 * 16000 < len(audio) < 3.5 * 16000:
         raise RuntimeError(f"decoded audio has wrong length: {len(audio)} samples")
-    get_speech_timestamps(audio, VadOptions())
+    get_speech_timestamps(T.to_float(audio), VadOptions())
     msg = f"selftest ok: ctranslate2 {ctranslate2.__version__}, cuda devices {ctranslate2.get_cuda_device_count()}, models dir {T.MODELS_DIR}"
     (T.APP_DIR / "selftest.txt").write_text(msg + "\n", encoding="utf-8")
     print(msg)
