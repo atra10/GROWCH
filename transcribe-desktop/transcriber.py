@@ -134,6 +134,28 @@ def load_audio(path: str, sr: int = 16000):
     return np.concatenate(chunks).astype(np.float32) / 32768.0
 
 
+SR = 16000
+PIECE_SECONDS = 180  # transcribe in ~3-minute pieces
+SEARCH_SECONDS = 30  # look this far back from each cut for the quietest moment
+
+
+def split_points(audio, piece: int = PIECE_SECONDS * SR, search: int = SEARCH_SECONDS * SR) -> list[int]:
+    """Sample positions to cut a long recording at, each in the quietest 50 ms near a 3-minute mark."""
+    import numpy as np
+
+    cuts, pos, n, frame = [0], 0, len(audio), SR // 20
+    while n - pos > piece + search:
+        end = pos + piece
+        win = audio[end - search:end]
+        m = len(win) // frame
+        energy = (win[:m * frame].reshape(m, frame) ** 2).mean(axis=1)
+        cut = end - search + int(np.argmin(energy)) * frame + frame // 2
+        cuts.append(cut)
+        pos = cut
+    cuts.append(n)
+    return cuts
+
+
 _cache: dict[tuple, object] = {}
 
 
@@ -217,18 +239,32 @@ def transcribe(path: str, model_name: str = "large-v3-turbo", language: str = ne
         hotwords=hotwords.strip() or None,
     )
     audio = load_audio(path)
-    segments, info = model.transcribe(audio, **opts)
-    res = Result(language=info.language, duration=info.duration, device=device)
-    lang = "mixed, detected per segment" if per_segment else LANG_NAMES.get(info.language, info.language)
-    on_status(f"Transcribing ({lang})…")
-    for s in segments:
+    total = len(audio) / SR
+    res = Result(duration=total, device=device)
+    pieces = split_points(audio)
+    for i, (a, b) in enumerate(zip(pieces, pieces[1:])):
         if cancel is not None and cancel.is_set():
             break
-        seg = Segment(s.start, s.end, s.text.strip())
-        if not seg.text:
-            continue
-        res.segments.append(seg)
-        on_segment(seg, min(1.0, s.end / info.duration) if info.duration else 0.0)
+        # Whisper prepares features for its whole input at once, so long recordings are fed in
+        # ~3-minute pieces (cut in a quiet moment) to keep memory use small on any laptop.
+        segments, info = model.transcribe(audio[a:b], **opts)
+        offset = a / SR
+        if i == 0:
+            res.language = info.language
+            if code is None and not per_segment:  # auto-detect: keep the language found in the first piece
+                opts["language"] = info.language
+            lang = "mixed, detected per segment" if per_segment else LANG_NAMES.get(info.language, info.language)
+            on_status(f"Transcribing ({lang})…")
+        for s in segments:
+            if cancel is not None and cancel.is_set():
+                break
+            seg = Segment(s.start + offset, s.end + offset, s.text.strip())
+            if not seg.text:
+                continue
+            res.segments.append(seg)
+            on_segment(seg, min(1.0, seg.end / total) if total else 0.0)
+        on_status(f"Transcribing… {clock(b / SR)} of {clock(total)} done")
+        del segments
     res.seconds_taken = time.time() - t0
     return res
 
