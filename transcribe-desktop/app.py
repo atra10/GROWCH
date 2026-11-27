@@ -20,6 +20,10 @@ import local_ai
 import transcriber as T
 
 SETTINGS = T.APP_DIR / "settings.json"
+try:  # written by the Windows build: commit + date, shown in the title so it's clear which version is running
+    BUILD = (T.APP_DIR / "build.txt").read_text(encoding="utf-8").strip()
+except OSError:
+    BUILD = "dev"
 AUDIO_TYPES = [("Audio / video", "*.mp3 *.wav *.m4a *.aac *.ogg *.opus *.flac *.wma *.amr *.3gp *.webm *.mp4 *.mkv *.mov"),
                ("All files", "*.*")]
 
@@ -27,7 +31,7 @@ AUDIO_TYPES = [("Audio / video", "*.mp3 *.wav *.m4a *.aac *.ogg *.opus *.flac *.
 class App(tk.Tk):
     def __init__(self):
         super().__init__()
-        self.title("Transcribe — offline")
+        self.title(f"Transcribe — offline · build {BUILD}")
         self.geometry("1060x760")
         self.minsize(760, 560)
         self.q: queue.Queue = queue.Queue()
@@ -261,7 +265,10 @@ class App(tk.Tk):
                                  on_segment=lambda seg, frac, p=path: put(("segment", p, seg, frac)),
                                  cancel=self.cancel)
             except Exception as e:
-                put(("error", path, str(e)))
+                import traceback
+                print(f"--- error on {path} (build {BUILD})", file=sys.stderr)
+                traceback.print_exc()
+                put(("error", path, f"{e}\n\n(build {BUILD} · full details in transcribe.log)"))
                 continue
             if self.cancel.is_set():
                 put(("cancelled", path, r))

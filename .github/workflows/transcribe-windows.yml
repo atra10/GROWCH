@@ -61,6 +61,7 @@ jobs:
 
           Full guide: README.md in the transcribe-desktop folder of the GitHub repo.
           "@ | Set-Content -Encoding utf8 dist\Transcribe\START-HERE.txt
+          "$($env:GITHUB_SHA.Substring(0,7)) $(Get-Date -Format yyyy-MM-dd)" | Set-Content -Encoding utf8 -NoNewline dist\Transcribe\build.txt
           7z a -tzip Transcribe-Windows.zip .\dist\Transcribe
           "{0:N0} MB" -f ((Get-Item Transcribe-Windows.zip).Length / 1MB)
 
