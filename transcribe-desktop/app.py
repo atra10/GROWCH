@@ -269,7 +269,7 @@ class App(tk.Tk):
                 print(f"--- error on {path} (build {BUILD})", file=sys.stderr)
                 traceback.print_exc()
                 msg = str(e)
-                if isinstance(e, MemoryError) or "Unable to allocate" in msg:
+                if isinstance(e, MemoryError) or any(k in msg.lower() for k in ("unable to allocate", "failed to allocate", "out of memory", "malloc", "bad_alloc")):
                     msg = ("Your laptop ran out of free memory.\n\nClose other apps (especially browsers), then try again. "
                            "If it still happens, choose the “small” model, which needs much less memory.\n\nDetails: " + msg)
                 put(("error", path, f"{msg}\n\n(build {BUILD} · full details in transcribe.log)"))
