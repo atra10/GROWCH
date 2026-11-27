@@ -2,11 +2,19 @@
 from __future__ import annotations
 
 import json
+import os
 import queue
+import sys
 import threading
 import tkinter as tk
 from pathlib import Path
 from tkinter import filedialog, messagebox, ttk
+
+if getattr(sys, "frozen", False):  # packaged Transcribe.exe has no console: log to a file instead
+    _log = open(Path(sys.executable).resolve().parent / "transcribe.log", "a", encoding="utf-8", buffering=1)
+    sys.stdout = sys.stdout or _log
+    sys.stderr = sys.stderr or _log
+    os.environ.setdefault("HF_HUB_DISABLE_PROGRESS_BARS", "1")
 
 import local_ai
 import transcriber as T
@@ -416,5 +424,23 @@ class App(tk.Tk):
         threading.Thread(target=work, daemon=True).start()
 
 
+def selftest() -> int:
+    """Checks the packaged app has everything it needs (used by the build): speech engine + silence detector."""
+    import numpy as np
+    import ctranslate2
+    from faster_whisper.vad import VadOptions, get_speech_timestamps
+
+    sr = 16000
+    t = np.arange(sr * 3) / sr
+    audio = np.concatenate([np.zeros(sr), 0.5 * np.sin(2 * np.pi * 220 * t) * np.sin(2 * np.pi * 3 * t), np.zeros(sr)])
+    get_speech_timestamps(audio.astype(np.float32), VadOptions())
+    msg = f"selftest ok: ctranslate2 {ctranslate2.__version__}, cuda devices {ctranslate2.get_cuda_device_count()}, models dir {T.MODELS_DIR}"
+    (T.APP_DIR / "selftest.txt").write_text(msg + "\n", encoding="utf-8")
+    print(msg)
+    return 0
+
+
 if __name__ == "__main__":
+    if "--selftest" in sys.argv:
+        sys.exit(selftest())
     App().mainloop()

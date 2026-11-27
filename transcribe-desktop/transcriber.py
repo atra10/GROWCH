@@ -12,7 +12,8 @@ from dataclasses import dataclass, field
 from pathlib import Path
 from typing import Callable, Optional
 
-APP_DIR = Path(__file__).resolve().parent
+# next to Transcribe.exe when packaged, otherwise next to this file
+APP_DIR = Path(sys.executable).resolve().parent if getattr(sys, "frozen", False) else Path(__file__).resolve().parent
 MODELS_DIR = APP_DIR / "models"
 
 # name shown in the app -> (faster-whisper model id, approx. download size in bytes, note)

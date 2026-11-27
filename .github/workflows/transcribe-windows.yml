@@ -1,0 +1,82 @@
+# Builds the offline Transcribe app into a Windows program (no Python needed) and publishes it as a download:
+# https://github.com/<owner>/<repo>/releases/tag/transcribe-latest
+name: Build Transcribe for Windows
+
+on:
+  push:
+    paths:
+      - "transcribe-desktop/**"
+      - ".github/workflows/transcribe-windows.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install -r transcribe-desktop/requirements.txt pyinstaller
+
+      - name: Build Transcribe.exe
+        working-directory: transcribe-desktop
+        run: >
+          pyinstaller --noconfirm --clean --windowed --name Transcribe
+          --collect-all faster_whisper --collect-all ctranslate2 --collect-all onnxruntime
+          --collect-all tokenizers --collect-data av --hidden-import hf_xet
+          app.py
+
+      - name: Self-test the built program
+        working-directory: transcribe-desktop/dist/Transcribe
+        shell: pwsh
+        run: |
+          $p = Start-Process -FilePath .\Transcribe.exe -ArgumentList "--selftest" -Wait -PassThru
+          if (Test-Path transcribe.log) { Get-Content transcribe.log }
+          if ($p.ExitCode -ne 0 -or -not (Test-Path selftest.txt)) { Write-Error "self-test failed (exit $($p.ExitCode))"; exit 1 }
+          Get-Content selftest.txt
+          Remove-Item selftest.txt
+          if (Test-Path transcribe.log) { Remove-Item transcribe.log }
+
+      - name: Package
+        working-directory: transcribe-desktop
+        shell: pwsh
+        run: |
+          @"
+          TRANSCRIBE - offline audio to text
+
+          1. Unzip this whole folder somewhere, e.g. Documents\Transcribe (don't run it from inside the zip).
+          2. Double-click Transcribe.exe.
+             If Windows says "Windows protected your PC": click "More info", then "Run anyway".
+          3. Transcribe a short file once while online: this downloads the speech model (1.6 GB) into the "models" folder.
+             After that it works with no internet.
+
+          Full guide: README.md in the transcribe-desktop folder of the GitHub repo.
+          "@ | Set-Content -Encoding utf8 dist\Transcribe\START-HERE.txt
+          7z a -tzip Transcribe-Windows.zip .\dist\Transcribe
+          "{0:N0} MB" -f ((Get-Item Transcribe-Windows.zip).Length / 1MB)
+
+      - name: Keep the zip on this run (backup download)
+        uses: actions/upload-artifact@v4
+        with:
+          name: Transcribe-Windows
+          path: transcribe-desktop/Transcribe-Windows.zip
+          retention-days: 30
+
+      - name: Publish as a release download
+        env:
+          GH_TOKEN: ${{ github.token }}
+        shell: bash
+        run: |
+          gh release delete transcribe-latest --yes --cleanup-tag || true
+          gh release create transcribe-latest transcribe-desktop/Transcribe-Windows.zip \
+            --target "$GITHUB_SHA" --title "Transcribe for Windows" \
+            --notes "Offline audio-to-text (Indonesian, Javanese, Sundanese, English). Download Transcribe-Windows.zip, unzip, double-click Transcribe.exe. Built from ${GITHUB_REF_NAME} @ ${GITHUB_SHA::7}."

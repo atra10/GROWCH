@@ -4,7 +4,14 @@ Turn recordings and calls into text **on your own laptop**. Supports Indonesian,
 
 It uses **Whisper large-v3-turbo** (open source, MIT licence) through [faster-whisper](https://github.com/SYSTRAN/faster-whisper). You don't need DeepSeek, Qwen or any other chat AI to transcribe. One can *optionally* write summaries for you (see below).
 
-## Setup (once, needs internet)
+## Easiest on Windows: ready-made program (no Python needed)
+
+1. Open the repo's **Releases** page on GitHub and choose **Transcribe for Windows**. Download `Transcribe-Windows.zip` (direct link: `https://github.com/atra10/growch/releases/download/transcribe-latest/Transcribe-Windows.zip`).
+2. Unzip it, for example into `Documents\Transcribe`.
+3. Double-click `Transcribe.exe`. If Windows says "Windows protected your PC", click **More info → Run anyway**. The app isn't signed, which is normal for free personal apps.
+4. Transcribe a short file once while online, so the speech model downloads. After that, no internet is needed.
+
+## Setup with Python (Windows, Mac, Linux)
 
 1. Install **Python 3.12** from <https://www.python.org/downloads/>.
    On Windows, tick **"Add python.exe to PATH"** in the installer.
