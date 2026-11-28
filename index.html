@@ -1027,7 +1027,7 @@ function paintThemeBtn(){var b=document.getElementById("themebtn");if(!b)return;
 window.setSection=function(sec,lang){
   document.body.setAttribute("data-sec",sec);
   document.querySelectorAll(".secnav a").forEach(function(a){if(a.getAttribute("data-sec")===sec)a.setAttribute("aria-current","page");else a.removeAttribute("aria-current")});
-  var b=document.querySelector('.secnav [data-l="belajar"]');if(b)b.textContent=lang==="en"?"Study":"Belajar";var u=document.querySelector('.secnav [data-l="uang"]');if(u)u.textContent=lang==="en"?"Money":"Keuangan";
+  var b=document.querySelector('.secnav [data-l="belajar"]');if(b)b.textContent=lang==="en"?"Study":"Belajar";var u=document.querySelector('.secnav [data-l="uang"]');if(u)u.textContent=lang==="en"?"Finance":"Keuangan";
   syncHH();
 };
 
@@ -3193,7 +3193,7 @@ function uang(v,hs){
   var b=balances(o);
   if(!document.getElementById("fin-font")){var lk=document.createElement("link");lk.id="fin-font";lk.rel="stylesheet";lk.href="https://fonts.googleapis.com/css2?family=Nunito:wght@500;600;700;800;900&display=swap";document.head.appendChild(lk)}
   var pc=Math.max(0,b.cash),pt=pc+b.inv+b.rec,pct=function(x){return pt>0?(x/pt*100).toFixed(2):0};
-  v.innerHTML='<div class="app fin"><section class="fin-hero"><div class="fin-id"><span class="fin-logo">'+ICO_FIN+'</span><div><h1>'+E("Keuangan","Money")+'</h1><p>'+E("Catat uang masuk, uang keluar, dan pindah saldo antar akunmu.","Track money in, money out, and moves between your accounts.")+'</p></div></div>'+
+  v.innerHTML='<div class="app fin"><section class="fin-hero"><div class="fin-id"><span class="fin-logo">'+ICO_FIN+'</span><div><h1>'+E("Keuangan","Finance")+'</h1><p>'+E("Catat uang masuk, uang keluar, dan pindah saldo antar akunmu.","Track money in, money out, and moves between your accounts.")+'</p></div></div>'+
     '<div class="fin-nw"><span class="fin-nw-l">'+E("Kekayaan bersih","Net worth")+'</span><b class="fin-nw-v'+(b.net<0?' neg':'')+'">'+rp(b.net)+'</b>'+
     (pt>0?'<div class="fin-split" role="img" aria-label="'+E("Pembagian kekayaan","Net worth split")+'"><span class="k-cash" style="width:'+pct(pc)+'%"></span><span class="k-inv" style="width:'+pct(b.inv)+'%"></span><span class="k-rec" style="width:'+pct(b.rec)+'%"></span></div>':'')+
     '<ul class="fin-legend"><li><i class="k-cash"></i>'+E("Uang di akun","In your accounts")+' <b'+(b.cash<0?' class="neg"':'')+'>'+rp(b.cash)+'</b></li><li><i class="k-inv"></i>'+E("Investasi","Investments")+' <b>'+rp(b.inv)+'</b></li>'+(b.rec?'<li><i class="k-rec"></i>'+E("Dipinjam orang","Owed to you")+' <b>'+rp(b.rec)+'</b></li>':'')+(b.debt?'<li><i class="k-debt"></i>'+E("Utang","Debt")+' <b class="neg">'+rp(b.debt)+'</b></li>':'')+'</ul></div></section>'+
